@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title><ui:insert name="title">BodCol</ui:insert></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="/estilos.css" library="css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    </h:head>
+    <f:view locale="#{idiomaBean.locale}">
+        <h:body>
+            <h:form>
+                <p:confirmDialog global="true">
+                    <p:commandButton id="si" value="Aceptar" styleClass="ui-confirmdialog-yes"/>
+                    <p:commandButton id="no" value="Cancelar" styleClass="ui-confirmdialog-no"/>
+                </p:confirmDialog>
+            </h:form>
+
+            <p:growl id="growl" life="5000">
+                <p:autoUpdate/>
+            </p:growl>
+            <p:layout fullPage="true" style="border: none">
+                <p:layoutUnit position="north" size="70">
+                    <h:form style="text-align: center">
+                        <h:panelGrid columns="3" cellpadding="10">
+                            <p:outputLabel value="Bodega del COLOG"/>
+                            <p:outputLabel value="Seleccione el idioma"/>
+                            <p:selectOneMenu value="#{idiomaBean.language}" onchange="submit()" valueChangeListener="#{idiomaBean.cambiarIdioma}">
+                                <f:selectItem itemLabel="Español" itemValue="es" />
+                                <f:selectItem itemLabel="Ingles" itemValue="en"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" header="Menu" resizable="true"  collapsible="true" style="border: none">
+                    <h:form>
+                        <p:panelMenu style="width: 200px" >
+                            <p:submenu label="Gestion">
+                                <p:menuitem value="Usuario" icon="pi pi-users" outcome="/vistas/gestion/Usuario"/>
+                                <p:menuitem value="Proveedor" icon="pi pi-id-card" outcome="/vistas/gestion/Proveedor" />
+                                <p:menuitem value="Seccion"  icon="pi pi-microsoft" outcome="/vistas/gestion/Seccion" />
+                                <p:menuitem value="Rack" icon="pi pi-sitemap" outcome="/vistas/gestion/Rack" />
+                                <p:menuitem value="Producto" icon="pi pi-apple" outcome="/vistas/gestion/Producto" />
+                            </p:submenu>
+                            <p:separator />
+                            <p:submenu label="Procesos">
+                                <p:menuitem value="Ingreso" icon="pi pi-sign-in" outcome="/vistas/proceso/Ingreso" />
+                                <p:menuitem value="Egreso" icon="pi pi-sign-out" outcome="/vistas/proceso/Egreso" />
+                            </p:submenu>
+                            <p:separator />
+                            <p:submenu label="Reportes" >
+                                <p:menuitem value="Reportes" outcome="/vistas/reporte/Reporte" />
+                                <p:submenu label="Links" icon="pi pi-home">
+
+                                    <p:submenu label="PrimeFaces" icon="pi pi-briefcase">
+                                        <p:menuitem value="Docs" url="http://www.primefaces.org/documentation" icon="pi pi-file" />
+                                        <p:menuitem value="Download" url="http://www.primefaces.org/downloads" icon="pi pi-arrow-down" />
+                                        <p:menuitem value="Support" url="http://www.primefaces.org/support" icon="pi pi-briefcase" />
+                                    </p:submenu>
+                                </p:submenu>
+                                <p:menuitem value="Mobile" icon="pi pi-mobile" />
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </p:layoutUnit>
+
+
+
+                <p:layoutUnit position="center" style="border: none">
+                    <ui:insert name="contenido"/>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="40" style="border: none">
+                    <center>
+                        <p:outputLabel value="Direccion de la empresa" />
+                    </center>
+                </p:layoutUnit>
+
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>

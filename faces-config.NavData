@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="vistas/gestion/Proveedor.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="vistas/gestion/Rack.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="vistas/plantilla/Plantilla.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="vistas/gestion/Usuario.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="index.html" x="650" y="300" zoom="true"/>
+        <Node id="vistas/gestion/Producto.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="vistas/plantilla/Inicio.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="vistas/plantilla/Index.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="vistas/proceso/Egreso.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="vistas/gestion/Seccion.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="vistas/proceso/Ingreso.xhtml" x="150" y="300" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

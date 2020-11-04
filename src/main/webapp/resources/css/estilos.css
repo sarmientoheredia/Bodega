@@ -1,0 +1,63 @@
+.icons{
+    color: yellowgreen;
+    font-size: 27px;
+}
+.p-field{
+    margin-top: 10px;
+    width: 200px;
+}
+
+
+.old {
+    background-color: #C6E350 !important;
+    background-image: none !important;
+    color: #000000 !important;
+}
+
+.centrar{
+    display: inline;
+    justify-content: center;
+}
+
+#mas{
+    text-align: center;
+}
+#footer{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn{
+    width: 50%;
+}
+
+
+.botonera{
+    justify-content: center;
+    margin: 10px;
+}
+
+.cajasTexto{
+    margin: 5px !important;
+    width: 400px;
+    height: 30px !important;
+
+}
+
+
+.formulario{
+    text-align: center;
+    font-weight: bold;
+}
+
+.activo {
+    background-color: #C6E350 !important;
+    background-image: none !important;
+    color: #000000 !important;
+}
+
+.admin {
+    background-color: red !important;
+    background-image: none !important;
+    color: #000000 !important;
+}

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="./../plantilla/Plantilla.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{msg.producto}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="contenido">
+
+            <h:form id="formP" class="ui-g centrar">
+                <p:panel rendered="#{productoBean.producto==null}" >
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="Listado de Productos"/>
+                        </center>
+                    </f:facet> 
+
+                    <p:commandButton value="Nuevo" icon="pi pi-plus-circle" action="#{productoBean.nuevo()}" update="formP" />
+
+                    <p:dataTable id="dtProducto" value="${productoBean.productoList}" var="prod"
+                                 widgetVar="tableProducto" globalFilterFunction="#{productoBean.globalFilterFunction}"
+                                 rowStyleClass="#{prod.estado.hashCode()==73 ? 'activo':'null'}"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 >
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableProducto').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Codigo" width="100">
+                            <h:outputText value="#{prod.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{prod.nombre}"/>
+                        </p:column>
+
+                        <p:column headerText="Stock">
+                            <h:outputText value="#{prod.stock}"/>
+                        </p:column>
+
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{prod.precio}"/>
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{prod.total}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Estado">
+                            <h:outputText value="#{prod.estado.toString()=='A'?'Activo': 'Inactivo'}"/>
+                        </p:column>
+
+                        <p:column width="100" headerText="Opciones">
+                            <p:commandButton icon="ui-icon-pencil" action="#{productoBean.setProducto(prod)}" update="formP" />
+                            <p:commandButton icon="ui-icon-trash" action="#{productoBean.eliminar(prod)}" update="dtProducto">
+                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el producto"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+
+
+                <!--INICO DLG NUEVA Producto-->
+                <p:panel id="pProducto" rendered="#{productoBean.producto!=null}" class="ui-lg-6"  >
+
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="#{productoBean.producto.id ==null ? 'Registro de ' : 'Actualizacion de'}  Producto"/>
+                        </center>
+                    </f:facet> 
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Identificador: "  rendered="#{productoBean.producto.id!=null}"/>
+                        <p:inputText value="#{productoBean.producto.id}" class="cajasTexto" disabled="true" rendered="#{productoBean.producto.id!=null}"/>
+
+                        <p:outputLabel value="Codigo:" />
+                        <p:inputText value="#{productoBean.producto.codigo}" class="cajasTexto" required="true">
+                            <p:ajax event="change"  />
+                        </p:inputText>
+
+                        <p:outputLabel value="Nombre:" />
+                        <p:inputText value="#{productoBean.producto.nombre}" class="cajasTexto" required="true">
+                            <p:ajax event="change" listener="#{productoBean.verificarNombre()}" />
+                            <p:keyFilter regEx="/[a-z ]/i"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="txtRack" value="Rack"/>
+                        <p:selectOneMenu id="txtRack" value="#{productoBean.producto.rack}" required="true" 
+                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto">
+                            <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
+                            <f:selectItems value="#{rackBean.rackList}" var="rac" itemLabel="#{rac.nombre}" itemValue="#{rac}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Columna:" />
+                        <p:inputText value="#{productoBean.producto.columna}" class="cajasTexto" required="true">
+                            <p:ajax event="change"  />
+                            <p:keyFilter regEx="/[0-9a-z-]/i"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Fila:" />
+                        <p:inputText value="#{productoBean.producto.fila}" class="cajasTexto" required="true">
+                            <p:ajax event="change"  />
+                            <p:keyFilter regEx="/[0-9a-z-]/i"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Stock" rendered="#{productoBean.producto.id!=null}" />
+                        <p:inputText value="#{productoBean.producto.stock}" class="cajasTexto" rendered="#{productoBean.producto.id!=null}" disabled="true">
+                            <p:ajax event="change"  />
+                        </p:inputText>
+
+                        <p:outputLabel value="Precio:" rendered="#{productoBean.producto.id!=null}" />
+                        <p:inputText value="#{productoBean.producto.precio}" rendered="#{productoBean.producto.id!=null}" class="cajasTexto" disabled="true">
+                            <p:ajax event="change"  />
+                        </p:inputText>
+
+                        <p:outputLabel value="Total:" rendered="#{productoBean.producto.id!=null}" />
+                        <p:inputText value="#{productoBean.producto.total}" rendered="#{productoBean.producto.id!=null}" class="cajasTexto" disabled="true">
+                            <p:ajax event="change"  />
+                        </p:inputText>
+
+                        <p:outputLabel value="Estado: " rendered="#{productoBean.producto.id!=null}" />
+                        <p:selectOneRadio id="txtEstado" value="#{productoBean.producto.estado}" rendered="#{productoBean.producto.id!=null}" class="cajasTexto" >
+                            <f:selectItem itemLabel="Activo" itemValue="A"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                        </p:selectOneRadio>
+
+
+                    </h:panelGrid>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{productoBean.grabar()}" update="formP"  style="margin-right: 20px"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" action="#{productoBean.init()}" update="formP"  immediate="true"/>
+                    </div>
+                </p:panel>
+                <!--FIN DLG NUEVO RACK-->
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>
