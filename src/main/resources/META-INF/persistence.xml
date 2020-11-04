@@ -3,6 +3,7 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="bodegaPU" transaction-type="JTA">
     <jta-data-source>java:/BodegaDS</jta-data-source>
+    <class>com.bodcol.entidades.Menu</class>
     <properties>
       <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
     </properties>

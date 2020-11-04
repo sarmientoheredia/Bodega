@@ -10,6 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="/estilos.css" library="css"/>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <f:event type="preRenderView" listener="#{sesionBean.verificarSesion}"/>
+
     </h:head>
     <f:view locale="#{idiomaBean.locale}">
         <h:body>
@@ -39,33 +41,10 @@
 
                 <p:layoutUnit position="west" header="Menu" resizable="true"  collapsible="true" style="border: none">
                     <h:form>
-                        <p:panelMenu style="width: 200px" >
-                            <p:submenu label="Gestion">
-                                <p:menuitem value="Usuario" icon="pi pi-users" outcome="/vistas/gestion/Usuario"/>
-                                <p:menuitem value="Proveedor" icon="pi pi-id-card" outcome="/vistas/gestion/Proveedor" />
-                                <p:menuitem value="Seccion"  icon="pi pi-microsoft" outcome="/vistas/gestion/Seccion" />
-                                <p:menuitem value="Rack" icon="pi pi-sitemap" outcome="/vistas/gestion/Rack" />
-                                <p:menuitem value="Producto" icon="pi pi-apple" outcome="/vistas/gestion/Producto" />
-                            </p:submenu>
-                            <p:separator />
-                            <p:submenu label="Procesos">
-                                <p:menuitem value="Ingreso" icon="pi pi-sign-in" outcome="/vistas/proceso/Ingreso" />
-                                <p:menuitem value="Egreso" icon="pi pi-sign-out" outcome="/vistas/proceso/Egreso" />
-                            </p:submenu>
-                            <p:separator />
-                            <p:submenu label="Reportes" >
-                                <p:menuitem value="Reportes" outcome="/vistas/reporte/Reporte" />
-                                <p:submenu label="Links" icon="pi pi-home">
+                        <p:panelMenu  model="#{menuBean.menuModel}" style="background: transparent;border: 0;width: 200px" >
 
-                                    <p:submenu label="PrimeFaces" icon="pi pi-briefcase">
-                                        <p:menuitem value="Docs" url="http://www.primefaces.org/documentation" icon="pi pi-file" />
-                                        <p:menuitem value="Download" url="http://www.primefaces.org/downloads" icon="pi pi-arrow-down" />
-                                        <p:menuitem value="Support" url="http://www.primefaces.org/support" icon="pi pi-briefcase" />
-                                    </p:submenu>
-                                </p:submenu>
-                                <p:menuitem value="Mobile" icon="pi pi-mobile" />
-                            </p:submenu>
                         </p:panelMenu>
+
                     </h:form>
                 </p:layoutUnit>
 
