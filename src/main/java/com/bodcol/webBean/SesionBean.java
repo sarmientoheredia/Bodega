@@ -29,7 +29,7 @@ public class SesionBean implements Serializable {
             Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("autenticado");
 
             if (us == null) {
-                context.getExternalContext().redirect("/Bodega/vistas/plantilla/Index.xhtml");
+                context.getExternalContext().redirect("/Bodega/faces/vistas/plantilla/Index.xhtml");
             }
         } catch (Exception e) {
         }
