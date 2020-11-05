@@ -1,6 +1,7 @@
 package com.bodcol.webBean;
 
 import com.bodcol.entidades.Menu;
+import com.bodcol.entidades.Usuario;
 import com.bodcol.sessionBeans.MenuFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -67,12 +68,13 @@ public class MenuBean implements Serializable {
     }
 
     private void cargarMenuPrincipal() {
+        Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("autenticado");
         this.menuModel = new DefaultMenuModel();
         try {
             List<Menu> opcionesNivelCero = new ArrayList<>();
 
             opcionesNivelCero.addAll(menuList.stream()
-                    .filter(op -> op.getTipo().equals('S'))
+                    .filter(op -> op.getTipo().equals('S') && op.getTipoUsuario().equals(us.getRol()))
                     .distinct()
                     .collect(Collectors.toList()));
 
@@ -112,28 +114,5 @@ public class MenuBean implements Serializable {
             e.printStackTrace();
         }
     }
-//    public void establecerPermisos() {
-//        for (Menu m : lista) {
-//            if (m.getTipo().equals('S')) {
-//                DefaultSubMenu firstSubmenu = new DefaultSubMenu(m.getNombre());
-//                for (Menu i : lista) {
-//                    Menu submenu = i.getSubMenu();
-//                    if (submenu != null) {
-//                        if (submenu.getId() == m.getId()) {
-//                            DefaultMenuItem item = new DefaultMenuItem(i.getNombre());
-//                            firstSubmenu.addElement(item);
-//                        }
-//                    }
-//                }
-//                model.addElement(firstSubmenu);
-//            } else {
-//                if (m.getSubMenu() == null) {
-//                    DefaultMenuItem item = new DefaultMenuItem(m.getNombre());
-//                    model.addElement(item);
-//                }
-//
-//            }
-//        }
-//
-//    }
+
 }

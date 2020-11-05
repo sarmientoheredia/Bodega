@@ -28,13 +28,14 @@
             <p:layout fullPage="true" style="border: none">
                 <p:layoutUnit position="north" size="70">
                     <h:form style="text-align: center">
-                        <h:panelGrid columns="3" cellpadding="10">
+                        <h:panelGrid columns="4" cellpadding="10">
                             <p:outputLabel value="Bodega del COLOG"/>
                             <p:outputLabel value="Seleccione el idioma"/>
                             <p:selectOneMenu value="#{idiomaBean.language}" onchange="submit()" valueChangeListener="#{idiomaBean.cambiarIdioma}">
                                 <f:selectItem itemLabel="Español" itemValue="es" />
                                 <f:selectItem itemLabel="Ingles" itemValue="en"/>
                             </p:selectOneMenu>
+                            <p:commandButton icon="ui-icon-power" actionListener="#{sesionBean.cerrarSesion()}" action="/vistas/plantilla/Index" title="Cerrar sesion"/>
                         </h:panelGrid>
                     </h:form>
                 </p:layoutUnit>

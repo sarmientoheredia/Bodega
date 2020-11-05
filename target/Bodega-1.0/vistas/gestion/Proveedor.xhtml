@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="./../plantilla/Plantilla.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.proveedor}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="contenido">
+
+            <h:form id="formP" class="ui-g centrar">
+                <p:panel  rendered="#{proveedorBean.proveedor==null}" >
+
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="Listado de Proveedores"/>
+                        </center>
+                    </f:facet> 
+
+                    <p:commandButton value="Nuevo" icon="pi pi-plus-circle" action="#{proveedorBean.nuevo()}" update="formP" />
+                    <p:dataTable id="dtProveedor" value="${proveedorBean.proveedorList}" var="prov"
+                                 widgetVar="tableProveedor" globalFilterFunction="#{proveedorBean.globalFilterFunction}"
+                                 rowStyleClass="#{prov.estado.hashCode()==73 ? 'activo':'null'}"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 >
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableProveedor').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{prov.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Direccion">
+                            <h:outputText value="#{prov.direccion}"/>
+                        </p:column>
+                        <p:column headerText="Telefono" width="120">
+                            <h:outputText value="#{prov.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{prov.correo}"/>
+                        </p:column>
+                        <p:column headerText="Estado" width="70">
+                            <h:outputLabel value="#{prov.estado.toString()=='A'? 'Activo':'Inactivo'}" />
+                        </p:column>
+
+                        <p:column width="100" headerText="Opciones">
+                            <p:commandButton icon="ui-icon-pencil" action="#{proveedorBean.seleccionarProveedor(prov)}" update="formP" />
+                            <p:commandButton icon="ui-icon-trash" action="#{proveedorBean.eliminar(prov)}" update="dtProveedor" >
+                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el Proveedor"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+
+
+                <!--INICO DLG NUEVA CATEGORIA-->
+                <p:panel id="pUsuario"  rendered="#{proveedorBean.proveedor!=null}" class="ui-lg-6"  >
+
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="#{proveedorBean.proveedor.id ==null ? 'Registro de ' : 'Actualizacion de'}  Proveedor"/>
+                        </center>
+                    </f:facet> 
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Codigo: "  rendered="#{proveedorBean.proveedor.id!=null}"/>
+                        <p:inputText value="#{proveedorBean.proveedor.id}" class="cajasTexto" disabled="true" rendered="#{proveedorBean.proveedor.id!=null}"/>
+
+                        <p:outputLabel value="Documento:"   />
+                        <p:selectOneMenu value="#{proveedorBean.proveedor.documento}" disabled="#{proveedorBean.proveedor.id!=null}"  >
+                            <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Cedula" itemValue="1" />
+                            <f:selectItem itemLabel="Persona Natural" itemValue="2" />
+                            <f:selectItem itemLabel="Persona Juridica" itemValue="3" />
+                            <p:ajax  listener="#{proveedorBean.acivarCampos}" update="pUsuario"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="txtCedula" value="Cedula:" rendered="#{proveedorBean.actCedula==true}" />
+                        <p:inputText id="txtCedula" class="cajasTexto" value="#{proveedorBean.proveedor.cedula}"  rendered="#{proveedorBean.actCedula==true}" disabled="#{proveedorBean.proveedor.id!=null}">
+                            <p:ajax event="change" />
+                            <p:keyFilter regEx="/[0-9]/i" />
+                            <f:validateLength  minimum="10" maximum="10"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="txtPn" value="Ruc P/N:" rendered="#{proveedorBean.actRucNatural==true}" />
+                        <p:inputText id="txtPn" class="cajasTexto" value="#{proveedorBean.proveedor.rucNatural}" rendered="#{proveedorBean.actRucNatural==true}" disabled="#{proveedorBean.proveedor.id!=null}" >
+                            <p:ajax event="change" />
+                            <p:keyFilter regEx="/[0-9]/i" />
+                            <f:validateLength  minimum="13" maximum="13"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="txtRucPj" value="Ruc P/J:" rendered="#{proveedorBean.actRuc==true}" />
+                        <p:inputText id="txtRucPj" class="cajasTexto" value="#{proveedorBean.proveedor.ruc}" rendered="#{proveedorBean.actRuc==true}" disabled="#{proveedorBean.proveedor.id!=null}" >
+                            <p:ajax event="change" />
+                            <p:keyFilter regEx="/[0-9]/i" />
+                            <f:validateLength  minimum="13" maximum="13"/>
+                        </p:inputText>
+
+
+
+                        <p:outputLabel for="txtNombre" value="Nombre:"  />
+                        <p:inputText id="txtNombre" class="cajasTexto" value="#{proveedorBean.proveedor.nombre}"  >
+                            <p:ajax event="change"/>
+                            <p:keyFilter regEx="/[a-z ]/i"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="razonSocial" value="Razon Social" rendered="#{proveedorBean.actRuc==true}"  />
+                        <p:inputText id="razonSocial" value="#{proveedorBean.proveedor.razonSocial}" class="cajasTexto" rendered="#{proveedorBean.actRuc==true}"  >
+                            <p:ajax event="change"/>
+                            <p:keyFilter regEx="/[a-z ]/i"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Direccion:" />
+                        <p:inputText value="#{proveedorBean.proveedor.direccion}" class="cajasTexto" >
+                            <p:keyFilter mask="email"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Telefono:" />
+                        <p:inputText value="#{proveedorBean.proveedor.telefono}" class="cajasTexto" >
+                            <p:keyFilter regEx="/[0-9-]/i"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Celular:" />
+                        <p:inputText value="#{proveedorBean.proveedor.celular}" class="cajasTexto" >
+                        <p:keyFilter regEx="/[0-9-]/i"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Correo:" />
+                        <p:inputText value="#{proveedorBean.proveedor.correo}" class="cajasTexto" >
+                            <p:keyFilter mask="email"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Estado: " rendered="#{proveedorBean.proveedor.id!=null}" />
+                        <p:selectOneRadio id="txtEstado" value="#{proveedorBean.proveedor.estado}" rendered="#{proveedorBean.proveedor.id!=null}" class="cajasTexto" >
+                            <f:selectItem itemLabel="Activo" itemValue="A"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                        </p:selectOneRadio>
+
+
+                    </h:panelGrid>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{proveedorBean.grabar()}" update="formP"  style="margin-right: 20px"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" action="#{proveedorBean.init()}" update="formP"  immediate="true"/>
+                    </div>
+                </p:panel>
+                <!--FIN DLG NUEVA CATEGORIA-->
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

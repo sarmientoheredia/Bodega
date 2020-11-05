@@ -51,7 +51,7 @@ public class LoginBean implements Serializable {
                 //hay que almacenar en la session del jsf para podre cerrar la sesion
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("autenticado", us);
                 
-                redireccion = "/vistas/plantilla/Inicio?faces-redirect=true";
+                redireccion = "/vistas/plantilla/Inicio";
             }else{
                 Mensaje.mostrarAdvertencia("Credenciales Incorectas");
             }

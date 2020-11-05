@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="./../plantilla/Plantilla.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.usuario}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="contenido">
+
+            <h:form id="formU" class="ui-g centrar">
+                <p:panel  rendered="#{usuarioBean.usuario==null}" >
+
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="#{msg.liU}"/>
+                        </center>
+                    </f:facet> 
+
+                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-user-plus" action="#{usuarioBean.nuevo()}" update="formU" />
+                    <p:dataTable id="dtUsuario" value="${usuarioBean.usuarioList}" var="usu"
+                                 widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
+                                 rowStyleClass="#{usu.estado.hashCode()==73 ? 'activo':'null'}"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 >
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableUsuario').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="#{msg.cedula}" width="100">
+                            <h:outputText value="#{usu.cedula}"/>
+                        </p:column>
+                        <p:column headerText="#{msg.grado}" width="50">
+                            <h:outputText value="#{usu.grado}"/>
+                        </p:column>
+                        <p:column headerText="#{msg.arma}" width="55">
+                            <h:outputText value="#{usu.arma}"/>
+                        </p:column>
+                        <p:column headerText="#{msg.nombre}">
+                            <h:outputText value="#{usu.nombreCompleto}"/>
+                        </p:column>
+                        <p:column headerText="#{msg.estado}" width="70">
+                            <h:outputLabel value="#{usu.estado.toString()=='A'? 'Activo':'Inactivo'}" />
+                        </p:column>
+
+                        <p:column width="100" headerText="#{msg.opcion}">
+                            <p:commandButton icon="ui-icon-pencil" action="#{usuarioBean.setUsuario(usu)}" update="formU" />
+                            <p:commandButton icon="ui-icon-trash" action="#{usuarioBean.eliminar(usu)}" update="dtUsuario">
+                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el usuario"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+
+
+                <!--INICO DLG NUEVA CATEGORIA-->
+                <p:panel id="pUsuario" header="#{usuarioBean.usuario.id ==null ? 'Registro de ' : 'Actualizacion de'}  Usuario" rendered="#{usuarioBean.usuario!=null}" class="ui-lg-6"  >
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="#{usuarioBean.usuario.id ==null ? 'Registro de ' : 'Actualizacion de'}  Usuario"/>
+                        </center>
+                    </f:facet> 
+
+
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Codigo: "  rendered="#{usuarioBean.usuario.id!=null}"/>
+                        <p:inputText value="#{usuarioBean.usuario.id}" class="cajasTexto" disabled="true" rendered="#{usuarioBean.usuario.id!=null}"/>
+
+                        <p:outputLabel for="cboGrado" value="#{msg.grado}" />
+                        <p:selectOneMenu id="cboGrado" value="#{usuarioBean.usuario.grado}" required="true" requiredMessage="#{msg.msgGrado}">
+                            <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Sldo" itemValue="Sldo" />
+                            <f:selectItem itemLabel="Cbos" itemValue="Cbos" />
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="cboArma" value="#{msg.arma}" />
+                        <p:selectOneMenu id="cboArma" value="#{usuarioBean.usuario.arma}" required="true" requiredMessage="#{msg.msgArma}">
+                            <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Com" itemValue="Com" />
+                            <f:selectItem itemLabel="A.E" itemValue="A.E" />
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="txtCedula" value="#{msg.cedula}" />
+                        <p:inputText id="txtCedula" class="cajasTexto" value="#{usuarioBean.usuario.cedula}" disabled="#{usuarioBean.usuario.id!=null}" 
+                                     required="true" requiredMessage="#{msg.msgCedula}" >
+                            <p:ajax event="change" listener="#{usuarioBean.operacionCedula()}"  />
+                            <p:keyFilter regEx="/[0-9]/i"/>
+                            <f:validateLength for="txtCedula" minimum="10" maximum="10"/>
+                        </p:inputText>
+
+                        <p:outputLabel for="txtApellido" value="#{msg.apellido}" />
+                        <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto" >
+                            <p:keyFilter regEx="/[a-z ]/i" />
+                        </p:inputText>
+
+                        <p:outputLabel for="txtNombre" value="#{msg.nombre}" />
+                        <p:inputText id="txtNombre" value="#{usuarioBean.usuario.nombre}" required="true" class="cajasTexto" requiredMessage="#{msg.msgNombre}" >
+                            <p:keyFilter regEx="/[a-z ]/i" />
+                        </p:inputText>
+
+                        <p:outputLabel for="txtPermiso" value="#{msg.permiso} "  />
+                        <p:selectOneRadio id="txtPermiso" value="#{usuarioBean.usuario.rol}" required="true" requiredMessage="#{msg.msgPermiso}" class="cajasTexto"  >
+                            <f:selectItem itemLabel="#{msg.administrador}" itemValue="A"/>
+                            <f:selectItem itemLabel="#{msg.invitado}" itemValue="I"/>
+                        </p:selectOneRadio>
+
+                        <p:outputLabel for="cboCargo" value="Cargo" rendered="#{usuarioBean.usuario.id!=null}" />
+                        <p:selectOneMenu id="cboCargo" value="#{usuarioBean.usuario.bodeguero}" required="true" requiredMessage="#{msg.msgArma}" rendered="#{usuarioBean.usuario.id!=null}" >
+                            <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Bodeguero" itemValue="B" />
+                            <f:selectItem itemLabel="Logistica" itemValue="L" />
+                            <f:selectItem itemLabel="Compras P." itemValue="C" />
+                            <f:selectItem itemLabel="Sin Cargo" itemValue="N" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="txtEstado" value="#{msg.estado} " rendered="#{usuarioBean.usuario.id!=null}" />
+                        <p:selectOneRadio id="txtEstado" value="#{usuarioBean.usuario.estado}" rendered="#{usuarioBean.usuario.id!=null}" required="true" requiredMessage="#{msg.msgEstado}" class="cajasTexto" >
+                            <f:selectItem itemLabel="Activo" itemValue="A"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                        </p:selectOneRadio>
+
+
+
+                    </h:panelGrid>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{usuarioBean.grabar()}" update="formU"  style="margin-right: 20px"/>
+                        <p:commandButton value="#{msg.cancelar}" icon="pi pi-times" action="#{usuarioBean.init()}" update="formU"  immediate="true"/>
+                    </div>
+                </p:panel>
+                <!--FIN DLG NUEVA USUARIO-->
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

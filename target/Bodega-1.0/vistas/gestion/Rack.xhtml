@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="./../plantilla/Plantilla.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.rack}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="contenido">
+
+            <h:form id="formR" class="ui-g centrar">
+                <p:panel  rendered="#{rackBean.rack==null}" >
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="Listado de Seccion"/>
+                        </center>
+                    </f:facet> 
+
+                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-plus-circle" action="#{rackBean.nuevo()}" update="formR" />
+
+                    <p:dataTable id="dtRack" value="${rackBean.rackList}" var="rac"
+                                 widgetVar="tableSeccion" globalFilterFunction="#{rackBean.globalFilterFunction}"
+                                 rowStyleClass="#{rac.estado.hashCode()==73 ? 'activo':'null'}"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 >
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableSeccion').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Codigo" width="100">
+                            <h:outputText value="#{rac.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{rac.nombre}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Seccion">
+                            <h:outputText value="#{rac.seccion.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{rac.estado.toString()=='A'?'Activo': 'Inactivo'}"/>
+                        </p:column>
+
+                        <p:column width="100" headerText="Opciones">
+                            <p:commandButton icon="ui-icon-pencil" action="#{rackBean.setRack(rac)}" update="formR" />
+                            <p:commandButton icon="ui-icon-trash" action="#{rackBean.eliminar(rac)}" update="dtRack">
+                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el rack"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+
+
+                <!--INICO DLG NUEVA RACK-->
+                <p:panel id="pUsuario"  rendered="#{rackBean.rack!=null}" class="ui-lg-6"  >
+                    <f:facet name="header">
+                        <center>
+                            <p:outputLabel value="#{rackBean.rack.id ==null ? 'Registro de ' : 'Actualizacion de'}  Rack"/>
+                        </center>
+                    </f:facet> 
+
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Codigo: "  rendered="#{rackBean.rack.id!=null}"/>
+                        <p:inputText value="#{rackBean.rack.id}" class="cajasTexto" disabled="true" rendered="#{rackBean.rack.id!=null}"/>
+
+                        <p:outputLabel for="txtSeccion" value="Seccion"/>
+                        <p:selectOneMenu id="txtSeccion" value="#{rackBean.rack.seccion}" required="true" 
+                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto">
+                            <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
+                            <f:selectItems value="#{seccionBean.seccionList}" var="sec" itemLabel="#{sec.nombre}" itemValue="#{sec}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Nombre:" />
+                        <p:inputText value="#{rackBean.rack.nombre}" class="cajasTexto" required="true">
+                            <p:ajax event="change" listener="#{rackBean.verificarNombre()}" />
+                            <p:keyFilter regEx="/[a-z0-9 ]/i" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Estado: " rendered="#{rackBean.rack.id!=null}" />
+                        <p:selectOneRadio id="txtEstado" value="#{rackBean.rack.estado}" rendered="#{rackBean.rack.id!=null}" class="cajasTexto" >
+                            <f:selectItem itemLabel="Activo" itemValue="A"/>
+                            <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                        </p:selectOneRadio>
+
+
+                    </h:panelGrid>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{rackBean.grabar()}" update="formR"  style="margin-right: 20px"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" action="#{rackBean.init()}" update="formR"  immediate="true"/>
+                    </div>
+                </p:panel>
+                <!--FIN DLG NUEVO RACK-->
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>
