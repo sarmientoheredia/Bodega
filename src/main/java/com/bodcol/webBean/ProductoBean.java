@@ -1,9 +1,14 @@
 package com.bodcol.webBean;
 
 import com.bodcol.entidades.Producto;
+import com.bodcol.entidades.Rack;
+import com.bodcol.entidades.Seccion;
 import com.bodcol.sessionBeans.ProductoFacadeLocal;
+import com.bodcol.sessionBeans.RackFacadeLocal;
+import com.bodcol.sessionBeans.SeccionFacadeLocal;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.PostConstruct;
@@ -16,16 +21,24 @@ import javax.faces.view.ViewScoped;
 public class ProductoBean implements Serializable {
 
     //INICIO VARIABLES
-    private List<Producto> productoList;
     private Producto producto;
+    private Seccion seccion;
     private List<Producto> productoListActivo;
+    private List<Seccion> seccionList;
+    private List<Rack> rackList;
+    private List<Producto> productoList;
     //FIN VARIABLES
-
+    
+    
     //INICIO INYECCION
     @EJB
     private ProductoFacadeLocal productoFacadeLocal;
-    //FIN INYECCION
+    @EJB
+    private SeccionFacadeLocal seccionFacadeLocal;
+    @EJB
+    private RackFacadeLocal rackFacadeLocal;
 
+    //FIN INYECCION
     public ProductoBean() {
     }
 
@@ -33,7 +46,8 @@ public class ProductoBean implements Serializable {
     public void init() {
         productoList = productoFacadeLocal.findAll();
         producto = null;
-        productoListActivo=productoFacadeLocal.findAllActivo();
+        productoListActivo = productoFacadeLocal.findAllActivo();
+        seccionList = seccionFacadeLocal.findAll();
     }
 
 //    INICIO DE GETTERS Y SETTERS
@@ -61,10 +75,31 @@ public class ProductoBean implements Serializable {
         this.productoListActivo = productoListActivo;
     }
 
+    public List<Seccion> getSeccionList() {
+        return seccionList;
+    }
 
-    
+    public void setSeccionList(List<Seccion> seccionList) {
+        this.seccionList = seccionList;
+    }
+
+    public List<Rack> getRackList() {
+        return rackList;
+    }
+
+    public void setRackList(List<Rack> rackList) {
+        this.rackList = rackList;
+    }
+
+    public Seccion getSeccion() {
+        return seccion;
+    }
+
+    public void setSeccion(Seccion seccion) {
+        this.seccion = seccion;
+    }
+
     //FIN DE LOS GETTERS Y SETTERS
-
     //INICIO DE LOS METODOS
     public void nuevo() {
         producto = new Producto();
@@ -81,15 +116,6 @@ public class ProductoBean implements Serializable {
             }
             init();
         } catch (Exception e) {
-            System.out.println("primer nivel: " + e.getMessage());
-            System.out.println("primera clase: " + e.getClass().getName());
-
-            System.out.println("segundo nivel: " + e.getCause().getMessage());
-            System.out.println("primera clase: " + e.getCause().getClass().getName());
-
-            System.out.println("tercer nivel: " + e.getCause().getCause().getMessage());
-            System.out.println("primera clase: " + e.getCause().getCause().getClass().getName());
-
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
                     Mensaje.mostrarError("La categoria ya esta registrado");
@@ -124,11 +150,15 @@ public class ProductoBean implements Serializable {
     }
 
     public void verificarNombre() {
-            Producto pro = productoFacadeLocal.findByNombre(producto.getNombre());
-            if (pro != null) {
-                Mensaje.mostrarAdvertencia("El Producto ya existe");
-            }
+        Producto pro = productoFacadeLocal.findByNombre(producto.getNombre());
+        if (pro != null) {
+            Mensaje.mostrarAdvertencia("El Producto ya existe");
         }
+    }
+
+    public void filtrarRackPorSeccion() {
+        rackList = rackFacadeLocal.findAllSeccion(seccion);
+    }
 
     //FIN DE LOS METODOS
 }

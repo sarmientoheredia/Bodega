@@ -1,8 +1,10 @@
 package com.bodcol.sessionBeans;
 
 import com.bodcol.entidades.Seccion;
+import com.bodcol.utilitarios.Mensaje;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -27,9 +29,14 @@ public class SeccionFacade extends AbstractFacade<Seccion> implements SeccionFac
 
     @Override
     public Seccion findByNombre(String nombre) {
-        Query q=em.createNamedQuery("Seccion.findByNombre", Seccion.class);
+        Query q = em.createNamedQuery("Seccion.findByNombre", Seccion.class);
         q.setParameter("nombre", nombre);
-        return (Seccion) q.getSingleResult();
+        try {
+            return (Seccion) q.getSingleResult();
+        } catch (NoResultException e) {
+            Mensaje.mostrarExito("Seccion valida");
+            return null;
+        }
     }
-    
+
 }

@@ -36,7 +36,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             return (Usuario) q.getSingleResult();
 
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Este usuario aun no esta registrado");
+            Mensaje.mostrarExito("Cedula valida");
             return null;
         }
     }
@@ -44,26 +44,20 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     //METODO PARA AUTENTICAR AL USUARIO QUE PODRA INGRESAR AL SISTEMA EN BASE AL USER Y PASSWORD 
     @Override
     public Usuario iniciarSesion(Usuario us) {
-        Usuario usuario = null;
+        Query q = em.createNamedQuery("Usuario.findByLogin", Usuario.class);
+        q.setParameter("usuario", us.getUsuario());
+        q.setParameter("password", us.getPassword());
         try {
-            Query q = em.createNamedQuery("Usuario.findByLogin", Usuario.class);
-            q.setParameter("usuario", us.getUsuario());
-            q.setParameter("password", us.getPassword());
-
-            List<Usuario> lista = q.getResultList();
-            if (!lista.isEmpty()) {
-                usuario = lista.get(0);
-            }
-
-        } catch (Exception e) {
-            throw e;
+            return (Usuario) q.getSingleResult();
+        } catch (NoResultException e) {
+            Mensaje.mostrarAdvertencia("Credenciales incorrectas");
+            return null;
         }
-        return usuario;
     }
 
     @Override
     public List<Usuario> findAllCargo() {
-        Query q=em.createNamedQuery("Usuario.findAllCargo", Usuario.class);
+        Query q = em.createNamedQuery("Usuario.findAllCargo", Usuario.class);
         return q.getResultList();
     }
 

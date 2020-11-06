@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.entidades;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +23,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "rack")
 @NamedQueries({
-    @NamedQuery(name = "Rack.findAll", query = "SELECT r FROM Rack r"),
+    @NamedQuery(name = "Rack.findAll", query = "SELECT r FROM Rack r "),
+    @NamedQuery(name = "Rack.findAllSeccion", query = "SELECT r FROM Rack r where r.seccion=:seccion AND r.estado='A' "),
     @NamedQuery(name = "Rack.findById", query = "SELECT r FROM Rack r WHERE r.id = :id"),
     @NamedQuery(name = "Rack.findByNombre", query = "SELECT r FROM Rack r WHERE r.nombre = :nombre"),
     @NamedQuery(name = "Rack.findByEstado", query = "SELECT r FROM Rack r WHERE r.estado = :estado")})

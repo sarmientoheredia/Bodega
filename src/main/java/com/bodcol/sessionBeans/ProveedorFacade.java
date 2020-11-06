@@ -40,7 +40,7 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> implements Provee
         try {
             return (Proveedor) q.getSingleResult();
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Este proveedor aun no esta registrado");
+            Mensaje.mostrarExito("Cédula válida");
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> implements Provee
         try {
             return (Proveedor) q.getSingleResult();
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Este ruc no consta en el sistema");
+            Mensaje.mostrarExito("Ruc válido");
             return null;
         }
     }
@@ -64,7 +64,7 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> implements Provee
         try {
             return (Proveedor) q.getSingleResult();
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Este ruc no consta en el sistema");
+            Mensaje.mostrarExito("Ruc válido");
             return null;
         }
     }

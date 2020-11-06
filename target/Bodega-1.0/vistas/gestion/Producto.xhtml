@@ -21,7 +21,7 @@
                         </center>
                     </f:facet> 
 
-                    <p:commandButton value="Nuevo" icon="pi pi-plus-circle" action="#{productoBean.nuevo()}" update="formP" />
+                    <p:commandButton value="Nuevo" icon="pi pi-plus-circle" action="#{productoBean.nuevo()}" update="formP" title="Añadir Producto" />
 
                     <p:dataTable id="dtProducto" value="${productoBean.productoList}" var="prod"
                                  widgetVar="tableProducto" globalFilterFunction="#{productoBean.globalFilterFunction}"
@@ -31,7 +31,7 @@
 
                         <f:facet name="header">
                             <p:outputPanel >
-                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableProducto').filter()" style="text-align: center" placeholder="Buscar" />
                             </p:outputPanel>
                         </f:facet>
@@ -61,9 +61,9 @@
                             <h:outputText value="#{prod.estado.toString()=='A'?'Activo': 'Inactivo'}"/>
                         </p:column>
 
-                        <p:column width="100" headerText="Opciones">
-                            <p:commandButton icon="ui-icon-pencil" action="#{productoBean.setProducto(prod)}" update="formP" />
-                            <p:commandButton icon="ui-icon-trash" action="#{productoBean.eliminar(prod)}" update="dtProducto">
+                        <p:column width="100" headerText="Opciones" >
+                            <p:commandButton icon="ui-icon-pencil" action="#{productoBean.setProducto(prod)}" update="formP" title="Actualizar"/>
+                            <p:commandButton icon="ui-icon-trash" action="#{productoBean.eliminar(prod)}" update="dtProducto" title="Eliminar">
                                 <p:confirm header="Confirmacion" message="Confirme si desea eliminar el producto"/>
                             </p:commandButton>
                         </p:column>
@@ -84,38 +84,75 @@
                         <p:outputLabel value="Identificador: "  rendered="#{productoBean.producto.id!=null}"/>
                         <p:inputText value="#{productoBean.producto.id}" class="cajasTexto" disabled="true" rendered="#{productoBean.producto.id!=null}"/>
 
-                        <p:outputLabel value="Codigo:" />
-                        <p:inputText value="#{productoBean.producto.codigo}" class="cajasTexto" required="true">
+                        <p:outputLabel for="txtCodigo" value="Codigo:" />
+                        <p:inputText id="txtCodigo" value="#{productoBean.producto.codigo}" disabled="#{productoBean.producto.id!=null}" class="cajasTexto" required="true" requiredMessage="Codigo requerido">
                             <p:ajax event="change"  />
                         </p:inputText>
 
-                        <p:outputLabel value="Nombre:" />
-                        <p:inputText value="#{productoBean.producto.nombre}" class="cajasTexto" required="true">
+                        <p:outputLabel for="txtNombre" value="Nombre:" />
+                        <p:inputText id="txtNombre" value="#{productoBean.producto.nombre}" class="cajasTexto" required="true" requiredMessage="Nombre requerido">
                             <p:ajax event="change" listener="#{productoBean.verificarNombre()}" />
                             <p:keyFilter regEx="/[a-z ]/i"/>
                         </p:inputText>
 
-                        <p:outputLabel for="txtRack" value="Rack"/>
-                        <p:selectOneMenu id="txtRack" value="#{productoBean.producto.rack}" required="true" 
-                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                         <p:outputLabel for="txtSeccion" value="Seccion"/>
+                         <p:selectOneMenu id="txtSeccion" value="#{productoBean.seccion}" required="true" 
+                                        converter="omnifaces.SelectItemsConverter"  class="cajasTexto" requiredMessage="EStanteria requerido">
                             <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
-                            <f:selectItems value="#{rackBean.rackList}" var="rac" itemLabel="#{rac.nombre}" itemValue="#{rac}" />
+                            <f:selectItems value="#{productoBean.seccionList}" var="sec" itemLabel="#{sec.nombre}" itemValue="#{sec}" />
+                            <p:ajax event="change" listener="#{productoBean.filtrarRackPorSeccion}" update="txtRack" />
+                        </p:selectOneMenu>
+                         
+                        <p:outputLabel for="txtRack" value="Estanteria"/>
+                        <p:selectOneMenu id="txtRack" value="#{productoBean.producto.rack}" required="true" 
+                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto" requiredMessage="Estanteria requerido">
+                            <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
+                            <f:selectItems value="#{productoBean.rackList}" var="rac" itemLabel="#{rac.nombre}" itemValue="#{rac}" />
                         </p:selectOneMenu>
 
-                        <p:outputLabel value="Columna:" />
-                        <p:inputText value="#{productoBean.producto.columna}" class="cajasTexto" required="true">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <p:outputLabel for="txtColumna" value="Columna:" />
+                        <p:inputText id="txtColumna" value="#{productoBean.producto.columna}" class="cajasTexto" required="true" requiredMessage="Columna requerida">
                             <p:ajax event="change"  />
                             <p:keyFilter regEx="/[0-9a-z-]/i"/>
                         </p:inputText>
 
-                        <p:outputLabel value="Fila:" />
-                        <p:inputText value="#{productoBean.producto.fila}" class="cajasTexto" required="true">
+                        <p:outputLabel for="txtFila" value="Fila:" />
+                        <p:inputText id="txtFila" value="#{productoBean.producto.fila}" class="cajasTexto" required="true" requiredMessage="Fila requerida">
                             <p:ajax event="change"  />
                             <p:keyFilter regEx="/[0-9a-z-]/i"/>
                         </p:inputText>
 
-                        <p:outputLabel value="Stock" rendered="#{productoBean.producto.id!=null}" />
-                        <p:inputText value="#{productoBean.producto.stock}" class="cajasTexto" rendered="#{productoBean.producto.id!=null}" disabled="true">
+                        <p:outputLabel for="txtStock" value="Stock" rendered="#{productoBean.producto.id!=null}" />
+                        <p:inputText id="txtStock" value="#{productoBean.producto.stock}" class="cajasTexto" rendered="#{productoBean.producto.id!=null}" disabled="true">
                             <p:ajax event="change"  />
                         </p:inputText>
 
@@ -138,8 +175,8 @@
 
                     </h:panelGrid>
                     <div class="ui-g botonera">
-                        <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{productoBean.grabar()}" update="formP"  style="margin-right: 20px"/>
-                        <p:commandButton value="Cancelar" icon="pi pi-times" action="#{productoBean.init()}" update="formP"  immediate="true"/>
+                        <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{productoBean.grabar()}" update="formP"  style="margin-right: 20px" title="Guardar"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" action="#{productoBean.init()}" update="formP"  immediate="true" title="Cancelar"/>
                     </div>
                 </p:panel>
                 <!--FIN DLG NUEVO RACK-->

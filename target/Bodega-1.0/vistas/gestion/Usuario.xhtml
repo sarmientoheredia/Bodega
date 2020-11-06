@@ -25,7 +25,7 @@
                         </center>
                     </f:facet> 
 
-                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-user-plus" action="#{usuarioBean.nuevo()}" update="formU" />
+                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-user-plus" action="#{usuarioBean.nuevo()}" update="formU" title="Añadir usuario" />
                     <p:dataTable id="dtUsuario" value="${usuarioBean.usuarioList}" var="usu"
                                  widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
                                  rowStyleClass="#{usu.estado.hashCode()==73 ? 'activo':'null'}"
@@ -39,25 +39,25 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="#{msg.cedula}" width="100">
+                        <p:column headerText="Cedula" width="100">
                             <h:outputText value="#{usu.cedula}"/>
                         </p:column>
-                        <p:column headerText="#{msg.grado}" width="50">
+                        <p:column headerText="Grado" width="50">
                             <h:outputText value="#{usu.grado}"/>
                         </p:column>
-                        <p:column headerText="#{msg.arma}" width="55">
+                        <p:column headerText="Arma" width="55">
                             <h:outputText value="#{usu.arma}"/>
                         </p:column>
-                        <p:column headerText="#{msg.nombre}">
+                        <p:column headerText="Apellidos y Nombres">
                             <h:outputText value="#{usu.nombreCompleto}"/>
                         </p:column>
-                        <p:column headerText="#{msg.estado}" width="70">
+                        <p:column headerText="Estado" width="70">
                             <h:outputLabel value="#{usu.estado.toString()=='A'? 'Activo':'Inactivo'}" />
                         </p:column>
 
                         <p:column width="100" headerText="#{msg.opcion}">
-                            <p:commandButton icon="ui-icon-pencil" action="#{usuarioBean.setUsuario(usu)}" update="formU" />
-                            <p:commandButton icon="ui-icon-trash" action="#{usuarioBean.eliminar(usu)}" update="dtUsuario">
+                            <p:commandButton icon="ui-icon-pencil" action="#{usuarioBean.setUsuario(usu)}" update="formU" title="Actualizar" />
+                            <p:commandButton icon="ui-icon-trash" action="#{usuarioBean.eliminar(usu)}" update="dtUsuario" title="Eliminar">
                                 <p:confirm header="Confirmacion" message="Confirme si desea eliminar el usuario"/>
                             </p:commandButton>
                         </p:column>
@@ -106,11 +106,13 @@
                         <p:outputLabel for="txtApellido" value="#{msg.apellido}" />
                         <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto" >
                             <p:keyFilter regEx="/[a-z ]/i" />
+                            <p:ajax event="change" />
                         </p:inputText>
 
                         <p:outputLabel for="txtNombre" value="#{msg.nombre}" />
                         <p:inputText id="txtNombre" value="#{usuarioBean.usuario.nombre}" required="true" class="cajasTexto" requiredMessage="#{msg.msgNombre}" >
                             <p:keyFilter regEx="/[a-z ]/i" />
+                            <p:ajax event="change" />
                         </p:inputText>
 
                         <p:outputLabel for="txtPermiso" value="#{msg.permiso} "  />
@@ -138,8 +140,8 @@
 
                     </h:panelGrid>
                     <div class="ui-g botonera">
-                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{usuarioBean.grabar()}" update="formU"  style="margin-right: 20px"/>
-                        <p:commandButton value="#{msg.cancelar}" icon="pi pi-times" action="#{usuarioBean.init()}" update="formU"  immediate="true"/>
+                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{usuarioBean.grabar()}" update="formU"  style="margin-right: 20px" title="Guardar"/>
+                        <p:commandButton value="#{msg.cancelar}" icon="pi pi-times" action="#{usuarioBean.init()}" update="formU"  immediate="true" title="Cancelar"/>
                     </div>
                 </p:panel>
                 <!--FIN DLG NUEVA USUARIO-->

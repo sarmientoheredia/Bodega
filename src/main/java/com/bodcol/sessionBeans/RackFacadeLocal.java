@@ -6,6 +6,7 @@
 package com.bodcol.sessionBeans;
 
 import com.bodcol.entidades.Rack;
+import com.bodcol.entidades.Seccion;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -32,4 +33,6 @@ public interface RackFacadeLocal {
 
     int count();
     
+    
+    List<Rack> findAllSeccion(Seccion seccion);
 }

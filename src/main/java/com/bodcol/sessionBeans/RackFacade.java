@@ -6,8 +6,12 @@
 package com.bodcol.sessionBeans;
 
 import com.bodcol.entidades.Rack;
+import com.bodcol.entidades.Seccion;
+import com.bodcol.utilitarios.Mensaje;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -32,9 +36,21 @@ public class RackFacade extends AbstractFacade<Rack> implements RackFacadeLocal 
 
     @Override
     public Rack findByNombre(String nombre) {
-        Query q=em.createNamedQuery("Rack.findByNombre", Rack.class);
+        Query q = em.createNamedQuery("Rack.findByNombre", Rack.class);
         q.setParameter("nombre", nombre);
-        return (Rack) q.getSingleResult();
+        try {
+            return (Rack) q.getSingleResult();
+        } catch (NoResultException e) {
+            Mensaje.mostrarExito("Estateria valida");
+            return null;
+        }
     }
-    
+
+    @Override
+    public List<Rack> findAllSeccion(Seccion seccion) {
+        Query q = em.createNamedQuery("Rack.findAllSeccion", Rack.class);
+        q.setParameter("seccion", seccion);
+        return q.getResultList();
+    }
+
 }

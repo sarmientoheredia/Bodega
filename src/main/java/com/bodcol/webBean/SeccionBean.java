@@ -69,7 +69,7 @@ public class SeccionBean implements Serializable {
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Esta Seccion ya Existe");
+                    Mensaje.mostrarError("Seccion ya Existe");
                 }
             }
         }
@@ -81,18 +81,9 @@ public class SeccionBean implements Serializable {
             init();
             Mensaje.mostrarExito("Eliminacion exitosa");
         } catch (Exception e) {
-            System.out.println("mensaje nivel 1: " + e.getMessage());
-            System.out.println("clase nivel 1: " + e.getClass().getName());
-
-            System.out.println("mensaje segundo nivel: " + e.getCause().getMessage());
-            System.out.println("clase nivel 2: " + e.getCause().getClass().getName());
-
-            System.out.println("mensaje tercer nivel: " + e.getCause().getCause().getMessage());
-            System.out.println("clase nivel 3: " + e.getCause().getCause().getClass().getName());
-
             if (e.getCause().getCause().getClass().getName().equals("javax.persistence.PersistenceException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Existen productos que tienen esta categoria");
+                    Mensaje.mostrarError("Seccion relacionada");
                 }
             }
         }
@@ -124,7 +115,7 @@ public class SeccionBean implements Serializable {
     public void verificarNombre() {
         Seccion sec = seccionFacadeLocal.findByNombre(seccion.getNombre());
         if (sec != null) {
-            Mensaje.mostrarAdvertencia("La categoria ya existe");
+            Mensaje.mostrarAdvertencia("Seccion ya exite");
         }
     }
 }

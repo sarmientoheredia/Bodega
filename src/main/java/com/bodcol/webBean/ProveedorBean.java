@@ -26,6 +26,7 @@ public class ProveedorBean implements Serializable {
     private boolean actRucNatural;
     private boolean actRuc;
     private boolean bandera;
+    private static boolean isValid = false;
 
     private List<Proveedor> proveedorListActivo;
 
@@ -121,25 +122,16 @@ public class ProveedorBean implements Serializable {
         try {
             if (proveedor.getId() == null) {
                 proveedorFacadeLocal.create(proveedor);
-                Mensaje.mostrarExito("Registro Exitoso");
+                Mensaje.mostrarExito("Proveedor exitoso");
             } else {
                 proveedorFacadeLocal.edit(proveedor);
-                Mensaje.mostrarExito("Actualizacion Exitosa");
+                Mensaje.mostrarExito("Proveedor actualizado");
             }
             init();
         } catch (Exception e) {
-            System.out.println("primer nivel: " + e.getMessage());
-            System.out.println("primera clase: " + e.getClass().getName());
-
-            System.out.println("segundo nivel: " + e.getCause().getMessage());
-            System.out.println("primera clase: " + e.getCause().getClass().getName());
-
-            System.out.println("tercer nivel: " + e.getCause().getCause().getMessage());
-            System.out.println("primera clase: " + e.getCause().getCause().getClass().getName());
-
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("La categoria ya esta registrado");
+                    Mensaje.mostrarError("Proveedor ya existe");
                 }
             }
         }
@@ -153,7 +145,7 @@ public class ProveedorBean implements Serializable {
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("javax.persistence.PersistenceException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("El proveedor esta relacionado");
+                    Mensaje.mostrarError("Proveedor relacionado");
                 }
             }
         }
@@ -214,16 +206,140 @@ public class ProveedorBean implements Serializable {
 
         } else {
             bandera = false;
-            Mensaje.mostrarError("El numero de cedula invalido");
+            Mensaje.mostrarError("Cedula invalida");
         }
     }
     //metodo para verificar si la cedula ya esta registrada
 
     public void verificarCedula() {
-        Proveedor usu = proveedorFacadeLocal.findByCedula(proveedor.getCedula());
-        if (usu != null) {
-            Mensaje.mostrarAdvertencia("Este numero ya existe");
+        Proveedor prov = proveedorFacadeLocal.findByCedula(proveedor.getCedula());
+        if (prov != null) {
+            Mensaje.mostrarAdvertencia("Cedula ya existe ");
         }
     }
+
+    //inicio metodo para validar el ruc de unapersona juridica
+    private static final int NUM_PROVINCIAS = 24;
+    private static int[] coeficientes = {4, 3, 2, 7, 6, 5, 4, 3, 2};
+    private static int constante = 11;
+
+    public static Boolean operacionRuc(String ruc) {
+        boolean resp_dato = false;
+        final int prov = Integer.parseInt(ruc.substring(0, 2));
+        if (!((prov > 0) && (prov <= NUM_PROVINCIAS))) {
+            resp_dato = false;
+        }
+
+        int[] d = new int[10];
+        int suma = 0;
+
+        for (int i = 0; i < d.length; i++) {
+            d[i] = Integer.parseInt(ruc.charAt(i) + "");
+        }
+
+        for (int i = 0; i < d.length - 1; i++) {
+            d[i] = d[i] * coeficientes[i];
+            suma += d[i];
+        }
+
+        int aux, resp;
+
+        aux = suma % constante;
+        resp = constante - aux;
+
+        resp = (aux == 0) ? 0 : resp;
+
+        if (resp == d[9]) {
+            resp_dato = true;
+        } else {
+            resp_dato = false;
+        }
+        return resp_dato;
+    }
+
+    public void verificarRuc() {
+        Proveedor prov = proveedorFacadeLocal.findByRuc(proveedor.getRuc());
+        if (prov != null) {
+            Mensaje.mostrarAdvertencia("Ruc ya existe ");
+        }
+    }
+
+    public void validarRuc() {
+        String ruc_dato = proveedor.getRuc();
+        if (operacionRuc(ruc_dato)) {
+            bandera = true;
+            verificarRuc();
+        } else {
+            bandera = false;
+            Mensaje.mostrarError("Ruc invalido");
+        }
+    }
+    //fin metodo para validar el ruc de unapersona juridica
+
+    //inicio validar el ruc de una persona natural
+    public static Boolean operacionRucNatural(String cedula) {
+
+        if (cedula == null || cedula.length() != 10) {
+            isValid = false;
+        }
+        final int prov = Integer.parseInt(cedula.substring(0, 2));
+
+        if (!((prov > 0) && (prov <= NUM_PROVINCIAS))) {
+            isValid = false;
+        }
+
+        int[] d = new int[10];
+        for (int i = 0; i < d.length; i++) {
+            d[i] = Integer.parseInt(cedula.charAt(i) + "");
+        }
+
+        int imp = 0;
+        int par = 0;
+
+        for (int i = 0; i < d.length; i += 2) {
+            d[i] = ((d[i] * 2) > 9) ? ((d[i] * 2) - 9) : (d[i] * 2);
+            imp += d[i];
+        }
+
+        for (int i = 1; i < (d.length - 1); i += 2) {
+            par += d[i];
+        }
+
+        final int suma = imp + par;
+
+        int d10 = Integer.parseInt(String.valueOf(suma + 10).substring(0, 1)
+                + "0")
+                - suma;
+
+        d10 = (d10 == 10) ? 0 : d10;
+
+        if (d10 == d[9]) {
+            isValid = true;
+        } else {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    public void verificarRucNatural() {
+        Proveedor prov = proveedorFacadeLocal.findByRucNatural(proveedor.getRucNatural());
+        if (prov != null) {
+            Mensaje.mostrarAdvertencia("Ruc ya existe ");
+        }
+    }
+
+     public void validarRucNatural() {
+        String ruc_dato = proveedor.getRucNatural();
+        if (operacionRucNatural(ruc_dato)) {
+            bandera = true;
+            verificarRucNatural();
+        } else {
+            bandera = false;
+            Mensaje.mostrarError("Ruc invalido");
+        }
+    }
+    //inicio validar el ruc de una persona natural
+
     //FIN DE LOS METODOS
 }

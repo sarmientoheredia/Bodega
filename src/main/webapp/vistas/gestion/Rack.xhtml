@@ -22,7 +22,7 @@
                         </center>
                     </f:facet> 
 
-                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-plus-circle" action="#{rackBean.nuevo()}" update="formR" />
+                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-plus-circle" action="#{rackBean.nuevo()}" update="formR" title="Añadir Estanteria" />
 
                     <p:dataTable id="dtRack" value="${rackBean.rackList}" var="rac"
                                  widgetVar="tableSeccion" globalFilterFunction="#{rackBean.globalFilterFunction}"
@@ -54,8 +54,8 @@
                         </p:column>
 
                         <p:column width="100" headerText="Opciones">
-                            <p:commandButton icon="ui-icon-pencil" action="#{rackBean.setRack(rac)}" update="formR" />
-                            <p:commandButton icon="ui-icon-trash" action="#{rackBean.eliminar(rac)}" update="dtRack">
+                            <p:commandButton icon="ui-icon-pencil" action="#{rackBean.setRack(rac)}" update="formR" title="Actualizar" />
+                            <p:commandButton icon="ui-icon-trash" action="#{rackBean.eliminar(rac)}" update="dtRack" title="Eliminar">
                                 <p:confirm header="Confirmacion" message="Confirme si desea eliminar el rack"/>
                             </p:commandButton>
                         </p:column>
@@ -78,13 +78,14 @@
 
                         <p:outputLabel for="txtSeccion" value="Seccion"/>
                         <p:selectOneMenu id="txtSeccion" value="#{rackBean.rack.seccion}" required="true" 
-                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto">
+                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto" requiredMessage="Seccion requerida">
                             <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
                             <f:selectItems value="#{seccionBean.seccionList}" var="sec" itemLabel="#{sec.nombre}" itemValue="#{sec}" />
+                            <p:ajax event="change"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel value="Nombre:" />
-                        <p:inputText value="#{rackBean.rack.nombre}" class="cajasTexto" required="true">
+                        <p:outputLabel for="txtNombre" value="Nombre:" />
+                        <p:inputText id="txtNombre" value="#{rackBean.rack.nombre}" class="cajasTexto" required="true" requiredMessage="Nombre requerido">
                             <p:ajax event="change" listener="#{rackBean.verificarNombre()}" />
                             <p:keyFilter regEx="/[a-z0-9 ]/i" />
                         </p:inputText>
@@ -98,8 +99,8 @@
 
                     </h:panelGrid>
                     <div class="ui-g botonera">
-                        <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{rackBean.grabar()}" update="formR"  style="margin-right: 20px"/>
-                        <p:commandButton value="Cancelar" icon="pi pi-times" action="#{rackBean.init()}" update="formR"  immediate="true"/>
+                        <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{rackBean.grabar()}" update="formR"  style="margin-right: 20px" title="Guardar"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" action="#{rackBean.init()}" update="formR"  immediate="true" title="Cancelar"/>
                     </div>
                 </p:panel>
                 <!--FIN DLG NUEVO RACK-->

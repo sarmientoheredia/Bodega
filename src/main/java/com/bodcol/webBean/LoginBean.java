@@ -50,10 +50,7 @@ public class LoginBean implements Serializable {
             if (us != null) {
                 //hay que almacenar en la session del jsf para podre cerrar la sesion
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("autenticado", us);
-                
                 redireccion = "/vistas/plantilla/Inicio";
-            }else{
-                Mensaje.mostrarAdvertencia("Credenciales Incorectas");
             }
 
         } catch (Exception e) {
@@ -61,12 +58,5 @@ public class LoginBean implements Serializable {
         }
         return redireccion;
     }
-
- 
-    
-    
-    
-    
-    
     //FIN DE LOS METODOS
 }
