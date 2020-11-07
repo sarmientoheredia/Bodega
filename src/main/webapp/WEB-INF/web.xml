@@ -17,6 +17,7 @@
         <session-timeout>
             10
         </session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
     <welcome-file-list>
         <welcome-file>faces/vistas/plantilla/Index.xhtml</welcome-file>

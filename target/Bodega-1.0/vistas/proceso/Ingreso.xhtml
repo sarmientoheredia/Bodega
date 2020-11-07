@@ -66,8 +66,10 @@
 
                 <!--INICO DE UN INGRESO-->
                 <p:panel id="pIngreso" header="#{ingresoBean.ingreso.id ==null ? 'Registro de ' : 'Actualizacion de'}  Ingreso" rendered="#{ingresoBean.ingreso!=null}" style="width: 100%" >
-                    <h:panelGrid id="panelIngreso" columns="6">
-                        <p:outputLabel value="Codigo: "  style="font-size: 20px" rendered="#{ingresoBean.ingreso.id!=null}"/>
+
+
+                    <h:panelGrid id="pIngresoCab" columns="6">
+                        <p:outputLabel value="Codigo: "  rendered="#{ingresoBean.ingreso.id!=null}"/>
                         <p:inputText value="#{ingresoBean.ingreso.id}"  disabled="true" rendered="#{ingresoBean.ingreso.id!=null}"/>
 
                         <p:outputLabel  value="Fecha" />
@@ -82,35 +84,39 @@
                             <f:selectItems value="#{proveedorBean.proveedorListActivo}" var="prov" itemLabel="#{prov.nombre}" itemValue="#{prov}" />
                         </p:selectOneMenu>
 
-                        <p:outputLabel  value="Compras P:"/>
-                        <p:selectOneMenu  value="#{ingresoBean.ingreso.usuario}" required="true" 
-                                          converter="omnifaces.SelectItemsConverter">
-                            <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
-                            <f:selectItems value="#{usuarioBean.usuarioListCargo}" var="usuc" itemLabel="#{usuc.nombreCompleto}" itemValue="#{usuc}" />
-                        </p:selectOneMenu>
 
-                        <p:outputLabel  value="Logistico:"/>
-                        <p:selectOneMenu value="#{ingresoBean.ingreso.usuario1}" required="true" 
-                                         converter="omnifaces.SelectItemsConverter" >
-                            <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
-                            <f:selectItems value="#{usuarioBean.usuarioListCargo}" var="usup" itemLabel="#{usup.nombreCompleto}" itemValue="#{usup}" />
-                        </p:selectOneMenu>
 
-                        <p:outputLabel  value="Bodeguero:"/>
-                        <p:selectOneMenu  value="#{ingresoBean.ingreso.usuario2}" required="true" 
-                                          converter="omnifaces.SelectItemsConverter" class="cajasTexto">
-                            <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
-                            <f:selectItems value="#{usuarioBean.usuarioListCargo}" var="usul" itemLabel="#{usul.nombreCompleto}" itemValue="#{usul}" />
-                        </p:selectOneMenu>
 
+                        <p:outputLabel value="Publicas:" />
+                        <p:commandButton  oncomplete="PF('dlgPublicas').show()" icon="ui-icon-search"  immediate="true"
+                                          update="pIngreso" process="@(this)"/>
+                        <p:outputLabel value="Nombres: " />
+                        <p:outputLabel value="#{ingresoBean.compras.nombreCompleto}" />
+
+                        <p:outputLabel value="Logistico:" />
+                        <p:commandButton  oncomplete="PF('dlgLogistico').show()" icon="ui-icon-search"  immediate="true"
+                                          update="pIngreso" process="@(this)"/>
+                        <p:outputLabel value="Nombres: " />
+                        <p:outputLabel value="#{ingresoBean.logistico.nombreCompleto}" />
+
+                        <p:outputLabel value="Bodeguero:" />
+                        <p:commandButton  oncomplete="PF('dlgBodeguero').show()" icon="ui-icon-search"  immediate="true"
+                                          update="pIngreso" process="@(this)"/>
+                        <p:outputLabel value="Nombres: " />
+                        <p:outputLabel value="#{ingresoBean.bodeguero.nombreCompleto}" />
 
                     </h:panelGrid>
+
+
+
+
+
 
                     <!--PANEL GRID PARA LOS PRODUCTOS-->
                     <h:panelGrid id="pProducto"  rendered="#{ingresoBean.ingreso.id==null}"  columns="9">
                         <p:outputLabel value="Producto: " />
-                        <p:selectOneMenu value="#{ingresoBean.detalleIngreso.producto}" converter="omnifaces.SelectItemsConverter"   required="true" requiredMessage="Selccione el producto">
-                            <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="false"/>
+                        <p:selectOneMenu value="#{ingresoBean.detalleIngreso.producto}" converter="omnifaces.SelectItemsConverter" >
+                            <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true"/>
                             <f:selectItems value="#{productoBean.productoListActivo}" var="prod" itemLabel="#{prod.nombre}" itemValue="#{prod}"/>
                         </p:selectOneMenu>
 
@@ -150,17 +156,112 @@
                         </p:column>
                     </p:dataTable>
 
-                    <!--TABLA QUE ALMACENARA LOS PRODUCTOS DEL INGRESO-->
-
-
                     <div class="ui-g botonera">
-                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{ingresoBean.grabar()}" update="formI"  process="@this,panelIngreso"/>
+                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{ingresoBean.grabar()}" update="formI"  process="@this,pIngreso"/>
                         <p:commandButton value="#{msg.cancelar}" icon="pi pi-times" action="#{ingresoBean.init()}" update="formI"  immediate="true"/>
                     </div>
                 </p:panel>
                 <!--FIN INGRESO-->
+
+
+
+
+
+
+
+                <!--INICIO DIALOGO  DE COMPRAS PUBLICAS-->
+                <p:dialog id="dlgPublicas" width="700"
+                          widgetVar="dlgPublicas" resizable="false"
+                          modal="true" class="ui-lg-6"
+                          appendTo="@(body)">
+
+                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu" >
+
+                        <p:column headerText="Grado Arma">
+                            <h:outputText value="#{usu.grado} #{usu.arma}"/>
+                        </p:column>   
+                        <p:column headerText="Cedula">
+                            <h:outputText value="#{usu.cedula}"/>
+                        </p:column>   
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{usu.nombreCompleto}"/>
+                        </p:column>  
+                        <p:column headerText="Seleccion" width="75">
+                            <p:commandButton icon="pi pi-check" update="formI:pIngresoCab" action="#{ingresoBean.setCompras(usu)}"  oncomplete="PF('dlgPublicas').hide()" immediate="true"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Cerrar" onclick="PF('dlgPublicas').hide()" />
+                </p:dialog>
+                <!--INICIO DIALOGO  DE COMPRAS PUBLICAS-->
+
+                
+                
+                
+                
+                <!--INICIO DIALOGO  DE COMPRAS LOGISTICO-->
+                <p:dialog id="dlgLogistico" width="700"
+                          widgetVar="dlgLogistico" resizable="false"
+                          modal="true" class="ui-lg-6"
+                          appendTo="@(body)">
+
+                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu"
+                                 selection="#{usuarioBean.usuario}" rowKey="#{usu.id}" selectionMode="single" 
+                                 >
+
+                        <p:column headerText="Grado Arma">
+                            <h:outputText value="#{usu.grado} #{usu.arma}"/>
+                        </p:column>   
+                        <p:column headerText="Cedula">
+                            <h:outputText value="#{usu.cedula}"/>
+                        </p:column>   
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{usu.nombreCompleto}"/>
+                        </p:column>  
+                        <p:column headerText="Seleccion" width="75">
+                            <p:commandButton icon="pi pi-check" update="formI:pIngresoCab" action="#{ingresoBean.setLogistico(usu)}"  oncomplete="PF('dlgLogistico').hide()" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Cerrar" onclick="PF('dlgLogistico').hide()" />
+                </p:dialog>
+                <!--INICIO DIALOGO  DE COMPRAS LOGISTICO-->
+
+
+
+                <!--INICIO DIALOGO  DE COMPRAS BODEGUERO-->
+                <p:dialog id="dlgBodeguero" width="700"
+                          widgetVar="dlgBodeguero" resizable="false"
+                          modal="true" class="ui-lg-6"
+                          appendTo="@(body)">
+
+                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu">
+
+                        <p:column headerText="Grado Arma">
+                            <h:outputText value="#{usu.grado} #{usu.arma}"/>
+                        </p:column>   
+                        <p:column headerText="Cedula">
+                            <h:outputText value="#{usu.cedula}"/>
+                        </p:column>   
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{usu.nombreCompleto}"/>
+                        </p:column>  
+                        <p:column headerText="Seleccion" width="75">
+                            <p:commandButton value="seleccionar" update="formI:pIngresoCab" action="#{ingresoBean.setBodeguero(usu)}"  oncomplete="PF('dlgBodeguero').hide()" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Cerrar" onclick="PF('dlgBodeguero').hide()" />
+                </p:dialog>
+                <!--INICIO DIALOGO  DE COMPRAS BODEGUERO-->
+
+
             </h:form>
+
+
+
 
         </ui:define>
     </ui:composition>
 </html>
+
+
+
+

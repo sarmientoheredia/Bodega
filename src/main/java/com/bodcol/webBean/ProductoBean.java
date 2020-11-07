@@ -8,7 +8,6 @@ import com.bodcol.sessionBeans.RackFacadeLocal;
 import com.bodcol.sessionBeans.SeccionFacadeLocal;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.PostConstruct;
@@ -64,6 +63,7 @@ public class ProductoBean implements Serializable {
     }
 
     public void setProducto(Producto producto) {
+        rackList=rackFacadeLocal.findAll();
         this.producto = producto;
     }
 

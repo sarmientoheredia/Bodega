@@ -121,8 +121,13 @@ public class ProveedorBean implements Serializable {
     public void grabar() {
         try {
             if (proveedor.getId() == null) {
-                proveedorFacadeLocal.create(proveedor);
-                Mensaje.mostrarExito("Proveedor exitoso");
+                if (bandera==true) {
+                    proveedorFacadeLocal.create(proveedor);
+                    Mensaje.mostrarExito("Proveedor exitoso");
+                }else{
+                    Mensaje.mostrarError("Numero de documento invalido");
+                }
+
             } else {
                 proveedorFacadeLocal.edit(proveedor);
                 Mensaje.mostrarExito("Proveedor actualizado");
@@ -329,7 +334,7 @@ public class ProveedorBean implements Serializable {
         }
     }
 
-     public void validarRucNatural() {
+    public void validarRucNatural() {
         String ruc_dato = proveedor.getRucNatural();
         if (operacionRucNatural(ruc_dato)) {
             bandera = true;

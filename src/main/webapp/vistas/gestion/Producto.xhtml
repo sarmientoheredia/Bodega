@@ -95,20 +95,9 @@
                             <p:keyFilter regEx="/[a-z ]/i"/>
                         </p:inputText>
 
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                         <p:outputLabel for="txtSeccion" value="Seccion"/>
+                        <p:outputLabel for="txtSeccion" value="Seccion" rendered="#{productoBean.producto.id==null}"/>
                          <p:selectOneMenu id="txtSeccion" value="#{productoBean.seccion}" required="true" 
-                                        converter="omnifaces.SelectItemsConverter"  class="cajasTexto" requiredMessage="EStanteria requerido">
+                                          converter="omnifaces.SelectItemsConverter"  class="cajasTexto" requiredMessage="Seccion requerida" rendered="#{productoBean.producto.id==null}">
                             <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
                             <f:selectItems value="#{productoBean.seccionList}" var="sec" itemLabel="#{sec.nombre}" itemValue="#{sec}" />
                             <p:ajax event="change" listener="#{productoBean.filtrarRackPorSeccion}" update="txtRack" />

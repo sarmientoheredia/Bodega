@@ -30,4 +30,6 @@ public interface IngresoFacadeLocal {
 
     int count();
     
+    Ingreso findByNumero(String numero);
+    
 }

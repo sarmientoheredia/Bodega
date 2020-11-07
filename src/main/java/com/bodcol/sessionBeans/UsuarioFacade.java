@@ -1,6 +1,7 @@
 package com.bodcol.sessionBeans;
 
 import com.bodcol.entidades.Usuario;
+import com.bodcol.utilitarios.Encriptar;
 import com.bodcol.utilitarios.Mensaje;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -46,7 +47,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     public Usuario iniciarSesion(Usuario us) {
         Query q = em.createNamedQuery("Usuario.findByLogin", Usuario.class);
         q.setParameter("usuario", us.getUsuario());
-        q.setParameter("password", us.getPassword());
+        q.setParameter("password", Encriptar.sha512(us.getPassword()));
         try {
             return (Usuario) q.getSingleResult();
         } catch (NoResultException e) {

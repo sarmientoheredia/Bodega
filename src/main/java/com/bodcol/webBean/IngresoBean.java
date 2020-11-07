@@ -2,7 +2,10 @@ package com.bodcol.webBean;
 
 import com.bodcol.entidades.DetalleIngreso;
 import com.bodcol.entidades.Ingreso;
+import com.bodcol.entidades.Proveedor;
+import com.bodcol.entidades.Usuario;
 import com.bodcol.sessionBeans.IngresoFacadeLocal;
+import com.bodcol.sessionBeans.UsuarioFacadeLocal;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
 import java.util.List;
@@ -19,14 +22,24 @@ public class IngresoBean implements Serializable {
     //INICIO DE LAS VARIABLES
     private List<Ingreso> ingresoList;
     private Ingreso ingreso;
+    private Usuario bodeguero;
+    private Usuario logistico;
+    private Usuario compras;
+    private Proveedor proveedor;
+
+    private List<Usuario> usuarioListCargo;
+    
     private DetalleIngreso detalleIngreso;
     //FIN DE LAS VARIABLES
 
     //INICIO DE LA INYECCION
     @EJB
     private IngresoFacadeLocal ingresoFacadeLocal;
-    //FIN DE LA INYECCION
+    @EJB
+    private UsuarioFacadeLocal usuarioFacadeLocal;
 
+       
+    //FIN DE LA INYECCION
     public IngresoBean() {
     }
 
@@ -60,6 +73,38 @@ public class IngresoBean implements Serializable {
     public void setDetalleIngreso(DetalleIngreso detalleIngreso) {
         this.detalleIngreso = detalleIngreso;
     }
+    
+       public Usuario getBodeguero() {
+        return bodeguero;
+    }
+
+    public void setBodeguero(Usuario bodeguero) {
+        ingreso.setUsuario2(bodeguero);
+    }
+
+    public Usuario getLogistico() {
+        return logistico;
+    }
+
+    public void setLogistico(Usuario logistico) {
+        ingreso.setUsuario1(logistico);
+    }
+
+    public Usuario getCompras() {
+        return compras;
+    }
+
+    public void setCompras(Usuario compras) {
+        ingreso.setUsuario(compras);
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        ingreso.setProveedor(proveedor);
+    }
     //FIN GETTERS Y SETTERS
 
     //INICIO DE LOS METODOS 
@@ -77,6 +122,7 @@ public class IngresoBean implements Serializable {
     public void grabar() {
         try {
             if (ingreso.getId() == null) {
+               
                 ingresoFacadeLocal.create(ingreso);
                 Mensaje.mostrarExito("Registro Exitoso");
             } else {
@@ -85,7 +131,11 @@ public class IngresoBean implements Serializable {
             }
             init();
         } catch (Exception e) {
-            Mensaje.mostrarError("error al almacenar");
+               if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
+                if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
+                    Mensaje.mostrarError("El numero de factura ya existe");
+                }
+            }
         }
     }
 
@@ -122,7 +172,18 @@ public class IngresoBean implements Serializable {
         ingreso.agregarDetalle(detalleIngreso);
         detalleIngreso = new DetalleIngreso();
     }
+    
+    
+    public void verificarNumero(){
+        Ingreso ing=ingresoFacadeLocal.findByNumero(ingreso.getNumero());
+        if(ing!=null){
+            Mensaje.mostrarAdvertencia("Numero ya existe");
+        }
+    }
+    
 
-
+    
     //FIN DE LOS METODOS
+ 
+
 }

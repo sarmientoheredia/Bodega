@@ -9,6 +9,7 @@ com\bodcol\sessionBeans\ProductoFacadeLocal.class
 com\bodcol\sessionBeans\MenuFacadeLocal.class
 com\bodcol\sessionBeans\RackFacade.class
 com\bodcol\utilitarios\Mensaje.class
+com\bodcol\utilitarios\Encriptar.class
 com\bodcol\webBean\UsuarioBean.class
 com\bodcol\entidades\Rack.class
 com\bodcol\sessionBeans\DetalleEgresoFacade.class

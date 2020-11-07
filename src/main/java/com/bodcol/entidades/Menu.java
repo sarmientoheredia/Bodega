@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Menu.findByTipo", query = "SELECT m FROM Menu m WHERE m.tipo = :tipo"),
     @NamedQuery(name = "Menu.findByTipoUsuario", query = "SELECT m FROM Menu m WHERE m.tipoUsuario = :tipoUsuario"),
     @NamedQuery(name = "Menu.findByEstado", query = "SELECT m FROM Menu m WHERE m.estado = :estado")})
-public class Menu implements Serializable , Comparable<Menu> {
+public class Menu implements Serializable, Comparable<Menu> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +47,7 @@ public class Menu implements Serializable , Comparable<Menu> {
     @Size(max = 255)
     @Column(name = "url")
     private String url;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "tipo")
@@ -79,7 +80,7 @@ public class Menu implements Serializable , Comparable<Menu> {
         this.tipoUsuario = tipoUsuario;
         this.estado = estado;
     }
-
+    
     public Integer getId() {
         return id;
     }
@@ -173,5 +174,5 @@ public class Menu implements Serializable , Comparable<Menu> {
     public int compareTo(Menu o) {
         return this.id.compareTo(o.id);
     }
-    
+
 }

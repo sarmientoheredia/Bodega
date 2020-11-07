@@ -2,6 +2,7 @@ package com.bodcol.webBean;
 
 import com.bodcol.entidades.Usuario;
 import com.bodcol.sessionBeans.UsuarioFacadeLocal;
+import com.bodcol.utilitarios.Encriptar;
 import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
@@ -78,7 +79,7 @@ public class UsuarioBean implements Serializable {
             if (usuario.getId() == null) {
                 if (bandera == true) {
                     usuario.setUsuario(usuario.getCedula());
-                    usuario.setPassword(usuario.getCedula());
+                    usuario.setPassword(Encriptar.sha512(usuario.getCedula()));
                     usuarioFacadeLocal.create(usuario);
                     Mensaje.mostrarExito("Registro Exitoso");
                 } else {
