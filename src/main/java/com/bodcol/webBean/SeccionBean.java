@@ -63,13 +63,13 @@ public class SeccionBean implements Serializable {
                 Mensaje.mostrarExito("Registro exitoso");
             } else {
                 seccionFacadeLocal.edit(seccion);
-                Mensaje.mostrarExito("Actualizacion Exitosa");
+                Mensaje.mostrarExito("Actualización Exitosa");
             }
             init();
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Seccion ya Existe");
+                    Mensaje.mostrarError("Sección ya existe");
                 }
             }
         }
@@ -79,11 +79,11 @@ public class SeccionBean implements Serializable {
         try {
             seccionFacadeLocal.remove(seccion);
             init();
-            Mensaje.mostrarExito("Eliminacion exitosa");
+            Mensaje.mostrarExito("Eliminación exitosa");
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("javax.persistence.PersistenceException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Seccion relacionada");
+                    Mensaje.mostrarError("Sección relacionada");
                 }
             }
         }
@@ -115,7 +115,7 @@ public class SeccionBean implements Serializable {
     public void verificarNombre() {
         Seccion sec = seccionFacadeLocal.findByNombre(seccion.getNombre());
         if (sec != null) {
-            Mensaje.mostrarAdvertencia("Seccion ya exite");
+            Mensaje.mostrarAdvertencia("Sección ya exite");
         }
     }
 }

@@ -37,7 +37,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             return (Usuario) q.getSingleResult();
 
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Cedula valida");
+            Mensaje.mostrarExito("Cédula valida");
             return null;
         }
     }

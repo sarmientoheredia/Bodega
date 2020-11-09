@@ -39,11 +39,19 @@
 
 .cajasTexto{
     margin: 5px !important;
-    width: 400px;
-    height: 30px !important;
-
+    width: 28rem;
+    height: 27px !important;
 }
 
+
+.impIngreso{
+    width: 15rem;
+    
+}
+
+.margen{
+    margin-left: 2rem;
+}
 
 .formulario{
     text-align: center;
@@ -62,3 +70,11 @@
     color: #000000 !important;
 }
 
+.reporte{
+    font-size: 3rem;
+}
+
+.imprimir{
+    text-decoration: none;
+    font-size: 1.5rem;
+}

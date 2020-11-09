@@ -3,7 +3,6 @@ package com.bodcol.entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -137,11 +136,11 @@ public class DetalleIngreso implements Serializable {
     }
 
 //    //METODO PARA CALCULAR EL SUBTOTAL DE EL DETALLE DE LA FACTURA
-//    public BigDecimal getTotal() {
-//        if (total == null) {
-//            return BigDecimal.ZERO;
-//        }
-//        return cantidad.multiply(precio);
-////        return precio.multiply(BigDecimal.valueOf(cantidad));
-//    }
+    public BigDecimal getSubTotal() {
+        if (cantidad == null || precio==null) {
+            return BigDecimal.ZERO;
+        }
+        return cantidad.multiply(precio);
+//        return precio.multiply(BigDecimal.valueOf(cantidad));
+    }
 }

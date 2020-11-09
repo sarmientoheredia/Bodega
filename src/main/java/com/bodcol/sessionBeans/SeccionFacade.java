@@ -34,7 +34,7 @@ public class SeccionFacade extends AbstractFacade<Seccion> implements SeccionFac
         try {
             return (Seccion) q.getSingleResult();
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Seccion valida");
+            Mensaje.mostrarExito("Sección valida");
             return null;
         }
     }

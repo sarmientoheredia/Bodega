@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.sessionBeans;
 
 import com.bodcol.entidades.Ingreso;
@@ -39,7 +34,7 @@ public class IngresoFacade extends AbstractFacade<Ingreso> implements IngresoFac
         try {
             return (Ingreso) q.getSingleResult();
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Numero valido");
+            Mensaje.mostrarExito("Número valido");
             return null;
         }
     }

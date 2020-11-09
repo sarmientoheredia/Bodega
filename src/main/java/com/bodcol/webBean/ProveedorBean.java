@@ -123,14 +123,14 @@ public class ProveedorBean implements Serializable {
             if (proveedor.getId() == null) {
                 if (bandera==true) {
                     proveedorFacadeLocal.create(proveedor);
-                    Mensaje.mostrarExito("Proveedor exitoso");
+                    Mensaje.mostrarExito("Registro exitoso");
                 }else{
                     Mensaje.mostrarError("Numero de documento invalido");
                 }
 
             } else {
                 proveedorFacadeLocal.edit(proveedor);
-                Mensaje.mostrarExito("Proveedor actualizado");
+                Mensaje.mostrarExito("Actualización exitosa");
             }
             init();
         } catch (Exception e) {
@@ -146,7 +146,7 @@ public class ProveedorBean implements Serializable {
         try {
             proveedorFacadeLocal.remove(proveedor);
             init();
-            Mensaje.mostrarExito("Proveedor Eliminado");
+            Mensaje.mostrarExito("Eliminación exitosa");
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("javax.persistence.PersistenceException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
@@ -211,7 +211,7 @@ public class ProveedorBean implements Serializable {
 
         } else {
             bandera = false;
-            Mensaje.mostrarError("Cedula invalida");
+            Mensaje.mostrarError("Cédula invalida");
         }
     }
     //metodo para verificar si la cedula ya esta registrada
@@ -219,7 +219,7 @@ public class ProveedorBean implements Serializable {
     public void verificarCedula() {
         Proveedor prov = proveedorFacadeLocal.findByCedula(proveedor.getCedula());
         if (prov != null) {
-            Mensaje.mostrarAdvertencia("Cedula ya existe ");
+            Mensaje.mostrarAdvertencia("Cédula ya existe ");
         }
     }
 

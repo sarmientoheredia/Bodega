@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.entidades;
 
 import java.io.Serializable;
@@ -11,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,6 +39,8 @@ import javax.validation.constraints.Size;
 public class Ingreso implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -54,7 +52,7 @@ public class Ingreso implements Serializable {
     @Size(max = 80)
     @Column(name = "numero")
     private String numero;
- 
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "total")
     private BigDecimal total;
@@ -83,8 +81,6 @@ public class Ingreso implements Serializable {
         this.id = id;
     }
 
-
-
     public Integer getId() {
         return id;
     }
@@ -107,13 +103,6 @@ public class Ingreso implements Serializable {
 
     public void setNumero(String numero) {
         this.numero = numero;
-    }
-
- 
-    public BigDecimal getTotal() {
-//        return total;
-   
-        return BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
     }
 
     public void setTotal(BigDecimal total) {
@@ -217,6 +206,17 @@ public class Ingreso implements Serializable {
     //metdo para eliminar el detalle 
     public void eliminarDetalle(DetalleIngreso detalleIngreso) {
         detalleIngresoList.remove(detalleIngreso);
+    }
+
+    
+    //metodo para que me sume todos los subtotales de los detalles del ingreso y  mñe muestre en la factura del ingreso
+    public BigDecimal getTotal() {
+//        if (total == null) {
+//            return BigDecimal.ZERO;
+//        }
+       
+       // return total= BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
+        return BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
     }
 
 }

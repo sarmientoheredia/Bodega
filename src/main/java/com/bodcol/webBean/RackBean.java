@@ -64,13 +64,13 @@ public class RackBean implements Serializable {
                 Mensaje.mostrarExito("Registro exitoso");
             } else {
                 rackFacadeLocal.edit(rack);
-                Mensaje.mostrarExito("Actualizacion con exito");
+                Mensaje.mostrarExito("Actualización exitosa");
             }
             init();
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Esta Seccion ya Existe");
+                    Mensaje.mostrarError("Estanteria ya existe");
                 }
             }
         }
@@ -80,20 +80,11 @@ public class RackBean implements Serializable {
         try {
             rackFacadeLocal.remove(rack);
             init();
-            Mensaje.mostrarExito("Eliminacion con exito");
+            Mensaje.mostrarExito("Eliminación exitosa");
         } catch (Exception e) {
-            System.out.println("mensaje nivel 1: " + e.getMessage());
-            System.out.println("clase nivel 1: " + e.getClass().getName());
-
-            System.out.println("mensaje segundo nivel: " + e.getCause().getMessage());
-            System.out.println("clase nivel 2: " + e.getCause().getClass().getName());
-
-            System.out.println("mensaje tercer nivel: " + e.getCause().getCause().getMessage());
-            System.out.println("clase nivel 3: " + e.getCause().getCause().getClass().getName());
-
             if (e.getCause().getCause().getClass().getName().equals("javax.persistence.PersistenceException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Existen productos que tienen esta categoria");
+                    Mensaje.mostrarError("Estantería relacionada");
                 }
             }
         }
@@ -109,7 +100,7 @@ public class RackBean implements Serializable {
 
         Rack rac = (Rack) value;
         return rac.getNombre().toLowerCase().contains(filterText)
-                ||rac.getSeccion().getNombre().toLowerCase().contains(filterText)
+                || rac.getSeccion().getNombre().toLowerCase().contains(filterText)
                 || rac.getId() == filterInt;
     }
 
@@ -121,12 +112,12 @@ public class RackBean implements Serializable {
             return 0;
         }
     }
-    
+
     //metodo para validar el nombre ya no exista en la base de datos 
-    public void verificarNombre(){
-        Rack rac=rackFacadeLocal.findByNombre(rack.getNombre());
-        if(rac != null){
-            Mensaje.mostrarAdvertencia("Este rack ya existe");
+    public void verificarNombre() {
+        Rack rac = rackFacadeLocal.findByNombre(rack.getNombre());
+        if (rac != null) {
+            Mensaje.mostrarAdvertencia("Estantería ya existe");
         }
     }
 

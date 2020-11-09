@@ -104,7 +104,7 @@ public class ProductoBean implements Serializable {
     public void nuevo() {
         producto = new Producto();
     }
-
+    
     public void grabar() {
         try {
             if (producto.getId() == null) {
@@ -112,13 +112,13 @@ public class ProductoBean implements Serializable {
                 Mensaje.mostrarExito("Registro Exitoso");
             } else {
                 productoFacadeLocal.edit(producto);
-                Mensaje.mostrarExito("Actualizacion exitosa");
+                Mensaje.mostrarExito("Actualización exitosa");
             }
             init();
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("La categoria ya esta registrado");
+                    Mensaje.mostrarError("El produco ya existe");
                 }
             }
         }
@@ -128,11 +128,11 @@ public class ProductoBean implements Serializable {
         try {
             productoFacadeLocal.remove(producto);
             init();
-            Mensaje.mostrarExito("Eliminacion exitosa");
+            Mensaje.mostrarExito("Eliminación exitosa");
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("javax.persistence.PersistenceException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("No se puede eliminar un producto que tiene relacion");
+                    Mensaje.mostrarError("Producto relacionado");
                 }
             }
         }
@@ -152,7 +152,7 @@ public class ProductoBean implements Serializable {
     public void verificarNombre() {
         Producto pro = productoFacadeLocal.findByNombre(producto.getNombre());
         if (pro != null) {
-            Mensaje.mostrarAdvertencia("El Producto ya existe");
+            Mensaje.mostrarAdvertencia("El producto ya existe");
         }
     }
 

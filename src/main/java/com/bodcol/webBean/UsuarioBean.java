@@ -83,19 +83,19 @@ public class UsuarioBean implements Serializable {
                     usuarioFacadeLocal.create(usuario);
                     Mensaje.mostrarExito("Registro Exitoso");
                 } else {
-                    Mensaje.mostrarError("Cedula invalida");
+                    Mensaje.mostrarError("Cédula invalida");
                 }
 
             } else {
                 usuarioFacadeLocal.edit(usuario);
-                Mensaje.mostrarExito("Actualizacion exitosa");
+                Mensaje.mostrarExito("Actualización exitosa");
             }
             init();
 
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Cedula ya existe");
+                    Mensaje.mostrarError("Cédula ya existe");
                 }
             }
         }
@@ -106,11 +106,11 @@ public class UsuarioBean implements Serializable {
         try {
             usuarioFacadeLocal.remove(usuario);
             init();
-            Mensaje.mostrarExito("Eliminacion exitosa");
+            Mensaje.mostrarExito("Eliminación exitosa");
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("javax.persistence.PersistenceException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
-                    Mensaje.mostrarError("Usuario mantiene relaciones");
+                    Mensaje.mostrarError("Usuario relacionado");
                 }
             }
         }
@@ -166,7 +166,7 @@ public class UsuarioBean implements Serializable {
 
         } else {
             bandera = false;
-            Mensaje.mostrarError("Cedula invalida");
+            Mensaje.mostrarError("Cédula invalida");
         }
     }
     //metodo para verificar si la cedula ya esta registrada
@@ -174,7 +174,7 @@ public class UsuarioBean implements Serializable {
     public void verificarCedula() {
         Usuario usu = usuarioFacadeLocal.findByCedula(usuario.getCedula());
         if (usu != null) {
-            Mensaje.mostrarAdvertencia("Cedula ya existe");
+            Mensaje.mostrarAdvertencia("Cédula ya existe");
         }
     }
 

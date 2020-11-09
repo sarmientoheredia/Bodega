@@ -14,9 +14,21 @@
         <ui:define name="contenido">
 
             <h:form id="form1" class="ui-g centrar">
-                <h:commandLink class="reporte" action="#{usuarioBean.exportarPDF() }" >
-                    <i class="pi pi-print reporte" ></i>
-                </h:commandLink>
+                <h:panelGrid columns="4">
+                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none">
+                       
+                    </h:commandLink>
+
+                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" >
+                        <i class="pi pi-print reporte" ></i>
+                    </h:commandLink>
+                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" >
+                        <i class="pi pi-print reporte" ></i>
+                    </h:commandLink>
+                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" >
+                        <i class="pi pi-print reporte" ></i>
+                    </h:commandLink>
+                </h:panelGrid>
             </h:form>
 
         </ui:define>
