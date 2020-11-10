@@ -39,8 +39,7 @@ import javax.validation.constraints.Size;
 public class Ingreso implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -201,22 +200,26 @@ public class Ingreso implements Serializable {
         detalleIngreso.setIngreso(this);
         detalleIngreso.setTotal(detalleIngreso.getCantidad().multiply(detalleIngreso.getPrecio()));
         detalleIngresoList.add(detalleIngreso);
+        calcularTotal();
     }
 
     //metdo para eliminar el detalle 
     public void eliminarDetalle(DetalleIngreso detalleIngreso) {
         detalleIngresoList.remove(detalleIngreso);
+        calcularTotal();
     }
 
-    
     //metodo para que me sume todos los subtotales de los detalles del ingreso y  mñe muestre en la factura del ingreso
     public BigDecimal getTotal() {
-//        if (total == null) {
-//            return BigDecimal.ZERO;
-//        }
-       
-       // return total= BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
-        return BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
+        return total;
+        // return total= BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
+//        return BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
     }
 
+    public void calcularTotal() {
+        total = BigDecimal.ZERO;
+        for (DetalleIngreso item : detalleIngresoList) {
+            total = total.add(item.getSubTotal());
+        }
+    }
 }

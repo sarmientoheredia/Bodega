@@ -9,6 +9,7 @@ import com.bodcol.sessionBeans.IngresoFacadeLocal;
 import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -113,7 +114,6 @@ public class IngresoBean implements Serializable {
     public void grabar() {
         try {
             if (ingreso.getId() == null) {
-
                 ingresoFacadeLocal.create(ingreso);
                 Mensaje.mostrarExito("Registro Exitoso");
             } else {
@@ -162,6 +162,7 @@ public class IngresoBean implements Serializable {
         }
         ingreso.agregarDetalle(detalleIngreso);
         detalleIngreso = new DetalleIngreso();
+        
     }
 
     public void verificarNumero() {
@@ -181,5 +182,7 @@ public class IngresoBean implements Serializable {
             Mensaje.mostrarError("Error al generar el reporte");
         }
     }
+    
+
     //FIN DE LOS METODOS
 }
