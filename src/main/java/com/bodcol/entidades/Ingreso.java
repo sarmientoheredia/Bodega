@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -106,6 +105,10 @@ public class Ingreso implements Serializable {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
     }
 
     public Character getEstado() {
@@ -210,12 +213,6 @@ public class Ingreso implements Serializable {
     }
 
     //metodo para que me sume todos los subtotales de los detalles del ingreso y  mñe muestre en la factura del ingreso
-    public BigDecimal getTotal() {
-        return total;
-        // return total= BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
-//        return BigDecimal.valueOf(detalleIngresoList.stream().mapToDouble(d -> d.getTotal().doubleValue()).sum());
-    }
-
     public void calcularTotal() {
         total = BigDecimal.ZERO;
         for (DetalleIngreso item : detalleIngresoList) {

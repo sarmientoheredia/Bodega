@@ -9,7 +9,6 @@ import com.bodcol.sessionBeans.IngresoFacadeLocal;
 import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;

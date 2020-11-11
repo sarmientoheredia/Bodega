@@ -24,7 +24,7 @@
                     <p:dataTable id="dtIngreso" value="${ingresoBean.ingresoList}" var="ing"
                                  widgetVar="tableIngreso" globalFilterFunction="#{ingresoBean.globalFilterFunction}"
                                  rowStyleClass="#{ing.estado.hashCode()==73 ? 'activo':'null'}"
-                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15" resizableColumns="false"
                                  >
 
                         <f:facet name="header">
@@ -34,7 +34,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="codico" width="100">
+                        <p:column headerText="codico" >
                             <h:outputText value="#{ing.id}"/>
                         </p:column>
                         <p:column headerText="Fecha" >
@@ -48,14 +48,14 @@
                         <p:column headerText="Total">
                             <h:outputText value="#{ing.total}"/>
                         </p:column>
-                        <p:column headerText="Estado" width="70">
+                        <p:column headerText="Estado" >
                             <h:outputLabel value="#{ing.estado.toString()=='A'? 'Activo':'Inactivo'}" />
                         </p:column>
 
-                        <p:column width="100" headerText="#{msg.opcion}">
+                        <p:column  headerText="#{msg.opcion}">
                             <p:commandButton icon="ui-icon-search" action="#{ingresoBean.seleccionarIngreso(ing)}" update="formI" title="Visualizar" />
 
-                            <h:commandLink target="_blank" class="pi pi-print imprimir" action="#{ingresoBean.exportarPDFParam(ing) }" />
+                            <h:commandLink target="_blank" class="pi pi-print enlaceboton" action="#{ingresoBean.exportarPDFParam(ing) }" title="Imprimir" />
 
                         </p:column>
                     </p:dataTable>

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="./../plantilla/Plantilla.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{msg.ingreso}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="contenido">
+            <!--INICIO DEL FORMULARIO PARA EL INGRESO-->
+            <h:form id="formI" class="ui-g centrar">
+                <p:panel header="Lista de Ingresos" rendered="#{ingresoBean.ingreso==null}" >
+
+                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-plus-circle" action="#{ingresoBean.nuevo()}" update="formI" title="Nuevo ingreso" />
+
+                    <p:dataTable id="dtIngreso" value="${ingresoBean.ingresoList}" var="ing"
+                                 widgetVar="tableIngreso" globalFilterFunction="#{ingresoBean.globalFilterFunction}"
+                                 rowStyleClass="#{ing.estado.hashCode()==73 ? 'activo':'null'}"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15" resizableColumns="false"
+                                 >
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableIngreso').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="codico" >
+                            <h:outputText value="#{ing.id}"/>
+                        </p:column>
+                        <p:column headerText="Fecha" >
+                            <h:outputText value="#{ing.fecha}"/>
+                        </p:column>
+                        <p:column headerText="Numero" >
+                            <h:outputText value="#{ing.numero}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{ing.total}"/>
+                        </p:column>
+                        <p:column headerText="Estado" >
+                            <h:outputLabel value="#{ing.estado.toString()=='A'? 'Activo':'Inactivo'}" />
+                        </p:column>
+
+                        <p:column  headerText="#{msg.opcion}">
+                            <p:commandButton icon="ui-icon-search" action="#{ingresoBean.seleccionarIngreso(ing)}" update="formI" title="Visualizar" />
+
+                            <h:commandLink target="_blank" class="pi pi-print enlaceboton" action="#{ingresoBean.exportarPDFParam(ing) }" title="Imprimir" />
+
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+
+
+                <!--INICO DEL PANEL GENRAL PARA LOS INGRESOS-->
+                <p:panel id="pIngreso" header="#{ingresoBean.ingreso.id ==null ? 'Registro de ' : 'Actualizacion de'}  Ingreso" rendered="#{ingresoBean.ingreso!=null}" style="width: 100%" >
+
+                    <!--INICIO DEL LAYOUT PARA CABECERA DEL INGRESO-->
+                    <p:layout id="capaDatosClienteFactura" style="width: 100%; height: 140px;">
+                        <p:layoutUnit  position="center" style="padding: 5px; text-align: justify;
+                                       font-size: 14px;" size="300">
+                            <h:panelGrid columns="6" cellpadding="5" cellspacing="5" >
+
+                                <p:outputLabel  value="Fecha:" />
+                                <p:calendar  value="#{ingresoBean.ingreso.fecha}" pattern="yyyy-MM-dd" class="impIngreso" disabled="#{ingresoBean.ingreso.id!=null}"  />
+
+                                <p:outputLabel  value="Numero:" class="margen" />
+                                <p:inputText  value="#{ingresoBean.ingreso.numero}" required="true"  class="impIngreso"  disabled="#{ingresoBean.ingreso.id!=null}">
+                                    <p:ajax event="change" listener="#{ingresoBean.verificarNumero}"/>
+                                </p:inputText>
+                            </h:panelGrid>
+
+
+                            <h:panelGrid id="pIngresoCab" columns="6" cellspacing="5">
+                                <p:commandButton  oncomplete="PF('dlgProveedor').show()" icon="ui-icon-search"  immediate="true"
+                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                <p:outputLabel value="Proveedor: " />
+                                <p:inputText value="#{ingresoBean.ingreso.proveedor.nombre}" class="impIngreso" style="margin-right: 2rem" disabled="true"  />
+
+
+                                <p:commandButton  oncomplete="PF('dlgPublicas').show()" icon="ui-icon-search"  immediate="true"
+                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                <p:outputLabel value="Publicas: " />
+                                <p:inputText value="#{ingresoBean.ingreso.usuario.nombreCompleto}" class="impIngreso" disabled="true" />
+
+
+                                <p:commandButton  oncomplete="PF('dlgLogistico').show()" icon="ui-icon-search"  immediate="true"
+                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                <p:outputLabel value="Logistico: " />
+                                <p:inputText value="#{ingresoBean.ingreso.usuario1.nombreCompleto}" class="impIngreso" disabled="true"/>
+
+
+                                <p:commandButton  oncomplete="PF('dlgBodeguero').show()" icon="ui-icon-search"  immediate="true"
+                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                <p:outputLabel value="Bodeguero: " />
+                                <p:inputText value="#{ingresoBean.ingreso.usuario2.nombreCompleto}" class="impIngreso" disabled="true" />
+                            </h:panelGrid>
+                        </p:layoutUnit>
+
+                        <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center; 
+                                      font-size: 14px;" size="100">
+                            <h:panelGrid  columns="1" style="font-size: 18px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
+                                ORDEN
+                                <p:outputLabel  value="00#{ingresoBean.numero}" rendered="#{ingresoBean.ingreso.id==null}" />
+                                <p:outputLabel value="00#{ingresoBean.ingreso.id}" rendered="#{ingresoBean.ingreso.id!=null}" />
+                            </h:panelGrid>
+                        </p:layoutUnit> 
+
+                    </p:layout>
+                    <!--FIN DEL LAYOUT PARA CABECERA DEL INGRESO-->
+
+                    <!--INICIO DEL LAYOUT PARA LOS PRODUCTOS-->
+                    <p:layout  style="width: 100%;" >
+                        <p:layoutUnit  position="center" style="padding: 5px; text-align: justify;
+                                       font-size: 14px;" >
+                            <h:panelGrid id="pProducto"  columns="10" cellspacing="5">
+
+                                <p:commandButton oncomplete="PF('dlgProducto').show()" icon="ui-icon-search"  immediate="true"
+                                                 update="pIngreso" title="Buscar producto" disabled="#{ingresoBean.ingreso.id!=null}" /> 
+
+                                <p:outputLabel value="Producto: " />
+                                <p:inputText value="#{ingresoBean.detalleIngreso.producto.nombre}" style="color: red;font-size: 18px" disabled="true"/>
+
+                                <p:outputLabel value="Precio: " />
+                                <p:inputText id="txtPrecio" value="#{ingresoBean.detalleIngreso.precio}" size="7" placeholder="000.0000" rendered="true">
+                                    <p:keyFilter regEx="/[0-9.]/i"/>
+                                    <p:ajax event="change"  update="txtSubtotal"/>
+                                </p:inputText>
+
+                                <p:outputLabel value="Cantidad: " />
+                                <p:inputNumber value="#{ingresoBean.detalleIngreso.cantidad}" size="5" rendered="true" >
+                                    <p:ajax event="change"  update="txtSubtotal"/>
+                                </p:inputNumber>
+
+                                <p:outputLabel value="Subtotal: " />
+                                <p:inputText id="txtSubtotal" disabled="true" value="#{ingresoBean.detalleIngreso.subTotal}" />
+                                <p:commandButton icon="pi pi-plus-circle" action="#{ingresoBean.agregarDetalle()}" update="dtDetalles,pProducto" 
+                                                 process="pProducto" disabled="#{ingresoBean.ingreso.id!=null}" title="Agregar al detalle"  >
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </p:layoutUnit>  
+                    </p:layout>
+                    <!--FIN DEL LAYOUT PARA LOS PRODUCTOS-->
+
+
+                    <!--INICIO DE LA TABLA DE LOS DETALLES DEL INGRESO-->
+                    <p:dataTable id="dtDetalles" value="#{ingresoBean.ingreso.detalleIngresoList}" var="det" emptyMessage="No exixsten productos" style="margin-top: 4rem">
+                        <p:column headerText="Producto">
+                            <h:outputLabel value="#{det.producto.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="Cantidad">
+                            <h:outputLabel value="#{det.cantidad}" />
+                        </p:column>
+
+                        <p:column headerText="Precio Unitario">
+                            <h:outputLabel value="#{det.precio}" />
+                        </p:column>
+
+                        <p:column headerText="Subtotal">
+                            <h:outputLabel value="#{det.total}" />
+                        </p:column>
+
+                        <p:column rendered="#{ingresoBean.ingreso.id==null}" width="30">
+                            <p:commandButton icon="ui-icon-trash"  action="#{ingresoBean.ingreso.eliminarDetalle(det)}" update="dtDetalles" process="@this" title="Borrar del detalle"/>
+                        </p:column>
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column colspan="3" style="text-align:right" footerText="TOTAL:" />
+                                <p:column id="txtTotalIngreso" footerText="$ #{ingresoBean.ingreso.total}" />
+                            </p:row>
+                        </p:columnGroup>
+                    </p:dataTable>
+                    <!--FIN DE LA TABLA DE LOS DETALLES DEL INGRESO-->
+
+                    <!--INICIO DE LA BOTONERA DEL INGRESO-->
+                    <div class="ui-g botonera">
+                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{ingresoBean.grabar()}" update="formI"  process="@this,pIngreso"/>
+                        <p:commandButton value="#{msg.cancelar}" icon="pi pi-times" action="#{ingresoBean.init()}" update="formI"  immediate="true"/>
+                    </div>
+                    <!--INICIO DE LA BOTONERA DEL INGRESO-->
+
+                </p:panel>
+                <!--FIN DEL PANEL GENERAL PARA LOS INGRESOS-->
+            </h:form>
+            <!--FIN DEL FORMULARIO PARA EL INGRESO-->
+
+
+            <!--INICIO DE LA SECCION DIALOGOS USADOS EN EL REGISTRO DE LOS INGRESOS-->
+            <!--INICIO DIALOGO  DE PROVEEDOR-->
+            <p:dialog id="dlgProveedor" width="800" 
+                      widgetVar="dlgProveedor" resizable="false"
+                      modal="true" appendTo="@(body)">
+                <h:form>
+                    <p:dataTable  value="${proveedorBean.proveedorListActivo}" var="prov" 
+                                  widgetVar="tableProveedor" globalFilterFunction="#{proveedorBean.globalFilterFunction}"
+                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableProveedor').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{prov.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Direccion">
+                            <h:outputText value="#{prov.direccion}"/>
+                        </p:column>
+                        <p:column headerText="Telefono" width="120">
+                            <h:outputText value="#{prov.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{prov.correo}"/>
+                        </p:column>
+
+                        <p:column width="30">
+                            <p:commandButton icon="pi pi-check" update="formI:pIngresoCab" action="#{ingresoBean.setProveedor(prov)}"  oncomplete="PF('dlgProveedor').hide()" immediate="true" title="Seleccionar"/>
+                        </p:column>
+                    </p:dataTable>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Cerrar" onclick="PF('dlgProveedor').hide()" immediate="true" title="Cerrar"/>
+                    </div>
+                </h:form>
+            </p:dialog>
+            <!--FIN DIALOGO  DE PROVEEDOR-->
+
+            <!--INICIO DIALOGO  DE COMPRAS PUBLICAS-->
+            <p:dialog id="dlgPublicas" width="700"
+                      widgetVar="dlgPublicas" resizable="false"
+                      modal="true" class="ui-lg-6"
+                      appendTo="@(body)">
+                <h:form>
+                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Grado Arma">
+                            <h:outputText value="#{usu.grado} #{usu.arma}"/>
+                        </p:column>   
+                        <p:column headerText="Cedula">
+                            <h:outputText value="#{usu.cedula}"/>
+                        </p:column>   
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{usu.nombreCompleto}"/>
+                        </p:column> 
+                        <p:column headerText="Funcion" width="70">
+                            <h:outputLabel value="#{usu.bodeguero}" />
+                        </p:column>
+                        <p:column width="30">
+                            <p:commandButton icon="pi pi-check" update="formI:pIngresoCab" action="#{ingresoBean.setCompras(usu)}"  oncomplete="PF('dlgPublicas').hide()" immediate="true" title="Seleccionar"/>
+                        </p:column>
+                    </p:dataTable>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Cerrar" onclick="PF('dlgPublicas').hide()" immediate="true" title="Cerrar"/>
+                    </div>
+                </h:form>
+            </p:dialog>
+            <!--INICIO DIALOGO  DE COMPRAS PUBLICAS-->
+
+            <!--INICIO DIALOGO  DE COMPRAS LOGISTICO-->
+            <p:dialog id="dlgLogistico" width="700" 
+                      widgetVar="dlgLogistico" resizable="false"
+                      modal="true" 
+                      appendTo="@(body)">
+                <h:form>
+                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Grado Arma">
+                            <h:outputText value="#{usu.grado} - #{usu.arma}"/>
+                        </p:column>   
+                        <p:column headerText="Cedula">
+                            <h:outputText value="#{usu.cedula}"/>
+                        </p:column>   
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{usu.nombreCompleto}"/>
+                        </p:column>  
+                        <p:column headerText="Funcion" width="70">
+                            <h:outputLabel value="#{usu.bodeguero}" />
+                        </p:column>
+                        <p:column width="30">
+                            <p:commandButton icon="pi pi-check" update="formI:pIngresoCab" action="#{ingresoBean.setLogistico(usu)}"  oncomplete="PF('dlgLogistico').hide()" immediate="true" title="Seleccionar" />
+                        </p:column>
+                    </p:dataTable>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Cerrar" onclick="PF('dlgLogistico').hide()" immediate="true" title="Cerrar"/>
+                    </div>
+                </h:form>
+            </p:dialog>
+            <!--INICIO DIALOGO  DE COMPRAS LOGISTICO-->
+
+            <!--INICIO DIALOGO  DE COMPRAS BODEGUERO-->
+            <p:dialog id="dlgBodeguero" widgetVar="dlgBodeguero" resizable="false" modal="true" 
+                      width="700"
+                      appendTo="@(body)">
+                <h:form>
+                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Grado Arma">
+                            <h:outputText value="#{usu.grado} #{usu.arma}"/>
+                        </p:column>   
+                        <p:column headerText="Cedula">
+                            <h:outputText value="#{usu.cedula}"/>
+                        </p:column>   
+                        <p:column headerText="Nombres">
+                            <h:outputText value="#{usu.nombreCompleto}"/>
+                        </p:column>  
+                        <p:column headerText="Funcion" width="70">
+                            <h:outputLabel value="#{usu.bodeguero}" />
+                        </p:column>
+                        <p:column width="30">
+                            <p:commandButton icon="pi pi-check" update="formI:pIngresoCab" action="#{ingresoBean.setBodeguero(usu)}"  oncomplete="PF('dlgBodeguero').hide()" immediate="true" title="Seleccionar" />
+                        </p:column>
+                    </p:dataTable>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Cerrar" onclick="PF('dlgBodeguero').hide()" immediate="true" title="Cerrar"/>
+                    </div>
+                </h:form>
+            </p:dialog>
+            <!--INICIO DIALOGO  DE COMPRAS BODEGUERO-->
+
+
+            <!--INICIO DIALOGO  DE PRODUCTOS-->
+            <p:dialog id="dlgProducto" width="700"
+                      widgetVar="dlgProducto" resizable="false"
+                      class="ui-lg-6"
+                      appendTo="@(body)" modal="true">
+                <h:form>
+                    <p:dataTable id="dtProducto" value="${productoBean.productoListActivo}" var="prod"
+                                 widgetVar="tableProducto" globalFilterFunction="#{productoBean.globalFilterFunction}"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 >
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableProducto').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Codigo" width="100">
+                            <h:outputText value="#{prod.codigo}"/>
+                        </p:column>
+
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{prod.nombre}"/>
+                        </p:column>
+
+                        <p:column headerText="Stock">
+                            <h:outputText value="#{prod.stock}"/>
+                        </p:column>
+
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{prod.precio}"/>
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            <h:outputText value="#{prod.total}"/>
+                        </p:column>
+                        <p:column width="30">
+                            <p:commandButton icon="pi pi-check" update="formI:pProducto" action="#{ingresoBean.setProducto(prod)}"  oncomplete="PF('dlgProducto').hide()" immediate="true" title="Seleccionar" />
+                        </p:column>
+                    </p:dataTable>
+                    <div class="ui-g botonera">
+                        <p:commandButton value="Cerrar" onclick="PF('dlgProducto').hide()" immediate="true" title="Cerrar"/>
+                    </div>
+                </h:form>
+            </p:dialog>
+            <!--FIN DIALOGO  DE PRODUCTOS-->
+            <!--FIN DE LA SECCION DIALOGOS USADOS EN EL REGISTRO DE LOS INGRESOS-->
+
+        </ui:define>
+    </ui:composition>
+</html>
+
+
+
+

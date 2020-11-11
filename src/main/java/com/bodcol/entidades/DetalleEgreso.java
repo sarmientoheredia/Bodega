@@ -144,4 +144,15 @@ public class DetalleEgreso implements Serializable {
         return "com.bodcol.entidades.DetalleEgreso[ id=" + id + " ]";
     }
     
+    
+    
+    
+    //metodo que me permite calcular el subtotal del detalle para  que luego sea accedido desde el egreso
+    public BigDecimal getSubTotal(){
+        if(cantidad==null){
+            return BigDecimal.ZERO;
+        }
+        return producto.getPrecio().multiply(cantidad);
+    }
+     
 }
