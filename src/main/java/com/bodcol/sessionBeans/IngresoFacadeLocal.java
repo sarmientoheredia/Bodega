@@ -6,6 +6,7 @@
 package com.bodcol.sessionBeans;
 
 import com.bodcol.entidades.Ingreso;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,5 +32,7 @@ public interface IngresoFacadeLocal {
     int count();
     
     Ingreso findByNumero(String numero);
+    
+    List<Ingreso> findDate(Object date, Object date1);
     
 }

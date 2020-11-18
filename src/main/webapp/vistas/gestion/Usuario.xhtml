@@ -30,7 +30,7 @@
                                  widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
                                  rowStyleClass="#{usu.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
-                                 >
+                                 resizableColumns="false">
 
                         <f:facet name="header">
                             <p:outputPanel >
@@ -39,13 +39,13 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Cedula" width="100">
+                        <p:column headerText="Cedula" width="80" >
                             <h:outputText value="#{usu.cedula}"/>
                         </p:column>
-                        <p:column headerText="Grado" width="50">
+                        <p:column headerText="Grado" width="40" >
                             <h:outputText value="#{usu.grado}"/>
                         </p:column>
-                        <p:column headerText="Arma" width="55">
+                        <p:column headerText="Arma" width="40" >
                             <h:outputText value="#{usu.arma}"/>
                         </p:column>
                         <p:column headerText="Apellidos y Nombres">

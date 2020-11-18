@@ -13,24 +13,84 @@
     <ui:composition template="../plantilla/Plantilla.xhtml">
         <ui:define name="contenido">
 
-            <h:form id="form1" class="ui-g centrar">
-                <h:panelGrid columns="4">
-                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none">
-                       
-                    </h:commandLink>
+            <h:form id="formR"   >
+                <h1 style="text-align: center">REPORTES DEL SISTEMA</h1>
+                <p:accordionPanel class="ui-lg-11" style="padding: 20px">
+                    <p:tab title="REPORTES DEL MODULO DE GESTION">
+                        <div class="ui-g" >
+                            <div class="ui-lg-2 enlaceboton" >
+                                <h:commandLink value="Usuarios" class="texto" action="#{usuarioBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                            </div>
 
-                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" >
-                        <i class="pi pi-print reporte" ></i>
-                    </h:commandLink>
-                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" >
-                        <i class="pi pi-print reporte" ></i>
-                    </h:commandLink>
-                    <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" >
-                        <i class="pi pi-print reporte" ></i>
-                    </h:commandLink>
-                </h:panelGrid>
+                            <div class="ui-lg-2 enlaceboton" >
+                                <h:commandLink value="Proveedores" class="texto" action="#{proveedorBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                            </div>
+
+                            <div class="ui-lg-2 enlaceboton" >
+                                <h:commandLink value="Secciones" class="texto" action="#{seccionBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                            </div>
+
+                            <div class="ui-lg-2 enlaceboton" >
+                                <h:commandLink value="Productos" class="texto" action="#{productoBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                            </div>
+                        </div>
+                    </p:tab>
+                    <p:tab title="REPORTES DE INGRESOS">
+
+                        <h:panelGrid columns="2" cellpadding="10" id="pIngresoFiltrado">
+                            <p:outputLabel value="Desde:"/>
+                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaInicio}"/>
+
+                            <p:outputLabel value="Hasta:"/>
+                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaFin}" />
+                            <p:column/>
+                            <p:commandButton value="Prueba" action="#{ingresoBean.filtrarIngreso}" update="pIngresoFiltrado">
+                            </p:commandButton>
+
+                            <p:dataTable value="#{ingresoBean.imprimirList}" var="pru">
+                                <f:facet name="header">
+                                    <h:commandLink value="Ingreso"  action="#{ingresoBean.exportarPDFFiltrado() }" title="Imprimir" target="_blank"/> 
+                                </f:facet>
+
+                                <p:column headerText="Numero">
+                                    <h:outputText value="#{pru.numero}"/>
+                                </p:column>
+
+                                <p:column headerText="Fecha">
+                                    <h:outputText value="#{pru.fecha}"/>
+                                </p:column>
+
+                                <p:column headerText="Total">
+                                    <h:outputText value="#{pru.total}"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+
             </h:form>
 
         </ui:define>
     </ui:composition>
 </html>
+
+<!--
+
+         <div class="ui-lg-11" style="background-color: red">
+                    <div class="ui-lg-3" style="background-color: green">
+                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
+                    </div>
+
+                    <div class="ui-lg-3" style="background-color: yellow">
+                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
+                    </div>
+
+                    <div class="ui-lg-3" style="background-color: white">
+                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
+                    </div>
+
+                    <div class="ui-lg-3" style="background-color: black">
+                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
+                    </div>
+                </div>-->

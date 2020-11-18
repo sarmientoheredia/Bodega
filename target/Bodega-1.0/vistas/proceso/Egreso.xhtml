@@ -76,7 +76,7 @@
 
                                 <p:outputLabel  value="Fecha:" />
                                 <p:calendar  value="#{egresoBean.egreso.fecha}" pattern="yyyy-MM-dd" class="impIngreso" disabled="#{egresoBean.egreso.id!=null}"  />
-                                
+
                                 <p:outputLabel for="cboUnidad" value="Dependencia" />
                                 <p:selectOneMenu id="cboUnidad" value="#{egresoBean.egreso.dependencia}" required="true" >
                                     <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
@@ -124,7 +124,7 @@
                     <p:layout  style="width:100%" >
                         <p:layoutUnit  position="center" style="padding: 5px; text-align: justify;
                                        font-size: 14px;" >
-                            <h:panelGrid id="pProducto"  columns="10" cellspacing="5">
+                            <h:panelGrid id="pProducto"  columns="12" cellspacing="5">
 
                                 <p:commandButton oncomplete="PF('dlgProducto').show()" icon="ui-icon-search"  immediate="true"
                                                  update="pEgreso" title="Buscar producto" disabled="#{egresoBean.egreso.id!=null}" /> 
@@ -136,10 +136,15 @@
                                 <p:inputText id="txtPrecio" value="#{egresoBean.detalleEgreso.producto.precio}" size="7"  rendered="true" disabled="true">
                                 </p:inputText>
 
+                                <p:outputLabel value="Stock: " />
+                                <p:inputText id="txtStock" value="#{egresoBean.detalleEgreso.producto.stock}" size="7"  rendered="true" disabled="true">
+                                </p:inputText>
+
                                 <p:outputLabel value="Cantidad: " />
-                                <p:inputNumber value="#{egresoBean.detalleEgreso.cantidad}" size="5" rendered="true" >
-                                    <p:ajax event="change"  update="txtSubtotal"/>
-                                </p:inputNumber>
+                                <p:inputText value="#{egresoBean.detalleEgreso.cantidad}" size="5" rendered="true" >
+                                    <p:ajax event="change" listener="#{egresoBean.comprobarStock}"  update="txtSubtotal,:growl"/>
+                                    <p:keyFilter regEx="/[0-9.]/i"/>
+                                </p:inputText>
 
                                 <p:outputLabel value="Subtotal: " />
                                 <p:inputText id="txtSubtotal" disabled="true" value="#{egresoBean.detalleEgreso.subTotal}" />
@@ -172,7 +177,7 @@
                         </p:column>
 
                         <p:column rendered="#{egresoBean.egreso.id==null}" width="30">
-                            <p:commandButton icon="ui-icon-trash"  action="#{egresoBean.egreso.eliminarDetalle(det)}" update="dtDetalles" process="@this" title="Borrar producto"/>
+                            <p:commandButton icon="ui-icon-trash"  action="#{egresoBean.egreso.eliminarDetalle(det)}" update="dtDetalles,:growl" process="@this" title="Borrar producto"/>
                         </p:column>
                         <p:columnGroup type="footer">
                             <p:row>

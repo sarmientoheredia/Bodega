@@ -25,27 +25,32 @@
             <p:growl id="growl" life="5000">
                 <p:autoUpdate/>
             </p:growl>
+
+
             <p:layout fullPage="true" style="border: none">
                 <p:layoutUnit position="north" size="70">
-                    <h:form style="text-align: center">
-                        <h:panelGrid columns="4" cellpadding="10">
-                            <p:outputLabel value="Bodega del COLOG"/>
-                            <p:outputLabel value="Seleccione el idioma"/>
-                            <p:selectOneMenu value="#{idiomaBean.language}" onchange="submit()" valueChangeListener="#{idiomaBean.cambiarIdioma}">
-                                <f:selectItem itemLabel="Español" itemValue="es" />
-                                <f:selectItem itemLabel="Ingles" itemValue="en"/>
-                            </p:selectOneMenu>
-                            <p:commandButton icon="ui-icon-power" actionListener="#{sesionBean.cerrarSesion()}" action="/vistas/plantilla/Index" title="Cerrar sesion"/>
-                        </h:panelGrid>
+                    <h:form style="text-align: center;display: flex" >
+                        <div class="ui-md-12 ui-lg-4" style="text-align: start; padding-top: 15px">
+                            <p:outputLabel value="Usuario: #{sesionBean.usuario.grado} #{sesionBean.usuario.apellido}" style="font-size: 18px"/>
+                        </div>
+                        <div class="ui-md-12 ui-lg-4" >
+                            <p:graphicImage url="/resources/imagenes/escudo.png" width="40px" height="40px"/>
+                        </div>
+                        <div class="ui-md-12 ui-lg-4" style="text-align: end">
+                            <p:commandButton style="width: 4rem; height: 2.4rem;" icon="ui-icon-power" actionListener="#{sesionBean.cerrarSesion()}" action="/vistas/plantilla/Index" title="Cerrar sesion"/>
+                        </div>
                     </h:form>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" header="Menu" resizable="true"  collapsible="true" style="border: none">
                     <h:form>
-                        <p:panelMenu  model="#{menuBean.menuModel}" style="background: transparent;border: 0;width: 200px" >
-
+                        <p:panelMenu  model="#{menuBean.menuModel}" style="background: transparent;border: 0;width: 200px" />
+                        <p:panelMenu style="background: transparent;border: 0;width: 200px">
+                            <p:submenu label="Configuracion">
+                                <p:menuitem value="Cambiar Credenciales" outcome="/vistas/plantilla/Password.xhtml" />
+                                <p:menuitem value="Inicio" outcome="/vistas/plantilla/Inicio.xhtml" />
+                            </p:submenu>
                         </p:panelMenu>
-
                     </h:form>
                 </p:layoutUnit>
 
@@ -56,8 +61,8 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="40" style="border: none">
-                    <center>
-                        <p:outputLabel value="Direccion de la empresa" />
+                    <center >
+                        <p:outputLabel value="@Copyright Cbos. Sarmiento H. Luis A." style="font-size: 1.2rem; " />
                     </center>
                 </p:layoutUnit>
 

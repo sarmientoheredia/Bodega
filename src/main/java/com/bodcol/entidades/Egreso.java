@@ -5,6 +5,7 @@
  */
 package com.bodcol.entidades;
 
+import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -201,6 +202,7 @@ public class Egreso implements Serializable {
     public void eliminarDetalle(DetalleEgreso detalleEgreso){
         detalleEgresoList.remove(detalleEgreso);
         calcularTotal();
+        Mensaje.mostrarExito("Producto eliminado del detalle");
     }
     
     //metod que me permite calcular el total

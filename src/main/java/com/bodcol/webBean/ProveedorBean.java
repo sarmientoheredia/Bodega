@@ -2,6 +2,7 @@ package com.bodcol.webBean;
 
 import com.bodcol.entidades.Proveedor;
 import com.bodcol.sessionBeans.ProveedorFacadeLocal;
+import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -34,6 +37,8 @@ public class ProveedorBean implements Serializable {
     //INICIO INYECCION
     @EJB
     private ProveedorFacadeLocal proveedorFacadeLocal;
+    @Inject
+    private JasperReportUtil jasperReportUtil;
 
     //FIN INYECCION
     public ProveedorBean() {
@@ -121,10 +126,10 @@ public class ProveedorBean implements Serializable {
     public void grabar() {
         try {
             if (proveedor.getId() == null) {
-                if (bandera==true) {
+                if (bandera == true) {
                     proveedorFacadeLocal.create(proveedor);
                     Mensaje.mostrarExito("Registro exitoso");
-                }else{
+                } else {
                     Mensaje.mostrarError("Numero de documento invalido");
                 }
 
@@ -345,6 +350,14 @@ public class ProveedorBean implements Serializable {
         }
     }
     //inicio validar el ruc de una persona natural
+
+    public void exportarPDF() throws Exception {
+        try {
+            jasperReportUtil.exportToPdf("Proveedor", null);
+        } catch (JRException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
 
     //FIN DE LOS METODOS
 }

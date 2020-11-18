@@ -35,7 +35,7 @@ public class UsuarioBean implements Serializable {
 
     public UsuarioBean() {
     }
-
+    
     @PostConstruct
     public void init() {
         usuarioList = usuarioFacadeLocal.findAll();
@@ -47,23 +47,23 @@ public class UsuarioBean implements Serializable {
     public List<Usuario> getUsuarioList() {
         return usuarioList;
     }
-
+    
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
     }
-
+    
     public Usuario getUsuario() {
         return usuario;
     }
-
+    
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
+    
     public List<Usuario> getUsuarioListCargo() {
         return usuarioListCargo;
     }
-
+    
     public void setUsuarioListCargo(List<Usuario> usuarioListCargo) {
         this.usuarioListCargo = usuarioListCargo;
     }
@@ -73,7 +73,7 @@ public class UsuarioBean implements Serializable {
     public void nuevo() {
         this.usuario = new Usuario();
     }
-
+    
     public void grabar() {
         try {
             if (usuario.getId() == null) {
@@ -85,13 +85,13 @@ public class UsuarioBean implements Serializable {
                 } else {
                     Mensaje.mostrarError("Cédula invalida");
                 }
-
+                
             } else {
                 usuarioFacadeLocal.edit(usuario);
                 Mensaje.mostrarExito("Actualización exitosa");
             }
             init();
-
+            
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
@@ -99,9 +99,9 @@ public class UsuarioBean implements Serializable {
                 }
             }
         }
-
+        
     }
-
+    
     public void eliminar(Usuario usuario) {
         try {
             usuarioFacadeLocal.remove(usuario);
@@ -114,7 +114,7 @@ public class UsuarioBean implements Serializable {
                 }
             }
         }
-
+        
     }
 
     //metdod para hacer la busqueda dinamica
@@ -124,7 +124,7 @@ public class UsuarioBean implements Serializable {
             return true;
         }
         int filterInt = getInteger(filterText);
-
+        
         Usuario us = (Usuario) value;
         return us.getCedula().toLowerCase().contains(filterText)
                 || us.getGrado().toLowerCase().contains(filterText)
@@ -144,7 +144,7 @@ public class UsuarioBean implements Serializable {
     //metodo para validar el numero de la cedula del cliente
     public void operacionCedula() {
         int c, suma = 0, acum, resta = 0;
-
+        
         for (int i = 0; i < usuario.getCedula().length() - 1; i++) {
             c = Integer.parseInt(usuario.getCedula().charAt(i) + "");
             if (i % 2 == 0) {
@@ -163,7 +163,7 @@ public class UsuarioBean implements Serializable {
         if (ultimo == resta) {
             verificarCedula();
             bandera = true;
-
+            
         } else {
             bandera = false;
             Mensaje.mostrarError("Cédula invalida");
@@ -184,6 +184,18 @@ public class UsuarioBean implements Serializable {
             jasperReportUtil.exportToPdf("Usuario", null);
         } catch (JRException ex) {
             ex.printStackTrace(System.out);
+        }
+    }
+
+    
+    
+    public void cambiarContrasenia(Usuario usuario) {
+        try {
+            usuario.setPassword(Encriptar.sha512(usuario.getPassword()));
+            usuario.setUsuario(usuario.getUsuario());
+            usuarioFacadeLocal.edit(usuario);
+            Mensaje.mostrarExito("Cambio exitoso");
+        } catch (Exception e) {
         }
     }
 //    FIN DE LOS METODOS

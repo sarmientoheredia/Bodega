@@ -2,6 +2,7 @@ package com.bodcol.webBean;
 
 import com.bodcol.entidades.Seccion;
 import com.bodcol.sessionBeans.SeccionFacadeLocal;
+import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import net.sf.jasperreports.engine.JRException;
 
 @Named(value = "seccionBean")
 @ViewScoped
@@ -23,6 +26,8 @@ public class SeccionBean implements Serializable {
     //INICIO DE LA INYECCION
     @EJB
     private SeccionFacadeLocal seccionFacadeLocal;
+    @Inject
+    private JasperReportUtil jasperReportUtil;
     //FIN DE LA INYECCION
 
     public SeccionBean() {
@@ -116,6 +121,15 @@ public class SeccionBean implements Serializable {
         Seccion sec = seccionFacadeLocal.findByNombre(seccion.getNombre());
         if (sec != null) {
             Mensaje.mostrarAdvertencia("Sección ya exite");
+        }
+    }
+
+    //metodo para generar los reportes de las secciones
+    public void exportarPDF() throws Exception {
+        try {
+            jasperReportUtil.exportToPdf("Seccion", null);
+        } catch (JRException ex) {
+            ex.printStackTrace(System.out);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.bodcol.entidades;
 
+import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,8 +31,12 @@ import javax.validation.constraints.Size;
 @Table(name = "ingreso")
 @NamedQueries({
     @NamedQuery(name = "Ingreso.findAll", query = "SELECT i FROM Ingreso i"),
+    
+    @NamedQuery(name = "Ingreso.findDate", query = "SELECT i FROM Ingreso i WHERE  i.fecha BETWEEN :fecha AND :fecha1"),
+    
+    
     @NamedQuery(name = "Ingreso.findById", query = "SELECT i FROM Ingreso i WHERE i.id = :id"),
-    @NamedQuery(name = "Ingreso.findByFecha", query = "SELECT i FROM Ingreso i WHERE i.fecha = :fecha"),
+    @NamedQuery(name = "Ingreso.findByFecha", query = "SELECT i FROM Ingreso i WHERE i.fecha BETWEEN :fechaD AND :fechaH"),
     @NamedQuery(name = "Ingreso.findByNumero", query = "SELECT i FROM Ingreso i WHERE i.numero = :numero"),
     @NamedQuery(name = "Ingreso.findByTotal", query = "SELECT i FROM Ingreso i WHERE i.total = :total"),
     @NamedQuery(name = "Ingreso.findByEstado", query = "SELECT i FROM Ingreso i WHERE i.estado = :estado")})
@@ -210,6 +215,7 @@ public class Ingreso implements Serializable {
     public void eliminarDetalle(DetalleIngreso detalleIngreso) {
         detalleIngresoList.remove(detalleIngreso);
         calcularTotal();
+        Mensaje.mostrarExito("Producto eliminado del detalle");
     }
 
     //metodo para que me sume todos los subtotales de los detalles del ingreso y  mñe muestre en la factura del ingreso

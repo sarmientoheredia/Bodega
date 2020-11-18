@@ -139,12 +139,14 @@
                                 </p:inputText>
 
                                 <p:outputLabel value="Cantidad: " />
-                                <p:inputNumber value="#{ingresoBean.detalleIngreso.cantidad}" size="5" rendered="true" >
+                                <p:inputText value="#{ingresoBean.detalleIngreso.cantidad}" size="5" rendered="true" >
                                     <p:ajax event="change"  update="txtSubtotal"/>
-                                </p:inputNumber>
+                                    <p:keyFilter regEx="/[0-9.]/i"/>
+                                </p:inputText>
 
                                 <p:outputLabel value="Subtotal: " />
                                 <p:inputText id="txtSubtotal" disabled="true" value="#{ingresoBean.detalleIngreso.subTotal}" />
+                                
                                 <p:commandButton icon="pi pi-plus-circle" action="#{ingresoBean.agregarDetalle()}" update="dtDetalles,pProducto" 
                                                  process="pProducto" disabled="#{ingresoBean.ingreso.id!=null}" title="Agregar al detalle"  >
                                 </p:commandButton>

@@ -1,7 +1,12 @@
 package com.bodcol.webBean;
 
 import com.bodcol.entidades.Usuario;
+import com.bodcol.sessionBeans.UsuarioFacadeLocal;
+import com.bodcol.utilitarios.Encriptar;
+import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -18,16 +23,30 @@ public class SesionBean implements Serializable {
 
     FacesContext context = FacesContext.getCurrentInstance();
 
- 
+     private Usuario usuario;
+
+    @PostConstruct
+    public void init(){
+        usuario=new Usuario();
+    }
     
     public SesionBean() {
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    
     public void verificarSesion() {
         try {
-            Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("autenticado");
+             usuario = (Usuario) context.getExternalContext().getSessionMap().get("autenticado");
 
-            if (us == null) {
+            if (usuario == null) {
                 context.getExternalContext().redirect("/Bodega/faces/vistas/plantilla/Index.xhtml");
             }
         } catch (Exception e) {
@@ -37,4 +56,8 @@ public class SesionBean implements Serializable {
     public void cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
+    
+        
+    
+
 }

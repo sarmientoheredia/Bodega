@@ -47,7 +47,6 @@ public class EgresoBean implements Serializable {
     }
 
     //INICIO DE LOS GETTERS Y SETTERS
-
     public List<Egreso> getEgresoList() {
         return egresoList;
     }
@@ -72,8 +71,6 @@ public class EgresoBean implements Serializable {
         this.detalleEgreso = detalleEgreso;
     }
 
-    
-    
     public void setBodeguero(Usuario bodeguero) {
         egreso.setUsuario(bodeguero);
     }
@@ -81,7 +78,7 @@ public class EgresoBean implements Serializable {
     public void setLogistico(Usuario logistico) {
         egreso.setUsuario2(logistico);
     }
- 
+
     public void setSolicita(Usuario solicita) {
         egreso.setUsuario1(solicita);
     }
@@ -159,10 +156,9 @@ public class EgresoBean implements Serializable {
         }
         egreso.agregarDetalle(detalleEgreso);
         detalleEgreso = new DetalleEgreso();
-        
+        Mensaje.mostrarExito("Producto agregado al detalle");
+
     }
-
-
 
     public void exportarPDFParam(Egreso egreso) {
 
@@ -174,7 +170,15 @@ public class EgresoBean implements Serializable {
             Mensaje.mostrarError("Error al generar el reporte");
         }
     }
-    
 
+    public void comprobarStock() {
+        if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock())<0) {
+            Mensaje.mostrarExito("La cantidad es valida");
+        } else if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock())==0) {
+            Mensaje.mostrarAdvertencia("La cantidad es igual al stock");
+        }else if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock())>0) {
+            Mensaje.mostrarError("La cantidad es mayor al stock");
+        }
+    }
     //FIN DE LOS METODOS
 }

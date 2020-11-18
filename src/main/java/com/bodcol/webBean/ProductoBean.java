@@ -6,6 +6,7 @@ import com.bodcol.entidades.Seccion;
 import com.bodcol.sessionBeans.ProductoFacadeLocal;
 import com.bodcol.sessionBeans.RackFacadeLocal;
 import com.bodcol.sessionBeans.SeccionFacadeLocal;
+import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import net.sf.jasperreports.engine.JRException;
 
 @Named(value = "productoBean")
 @ViewScoped
@@ -36,6 +39,8 @@ public class ProductoBean implements Serializable {
     private SeccionFacadeLocal seccionFacadeLocal;
     @EJB
     private RackFacadeLocal rackFacadeLocal;
+    @Inject
+    private JasperReportUtil jasperReportUtil;
 
     //FIN INYECCION
     public ProductoBean() {
@@ -160,5 +165,14 @@ public class ProductoBean implements Serializable {
         rackList = rackFacadeLocal.findAllSeccion(seccion);
     }
 
+    
+        //metodo para generar los reportes de los productos
+    public void exportarPDF() throws Exception {
+        try {
+            jasperReportUtil.exportToPdf("Producto", null);
+        } catch (JRException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
     //FIN DE LOS METODOS
 }

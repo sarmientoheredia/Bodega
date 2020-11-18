@@ -9,34 +9,37 @@
     <h:head>
     </h:head>
     <h:body>
-        <h:form id="formL">
+        <h:form id="formL" style="justify-content: center; display: flex">
             <p:growl id="growl" life="5000">
                 <p:autoUpdate/>
             </p:growl>
-            <p:panel>
+            <p:panel class="ui-lg-6">
                 <f:facet name="header">
                     <center>
                         <p:outputLabel value="INGRESO AL SISTEMA" style="font-weight: bold; font-size: 15px; color: #1d5188"/>
                     </center>
                 </f:facet>
                 <center>
-                    <h:panelGrid columns="2" columnClasses="top, top">
+                    <div  id="cabecera">
+                        <p:graphicImage url="/resources/imagenes/escudo.png" width="70px" height="70px"/>
+                    </div>
+                    <h:panelGrid columns="2" columnClasses="top, top" class="ui-lg-8">
 
-                        <p:panel style="text-align: center">
+                        <p:panel style="text-align: center" class="ui-lg-12">
 
                             <h:panelGrid columns="2" style="border-bottom-width: 0px;" columnClasses="etiqueta" cellpadding="6" cellspacing="3">
                                 <p:outputLabel value="Usuario"/>
                                 <h:panelGroup>
-                                    <p:inputText value="#{loginBean.usuario.usuario}" required="true" requiredMessage="Usuario es requerido" autocomplete="off" />
+                                    <p:inputText value="#{loginBean.usuario.usuario}" required="true" requiredMessage="Usuario es requerido" style="width: 15rem;height: 1.5rem" autocomplete="off" />
                                 </h:panelGroup>
                                 <p:outputLabel value="Contraseña:" />
                                 <h:panelGroup>
-                                    <p:password value="#{loginBean.usuario.password}" required="true" requiredMessage="Password requerido"/>
+                                    <p:password value="#{loginBean.usuario.password}" required="true" requiredMessage="Password requerido" style="width: 15rem;height: 1.5rem"/>
                                 </h:panelGroup>
                             </h:panelGrid>
                             <p:spacer height="10px" width="10px">  </p:spacer>
                             <p:separator/>
-                            <p:commandButton icon="ui-icon-key" action="#{loginBean.iniciarSecion()}" value="Ingresar"   /> 
+                            <p:commandButton icon="ui-icon-key" action="#{loginBean.iniciarSecion()}" value="Ingresar" style="width: 20rem;height: 2rem"   /> 
 
                         </p:panel>
 

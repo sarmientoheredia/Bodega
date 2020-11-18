@@ -9,6 +9,7 @@ import com.bodcol.sessionBeans.IngresoFacadeLocal;
 import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -18,6 +19,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import net.sf.jasperreports.engine.JRException;
 
 @Named(value = "ingresoBean")
 @ViewScoped
@@ -27,6 +29,10 @@ public class IngresoBean implements Serializable {
     private List<Ingreso> ingresoList;
     private Ingreso ingreso;
     private long numero;
+
+    private Date fechaInicio;
+    private Date fechaFin;
+    private List<Ingreso> imprimirList;
 
     private DetalleIngreso detalleIngreso;
     //FIN DE LAS VARIABLES
@@ -96,6 +102,30 @@ public class IngresoBean implements Serializable {
         return numero;
     }
 
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public List<Ingreso> getImprimirList() {
+        return imprimirList;
+    }
+
+    public void setImprimirList(List<Ingreso> imprimirList) {
+        this.imprimirList = imprimirList;
+    }
+
     //FIN GETTERS Y SETTERS
     //INICIO DE LOS METODOS 
     public void nuevo() {
@@ -161,7 +191,8 @@ public class IngresoBean implements Serializable {
         }
         ingreso.agregarDetalle(detalleIngreso);
         detalleIngreso = new DetalleIngreso();
-        
+        Mensaje.mostrarExito("Producto agregado al detalle");
+
     }
 
     public void verificarNumero() {
@@ -181,7 +212,19 @@ public class IngresoBean implements Serializable {
             Mensaje.mostrarError("Error al generar el reporte");
         }
     }
-    
+
+    //como llamar a un metodo que esta en otro bean
+    public void exportarPDFFiltrado() throws Exception {
+        try {
+            jasperReportUtil.exportToPdf("IngresoFiltrado", null, imprimirList);
+        } catch (JRException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+
+    public void filtrarIngreso() {
+        imprimirList = ingresoFacadeLocal.findDate(fechaInicio, fechaFin);
+    }
 
     //FIN DE LOS METODOS
 }
