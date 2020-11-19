@@ -35,7 +35,7 @@
                         </f:facet>
 
                         <p:column headerText="Codigo" width="100">
-                            <h:outputText value="#{egr.id}"/>
+                            <h:outputText value="0000#{egr.id}"/>
                         </p:column>
 
 
@@ -50,11 +50,11 @@
                         <p:column headerText="Total">
                             <h:outputText value="#{egr.total}"/>
                         </p:column>
-                        <p:column headerText="Estado" width="70">
+                        <p:column headerText="Estado">
                             <h:outputLabel value="#{egr.estado.toString()=='A'? 'Activo':'Inactivo'}" />
                         </p:column>
 
-                        <p:column width="100" headerText="#{msg.opcion}">
+                        <p:column  headerText="#{msg.opcion}">
                             <p:commandButton icon="ui-icon-search" action="#{egresoBean.seleccionarEgreso(egr)}" update="formE" title="Visualizar" />
 
                             <h:commandLink target="_blank" class="pi pi-print enlaceboton" action="#{egresoBean.exportarPDFParam(egr) }" title="Imprimir" />

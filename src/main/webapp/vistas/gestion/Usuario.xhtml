@@ -84,6 +84,7 @@
                             <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
                             <f:selectItem itemLabel="Sldo" itemValue="Sldo" />
                             <f:selectItem itemLabel="Cbos" itemValue="Cbos" />
+
                         </p:selectOneMenu>
 
 
@@ -97,16 +98,20 @@
 
                         <p:outputLabel for="txtCedula" value="#{msg.cedula}" />
                         <p:inputText id="txtCedula" class="cajasTexto" value="#{usuarioBean.usuario.cedula}" disabled="#{usuarioBean.usuario.id!=null}" 
-                                     required="true" requiredMessage="#{msg.msgCedula}" >
+                                     required="true" requiredMessage="#{msg.msgCedula}" title="Ingrese un número de cédula válido">
                             <p:ajax event="change" listener="#{usuarioBean.operacionCedula()}"  />
                             <p:keyFilter regEx="/[0-9]/i"/>
                             <f:validateLength for="txtCedula" minimum="10" maximum="10"/>
+                            <p:tooltip  for="txtCedula" value="Ingrese un número de cédula válido"
+                                        showEffect="clip" hideEffect="explode" position="top" />
                         </p:inputText>
 
                         <p:outputLabel for="txtApellido" value="#{msg.apellido}" />
-                        <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto" >
+                        <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto"  >
                             <p:keyFilter regEx="/[a-z ]/i" />
                             <p:ajax event="change" />
+                            <p:tooltip  for="txtApellido" value="Ingrese los dos apellidos del usuario"
+                                        showEffect="clip" hideEffect="explode" position="top" />
                         </p:inputText>
 
                         <p:outputLabel for="txtNombre" value="#{msg.nombre}" />

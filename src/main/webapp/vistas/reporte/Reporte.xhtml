@@ -35,38 +35,91 @@
                             </div>
                         </div>
                     </p:tab>
-                    <p:tab title="REPORTES DE INGRESOS">
 
-                        <h:panelGrid columns="2" cellpadding="10" id="pIngresoFiltrado">
+                    <p:tab title="REPORTES DE INGRESOS" >
+
+                        <p:panel  id="pIngresoFiltrado">
                             <p:outputLabel value="Desde:"/>
-                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaInicio}"/>
+                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaInicio}" style="margin-right: 10px"/>
 
                             <p:outputLabel value="Hasta:"/>
                             <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaFin}" />
                             <p:column/>
-                            <p:commandButton value="Prueba" action="#{ingresoBean.filtrarIngreso}" update="pIngresoFiltrado">
-                            </p:commandButton>
+                            <p:commandButton value="Buscar" action="#{ingresoBean.filtrarIngreso}" update="dtIngreso"/>
+                            <p:commandButton icon="pi pi-replay" action="#{ingresoBean.limpiar()}" update="dtIngreso,pIngresoFiltrado"/>
+                        </p:panel>
 
-                            <p:dataTable value="#{ingresoBean.imprimirList}" var="pru">
-                                <f:facet name="header">
-                                    <h:commandLink value="Ingreso"  action="#{ingresoBean.exportarPDFFiltrado() }" title="Imprimir" target="_blank"/> 
-                                </f:facet>
 
-                                <p:column headerText="Numero">
-                                    <h:outputText value="#{pru.numero}"/>
-                                </p:column>
+                        <p:dataTable id="dtIngreso" value="#{ingresoBean.imprimirList}" var="pru">
+                            <f:facet name="header">
+                                <h:commandLink  class="imprimir" action="#{ingresoBean.exportarPDFFiltrado() }" title="Imprimir" target="_blank" >
+                                    <i class="pi pi-print" style="color: red; font-size: 2rem" ></i>
+                                </h:commandLink> 
+                            </f:facet>
 
-                                <p:column headerText="Fecha">
-                                    <h:outputText value="#{pru.fecha}"/>
-                                </p:column>
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{pru.id}"/>
+                            </p:column>
 
-                                <p:column headerText="Total">
-                                    <h:outputText value="#{pru.total}"/>
-                                </p:column>
+                            <p:column headerText="Numero">
+                                <h:outputText value="#{pru.numero}"/>
+                            </p:column>
 
-                            </p:dataTable>
-                        </h:panelGrid>
+                            <p:column headerText="Fecha" >
+                                <h:outputText value="#{pru.fecha}" />
+                            </p:column>
+
+                            <p:column headerText="Total">
+                                <h:outputText value="#{pru.total}"/>
+                            </p:column>
+                        </p:dataTable>
+
                     </p:tab>
+
+                    <!--INICIO DE LA SECCION PARA LOS REPORTES DE LOS EGRESOS-->
+                    <p:tab title="REPORTES DE EGRESOS" >
+
+                        <p:panel  id="pEgresoFiltrado">
+                            <p:outputLabel value="Desde:"/>
+                            <p:calendar pattern="yyyy-MM-dd" value="#{egresoBean.fechaInicio}" style="margin-right: 10px"/>
+
+                            <p:outputLabel value="Hasta:"/>
+                            <p:calendar pattern="yyyy-MM-dd" value="#{egresoBean.fechaFin}" />
+                            <p:column/>
+                            <p:commandButton value="Buscar" action="#{egresoBean.filtrarEgreso}" update="dtEgreso"/>
+                            <p:commandButton icon="pi pi-replay" action="#{egresoBean.limpiar()}" update="dtEgreso,pEgresoFiltrado"/>
+                        </p:panel>
+
+                        <p:dataTable id="dtEgreso" value="#{egresoBean.imprimirEgreso}" var="egre">
+                            <f:facet name="header">
+                                <h:commandLink  class="imprimir" action="#{egresoBean.exportarPDFFiltrado() }" title="Imprimir" target="_blank" >
+                                    <i class="pi pi-print" style="color: red; font-size: 2rem" ></i>
+                                </h:commandLink> 
+                            </f:facet>
+
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{egre.id}"/>
+                            </p:column>
+
+                            <p:column headerText="Dependencia">
+                                <h:outputText value="#{egre.dependencia}"/>
+                            </p:column>
+
+                            <p:column headerText="Solicita">
+                                <h:outputText value="#{egre.usuario1.nombreCompleto}"/>
+                            </p:column>
+
+                            <p:column headerText="Fecha" >
+                                <h:outputText value="#{egre.fecha}" />
+                            </p:column>
+
+                            <p:column headerText="Total">
+                                <h:outputText value="#{egre.total}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:tab>
+                    <!--FIN DE LA SECCION PARA LOS REPORTES DE LOS EGRESOS-->
                 </p:accordionPanel>
 
             </h:form>
@@ -75,22 +128,3 @@
     </ui:composition>
 </html>
 
-<!--
-
-         <div class="ui-lg-11" style="background-color: red">
-                    <div class="ui-lg-3" style="background-color: green">
-                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
-                    </div>
-
-                    <div class="ui-lg-3" style="background-color: yellow">
-                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
-                    </div>
-
-                    <div class="ui-lg-3" style="background-color: white">
-                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
-                    </div>
-
-                    <div class="ui-lg-3" style="background-color: black">
-                        <h:commandLink class="reporte" target="_blank" action="#{usuarioBean.exportarPDF() }" value="Usuarios" style="text-decoration: none" />
-                    </div>
-                </div>-->

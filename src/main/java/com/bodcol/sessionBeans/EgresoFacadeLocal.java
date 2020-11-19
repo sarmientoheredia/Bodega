@@ -30,4 +30,8 @@ public interface EgresoFacadeLocal {
 
     int count();
     
+    
+    
+    List<Egreso> findDate(Object date,Object date1);
+    
 }

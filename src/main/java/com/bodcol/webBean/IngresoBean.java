@@ -226,5 +226,14 @@ public class IngresoBean implements Serializable {
         imprimirList = ingresoFacadeLocal.findDate(fechaInicio, fechaFin);
     }
 
+    
+    public void limpiar(){
+        imprimirList=null;
+        fechaInicio=null;
+        fechaFin=null;
+        Mensaje.mostrarExito("Se limpiaron los campos");
+    }
+    
+ 
     //FIN DE LOS METODOS
 }

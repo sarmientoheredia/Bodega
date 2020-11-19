@@ -6,9 +6,11 @@
 package com.bodcol.sessionBeans;
 
 import com.bodcol.entidades.Egreso;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,14 @@ public class EgresoFacade extends AbstractFacade<Egreso> implements EgresoFacade
 
     public EgresoFacade() {
         super(Egreso.class);
+    }
+
+    @Override
+    public List<Egreso> findDate(Object date, Object date1) {
+        Query q=em.createNamedQuery("Egreso.findDate", Egreso.class);
+        q.setParameter("fecha", date);
+        q.setParameter("fecha1", date1);
+        return q.getResultList();
     }
     
 }

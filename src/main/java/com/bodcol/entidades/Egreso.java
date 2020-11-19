@@ -36,6 +36,7 @@ import javax.validation.constraints.Size;
 @Table(name = "egreso")
 @NamedQueries({
     @NamedQuery(name = "Egreso.findAll", query = "SELECT e FROM Egreso e"),
+    @NamedQuery(name = "Egreso.findDate", query = "SELECT e FROM Egreso e WHERE e.fecha BETWEEN :fecha AND :fecha1"),
     @NamedQuery(name = "Egreso.findById", query = "SELECT e FROM Egreso e WHERE e.id = :id"),
     @NamedQuery(name = "Egreso.findByFecha", query = "SELECT e FROM Egreso e WHERE e.fecha = :fecha"),
     @NamedQuery(name = "Egreso.findByDependencia", query = "SELECT e FROM Egreso e WHERE e.dependencia = :dependencia"),

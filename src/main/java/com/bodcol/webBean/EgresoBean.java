@@ -8,6 +8,7 @@ import com.bodcol.sessionBeans.EgresoFacadeLocal;
 import com.bodcol.utilitarios.JasperReportUtil;
 import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +18,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import net.sf.jasperreports.engine.JRException;
 
 @Named(value = "egresoBean")
 @ViewScoped
@@ -26,8 +28,10 @@ public class EgresoBean implements Serializable {
     private List<Egreso> egresoList;
     private Egreso egreso;
     private long numero;
-
     private DetalleEgreso detalleEgreso;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private List<Egreso> imprimirEgreso;
     //FIN DE LAS VARIABLES
 
     //INICIO DE LA INYECCION
@@ -91,7 +95,31 @@ public class EgresoBean implements Serializable {
         return numero;
     }
 
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public List<Egreso> getImprimirEgreso() {
+        return imprimirEgreso;
+    }
+
+    public void setImprimirEgreso(List<Egreso> imprimirEgreso) {
+        this.imprimirEgreso = imprimirEgreso;
+    }
     //FIN GETTERS Y SETTERS
+
     //INICIO DE LOS METODOS 
     public void nuevo() {
         egreso = new Egreso();
@@ -172,13 +200,32 @@ public class EgresoBean implements Serializable {
     }
 
     public void comprobarStock() {
-        if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock())<0) {
+        if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock()) < 0) {
             Mensaje.mostrarExito("La cantidad es valida");
-        } else if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock())==0) {
+        } else if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock()) == 0) {
             Mensaje.mostrarAdvertencia("La cantidad es igual al stock");
-        }else if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock())>0) {
+        } else if (detalleEgreso.getCantidad().compareTo(detalleEgreso.getProducto().getStock()) > 0) {
             Mensaje.mostrarError("La cantidad es mayor al stock");
         }
     }
-    //FIN DE LOS METODOS
+
+    public void filtrarEgreso() {
+        imprimirEgreso = egresoFacadeLocal.findDate(fechaInicio, fechaFin);
+    }
+
+    public void exportarPDFFiltrado() throws Exception {
+        try {
+            jasperReportUtil.exportToPdf("EgresoFiltrado", null, imprimirEgreso);
+        } catch (JRException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+
+    public void limpiar() {
+        fechaInicio = null;
+        fechaFin = null;
+        imprimirEgreso = null;
+        Mensaje.mostrarExito("Se limpiaron los campos");
+    }
+//FIN DE LOS METODOS
 }
