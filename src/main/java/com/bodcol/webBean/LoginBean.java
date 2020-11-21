@@ -50,7 +50,7 @@ public class LoginBean implements Serializable {
             if (us != null) {
                 //hay que almacenar en la session del jsf para podre cerrar la sesion
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("autenticado", us);
-                redireccion = "/vistas/plantilla/Inicio";
+                redireccion = "/vistas/gestion/Usuario";
             }
 
         } catch (Exception e) {

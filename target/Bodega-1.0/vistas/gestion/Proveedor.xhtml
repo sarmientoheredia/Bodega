@@ -28,7 +28,7 @@
                                  widgetVar="tableProveedor" globalFilterFunction="#{proveedorBean.globalFilterFunction}"
                                  rowStyleClass="#{prov.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
-                                 >
+                                 emptyMessage="No existen proveedores">
 
                         <f:facet name="header">
                             <p:outputPanel >
@@ -77,7 +77,7 @@
                         <p:inputText value="#{proveedorBean.proveedor.id}" class="cajasTexto" disabled="true" rendered="#{proveedorBean.proveedor.id!=null}"/>
 
                         <p:outputLabel for="cboDocumento" value="Documento:"   />
-                        <p:selectOneMenu id="cboDocumento" value="#{proveedorBean.proveedor.documento}" disabled="#{proveedorBean.proveedor.id!=null}" required="true" requiredMessage="Tipo de documento requerido" >
+                        <p:selectOneMenu id="cboDocumento" value="#{proveedorBean.proveedor.documento}" disabled="#{proveedorBean.proveedor.id!=null}" required="true" requiredMessage="Tipo de documento requerido" title="Seleccione un solo tipo" >
                             <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
                             <f:selectItem itemLabel="Cedula" itemValue="1" />
                             <f:selectItem itemLabel="Persona Natural" itemValue="2" />
@@ -86,21 +86,24 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel for="txtCedula" value="Cedula:" rendered="#{proveedorBean.actCedula==true}" />
-                        <p:inputText id="txtCedula" class="cajasTexto" value="#{proveedorBean.proveedor.cedula}"  rendered="#{proveedorBean.actCedula==true}" disabled="#{proveedorBean.proveedor.id!=null}" required="true" requiredMessage="Cedula requerida">
+                        <p:inputText id="txtCedula" class="cajasTexto" value="#{proveedorBean.proveedor.cedula}"  rendered="#{proveedorBean.actCedula==true}" disabled="#{proveedorBean.proveedor.id!=null}" 
+                                     required="true" requiredMessage="Cedula requerida" placeholder="Ingrese una cédula válida" title="Ingrese una cédula válida">
                             <p:ajax event="change" listener="#{proveedorBean.operacionCedula()}"  />
                             <p:keyFilter regEx="/[0-9]/i" />
                             <f:validateLength  minimum="10" maximum="10"/>
                         </p:inputText>
 
                         <p:outputLabel for="txtPn" value="Ruc P/N:" rendered="#{proveedorBean.actRucNatural==true}" />
-                        <p:inputText id="txtPn" class="cajasTexto" value="#{proveedorBean.proveedor.rucNatural}" rendered="#{proveedorBean.actRucNatural==true}" disabled="#{proveedorBean.proveedor.id!=null}" required="true" requiredMessage="Ruc requerido" >
+                        <p:inputText id="txtPn" class="cajasTexto" value="#{proveedorBean.proveedor.rucNatural}" rendered="#{proveedorBean.actRucNatural==true}" disabled="#{proveedorBean.proveedor.id!=null}" 
+                                     required="true" requiredMessage="Ruc requerido" placeholder="Ingrese el ruc de persona natural" title="Ruc de persona natural" >
                             <p:ajax event="change" listener="#{proveedorBean.validarRucNatural()}"  />
                             <p:keyFilter regEx="/[0-9]/i" />
                             <f:validateLength  minimum="13" maximum="13"/>
                         </p:inputText>
 
                         <p:outputLabel for="txtRucPj" value="Ruc P/J:" rendered="#{proveedorBean.actRuc==true}" />
-                        <p:inputText id="txtRucPj" class="cajasTexto" value="#{proveedorBean.proveedor.ruc}" rendered="#{proveedorBean.actRuc==true}" disabled="#{proveedorBean.proveedor.id!=null}" required="true" requiredMessage="Ruc requerido" >
+                        <p:inputText id="txtRucPj" class="cajasTexto" value="#{proveedorBean.proveedor.ruc}" rendered="#{proveedorBean.actRuc==true}" disabled="#{proveedorBean.proveedor.id!=null}" 
+                                     required="true" requiredMessage="Ruc requerido" placeholder="Ruc de empresa o persona jurídica" title="Ruc de empresa o persona jurídica">
                             <p:ajax event="change" listener="#{proveedorBean.validarRuc()}"  />
                             <p:keyFilter regEx="/[0-9]/i" />
                             <f:validateLength  minimum="13" maximum="13"/>
@@ -109,37 +112,43 @@
 
 
                         <p:outputLabel for="txtNombre" value="Nombre:"  />
-                        <p:inputText id="txtNombre" class="cajasTexto" value="#{proveedorBean.proveedor.nombre}"  required="true" requiredMessage="Nombre requerido">
+                        <p:inputText id="txtNombre" class="cajasTexto" value="#{proveedorBean.proveedor.nombre}"  
+                                     required="true" requiredMessage="Nombre requerido" placeholder="Ingrese el nombre del proveedor" title="Nombre de proveedor">
                             <p:ajax event="change"/>
                             <p:keyFilter regEx="/[a-z ]/i"/>
                         </p:inputText>
 
                         <p:outputLabel for="razonSocial" value="Razon Social" rendered="#{proveedorBean.actRuc==true}"  />
-                        <p:inputText id="razonSocial" value="#{proveedorBean.proveedor.razonSocial}" class="cajasTexto" rendered="#{proveedorBean.actRuc==true}" required="true" requiredMessage="Razon social requerida"  >
+                        <p:inputText id="razonSocial" value="#{proveedorBean.proveedor.razonSocial}" class="cajasTexto" rendered="#{proveedorBean.actRuc==true}" 
+                                     required="true" requiredMessage="Razón social requerida" placeholder="Ingrese la razón social" title="Razón social de la empresa" >
                             <p:ajax event="change"/>
                             <p:keyFilter regEx="/[a-z ]/i"/>
                         </p:inputText>
 
                         <p:outputLabel for="direccion" value="Direccion:" />
-                        <p:inputText id="direccion" value="#{proveedorBean.proveedor.direccion}" class="cajasTexto" required="true" requiredMessage="Direccion requerida">
-                            <p:keyFilter mask="email"/>
+                        <p:inputText id="direccion" value="#{proveedorBean.proveedor.direccion}" class="cajasTexto" 
+                                     required="true" requiredMessage="Dirección requerida" placeholder="Ingrese la dirección" title="dirección del proveedor">
+                            <p:keyFilter regEx="/[a-z ]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
 
-                        <p:outputLabel for="telefono" value="Telefono:" />
-                        <p:inputText id="telefono" value="#{proveedorBean.proveedor.telefono}" class="cajasTexto" required="true" requiredMessage="Telefono requerido">
+                        <p:outputLabel for="telefono" value="Teléfono:" />
+                        <p:inputText id="telefono" value="#{proveedorBean.proveedor.telefono}" class="cajasTexto" 
+                                     required="true" requiredMessage="Teléfono requerido" placeholder="Ingrese el número de teléfono convencional" title="Teléfono convencional">
                             <p:keyFilter regEx="/[0-9-]/i"/>
                             <p:ajax event="change" />
                         </p:inputText>
 
-                        <p:outputLabel for="txtCelular" value="Celular:" />
-                        <p:inputText id="txtCelular" value="#{proveedorBean.proveedor.celular}" class="cajasTexto" required="true" requiredMessage="Celular requerido">
+                        <p:outputLabel for="txtCelular" value="Célular:" />
+                        <p:inputText id="txtCelular" value="#{proveedorBean.proveedor.celular}" class="cajasTexto" 
+                                     required="true" requiredMessage="Célular requerido" placeholder="Ingrese el número de célular" title="Número celular">
                             <p:keyFilter regEx="/[0-9-]/i"/>
                             <p:ajax event="change" />
                         </p:inputText>
 
                         <p:outputLabel for="txtCorreo" value="Correo:" />
-                        <p:inputText id="txtCorreo" value="#{proveedorBean.proveedor.correo}" class="cajasTexto" required="true" requiredMessage="Email requerido">
+                        <p:inputText id="txtCorreo" value="#{proveedorBean.proveedor.correo}" class="cajasTexto"
+                                     required="true" requiredMessage="Email requerido" placeholder="ejemplo@gmail.com" title="Correo del proveedor">
                             <p:keyFilter mask="email"/>
                             <p:ajax event="change" />
                         </p:inputText>
@@ -149,7 +158,6 @@
                             <f:selectItem itemLabel="Activo" itemValue="A"/>
                             <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                         </p:selectOneRadio>
-
 
                     </h:panelGrid>
                     <div class="ui-g botonera">

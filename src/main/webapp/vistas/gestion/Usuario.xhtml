@@ -30,7 +30,7 @@
                                  widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
                                  rowStyleClass="#{usu.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
-                                 resizableColumns="false">
+                                 resizableColumns="false" emptyMessage="No existen usuarios">
 
                         <f:facet name="header">
                             <p:outputPanel >
@@ -80,42 +80,70 @@
                         <p:inputText value="#{usuarioBean.usuario.id}" class="cajasTexto" disabled="true" rendered="#{usuarioBean.usuario.id!=null}"/>
 
                         <p:outputLabel for="cboGrado" value="#{msg.grado}" />
-                        <p:selectOneMenu id="cboGrado" value="#{usuarioBean.usuario.grado}" required="true" requiredMessage="#{msg.msgGrado}">
+                        <p:selectOneMenu id="cboGrado" value="#{usuarioBean.usuario.grado}" required="true" requiredMessage="#{msg.msgGrado}" title="Seleccione el grado">
                             <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="S.P" itemValue="S.P" />
+                            <f:selectItem itemLabel="Cpto" itemValue="Cpto" />
+                            <f:selectItem itemLabel="Aspt" itemValue="Aspt" />
                             <f:selectItem itemLabel="Sldo" itemValue="Sldo" />
                             <f:selectItem itemLabel="Cbos" itemValue="Cbos" />
-
+                            <f:selectItem itemLabel="cbop" itemValue="cbop" />
+                            <f:selectItem itemLabel="Sgos" itemValue="Sgos" />
+                            <f:selectItem itemLabel="Sgop" itemValue="Sgop" />
+                            <f:selectItem itemLabel="Subs" itemValue="Subs" />
+                            <f:selectItem itemLabel="Subp" itemValue="Subp" />
+                            <f:selectItem itemLabel="Subm" itemValue="Subm" />
+                            <f:selectItem itemLabel="Cadt" itemValue="Cadt" />
+                            <f:selectItem itemLabel="Subt" itemValue="Subt" />
+                            <f:selectItem itemLabel="Tnte" itemValue="Tnte" />
+                            <f:selectItem itemLabel="Capt" itemValue="Capt" />
+                            <f:selectItem itemLabel="Mayo" itemValue="Mayo" />
+                            <f:selectItem itemLabel="Tcnl" itemValue="Tcnl" />
+                            <f:selectItem itemLabel="Crnl" itemValue="Crnl" />
+                            <f:selectItem itemLabel="Grab" itemValue="Grab" />
+                            <f:selectItem itemLabel="Grad" itemValue="Grad" />
+                            <f:selectItem itemLabel="Grae" itemValue="Grae" />
                         </p:selectOneMenu>
 
 
                         <p:outputLabel for="cboArma" value="#{msg.arma}" />
-                        <p:selectOneMenu id="cboArma" value="#{usuarioBean.usuario.arma}" required="true" requiredMessage="#{msg.msgArma}">
+                        <p:selectOneMenu id="cboArma" value="#{usuarioBean.usuario.arma}" required="true" requiredMessage="#{msg.msgArma}" title="Seleccione el arma">
                             <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="I" itemValue="I" />
+                            <f:selectItem itemLabel="A" itemValue="A" />
+                            <f:selectItem itemLabel="C.B" itemValue="C.B" />
                             <f:selectItem itemLabel="Com" itemValue="Com" />
+                            <f:selectItem itemLabel="E" itemValue="E" />
                             <f:selectItem itemLabel="A.E" itemValue="A.E" />
+                            <f:selectItem itemLabel="Int" itemValue="Int" />
+                            <f:selectItem itemLabel="Trp" itemValue="Trp" />
+                            <f:selectItem itemLabel="M.G" itemValue="M.G" />
+                            <f:selectItem itemLabel="Snd" itemValue="Snd" />
+                            <f:selectItem itemLabel="Amg" itemValue="Amg" />
+                            <f:selectItem itemLabel="Mus" itemValue="Mus" />
                         </p:selectOneMenu>
 
 
                         <p:outputLabel for="txtCedula" value="#{msg.cedula}" />
                         <p:inputText id="txtCedula" class="cajasTexto" value="#{usuarioBean.usuario.cedula}" disabled="#{usuarioBean.usuario.id!=null}" 
-                                     required="true" requiredMessage="#{msg.msgCedula}" title="Ingrese un número de cédula válido">
+                                     required="true" requiredMessage="#{msg.msgCedula}" 
+                                     placeholder="Ingrese una cédula válida" title="Ingrese un número válido">
                             <p:ajax event="change" listener="#{usuarioBean.operacionCedula()}"  />
                             <p:keyFilter regEx="/[0-9]/i"/>
                             <f:validateLength for="txtCedula" minimum="10" maximum="10"/>
-                            <p:tooltip  for="txtCedula" value="Ingrese un número de cédula válido"
-                                        showEffect="clip" hideEffect="explode" position="top" />
+                           
                         </p:inputText>
 
                         <p:outputLabel for="txtApellido" value="#{msg.apellido}" />
-                        <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto"  >
+                        <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto"
+                                     placeholder="Ingrese los dos apellidos" title="Ingrese los dos apellidos">
                             <p:keyFilter regEx="/[a-z ]/i" />
                             <p:ajax event="change" />
-                            <p:tooltip  for="txtApellido" value="Ingrese los dos apellidos del usuario"
-                                        showEffect="clip" hideEffect="explode" position="top" />
                         </p:inputText>
 
                         <p:outputLabel for="txtNombre" value="#{msg.nombre}" />
-                        <p:inputText id="txtNombre" value="#{usuarioBean.usuario.nombre}" required="true" class="cajasTexto" requiredMessage="#{msg.msgNombre}" >
+                        <p:inputText id="txtNombre" value="#{usuarioBean.usuario.nombre}" required="true" class="cajasTexto" requiredMessage="#{msg.msgNombre}"
+                                     placeholder="Ingrese los dos nombres" title="Ingrese los dos nombres">
                             <p:keyFilter regEx="/[a-z ]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
@@ -127,10 +155,10 @@
                         </p:selectOneRadio>
 
                         <p:outputLabel for="cboCargo" value="Cargo" rendered="#{usuarioBean.usuario.id!=null}" />
-                        <p:selectOneMenu id="cboCargo" value="#{usuarioBean.usuario.bodeguero}" required="true" requiredMessage="#{msg.msgArma}" rendered="#{usuarioBean.usuario.id!=null}" >
+                        <p:selectOneMenu id="cboCargo" value="#{usuarioBean.usuario.bodeguero}" required="true" requiredMessage="#{msg.msgArma}" rendered="#{usuarioBean.usuario.id!=null}" title="Responsabilidad" >
                             <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
                             <f:selectItem itemLabel="Bodeguero" itemValue="B" />
-                            <f:selectItem itemLabel="Logistica" itemValue="L" />
+                            <f:selectItem itemLabel="Logístico" itemValue="L" />
                             <f:selectItem itemLabel="Compras P." itemValue="C" />
                             <f:selectItem itemLabel="Sin Cargo" itemValue="N" />
                         </p:selectOneMenu>

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Categoria</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,35 +13,30 @@
     <ui:composition template="../plantilla/Plantilla.xhtml">
         <ui:define name="contenido" >
 
-            <h:form id="form1" class="ui-g" >
-                <div class="ui-lg-10 ui-md-8">
-                    <p:carousel numVisible="1" effect="easeInStrong" headerText="COMANDO LÓGISTICO N° 25 REINO DE QUITO" style="margin-bottom:0">
-                        <p:panel header="MISIÓN" class="ui-lg-6">
-                            <h:outputText
-                                value="La Fuerza Terrestre desarrolla el poder militar terrestre, preparando, entrenando y equipando al personal
-                                militar, mejorando su capacidad operativa, para alcanzar los objetivos derivados de la planificación estratégica 
-                                militar, a fin de coadyuvar en forma conjunta a la defensa de la soberanía e integridad territorial, contribuir 
-                                en la gestión del Estado en el ámbito interno y el desarrollo de la Nación.." />
-                        </p:panel>
+            <h:form id="form1"  style="text-align:  center; justify-content: center" class="ui-g" >
+                <p:carousel numVisible="1" effect="easeInStrong" headerText="COMANDO LÓGISTICO N° 25 REINO DE QUITO" class="ui-lg-6" style="margin-top: 10rem;padding: 1rem" >
+                    <p:panelGrid columns="1" >
+                        <f:facet name="header">
+                            <h:outputLabel value="MISIÓN"/>
+                        </f:facet>
+                        <h:outputText style="margin: 10px; padding: 10px"
+                                      value="La Fuerza Terrestre desarrolla el poder militar terrestre, preparando, entrenando y equipando al personal
+                                      militar, mejorando su capacidad operativa, para alcanzar los objetivos derivados de la planificación estratégica 
+                                      militar, a fin de coadyuvar en forma conjunta a la defensa de la soberanía e integridad territorial, contribuir 
+                                      en la gestión del Estado en el ámbito interno y el desarrollo de la Nación.." />
+                    </p:panelGrid>
 
-                        <p:panel header="VISIÓN" class="ui-lg-6">
-                            <h:outputText
-                                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-                                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, 
-                                but given to ruthless violence whenever anything stands against the good of the family." />
-                        </p:panel>
-
-                        <p:panel header="MISIÓN" class="ui-lg-6">
-                            <h:outputText
-                                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding. 
-                                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect, 
-                                but given to ruthless violence whenever anything stands against the good of the family." />
-                        </p:panel>
-
-                    </p:carousel>
-                </div>
+                    <p:panelGrid columns="1">
+                        <f:facet name="header">
+                            <h:outputLabel value="VISIÓN"/>
+                        </f:facet>
+                        <h:outputText style="margin: 10px; padding: 10px"
+                                      value="La Fuerza Terrestre desarrolla el poder militar terrestre, preparando, entrenando y equipando al personal
+                                      militar, mejorando su capacidad operativa, para alcanzar los objetivos derivados de la planificación estratégica 
+                                      militar, a fin de coadyuvar en forma conjunta a la defensa de la soberanía e integridad territorial, contribuir 
+                                      en la gestión del Estado en el ámbito interno y el desarrollo de la Nación.." />
+                    </p:panelGrid>
+                </p:carousel>
             </h:form>
 
         </ui:define>
