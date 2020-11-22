@@ -16,22 +16,22 @@
             <h:form id="formR"   >
                 <h1 style="text-align: center">REPORTES DEL SISTEMA</h1>
                 <p:accordionPanel class="ui-lg-11" style="padding: 20px">
-                    <p:tab title="REPORTES DEL MODULO DE GESTION">
+                    <p:tab title="REPORTES DEL MODULO DE GESTIÓN">
                         <div class="ui-g" >
                             <div class="ui-lg-2 enlaceboton" >
-                                <h:commandLink value="Usuarios" class="texto" action="#{usuarioBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                                <h:commandLink value="Usuarios" class="texto" action="#{usuarioBean.exportarPDF() }" title="Imprimir Usuarios" target="_blank"/>    
                             </div>
 
                             <div class="ui-lg-2 enlaceboton" >
-                                <h:commandLink value="Proveedores" class="texto" action="#{proveedorBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                                <h:commandLink value="Proveedores" class="texto" action="#{proveedorBean.exportarPDF() }" title="Imprimir Proveedores" target="_blank"/>    
                             </div>
 
                             <div class="ui-lg-2 enlaceboton" >
-                                <h:commandLink value="Secciones" class="texto" action="#{seccionBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                                <h:commandLink value="Secciones" class="texto" action="#{seccionBean.exportarPDF() }" title="Imprimir Secciones" target="_blank"/>    
                             </div>
 
                             <div class="ui-lg-2 enlaceboton" >
-                                <h:commandLink value="Productos" class="texto" action="#{productoBean.exportarPDF() }" title="Imprimir" target="_blank"/>    
+                                <h:commandLink value="Productos" class="texto" action="#{productoBean.exportarPDF() }" title="Imprimir Productos" target="_blank"/>    
                             </div>
                         </div>
                     </p:tab>
@@ -40,28 +40,31 @@
 
                         <p:panel  id="pIngresoFiltrado">
                             <p:outputLabel value="Desde:"/>
-                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaInicio}" style="margin-right: 10px"/>
+                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaInicio}" style="margin-right: 10px"
+                                        placeholder="Fecha inicio" title="Fecha inicio"/>
 
                             <p:outputLabel value="Hasta:"/>
-                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaFin}" />
+                            <p:calendar pattern="yyyy-MM-dd" value="#{ingresoBean.fechaFin}"
+                                        placeholder="Fecha fin" title="Fecha fin"/>
                             <p:column/>
-                            <p:commandButton value="Buscar" action="#{ingresoBean.filtrarIngreso}" update="dtIngreso"/>
-                            <p:commandButton icon="pi pi-replay" action="#{ingresoBean.limpiar()}" update="dtIngreso,pIngresoFiltrado"/>
+                            <p:commandButton value="Buscar" action="#{ingresoBean.filtrarIngreso}" update="dtIngreso" title="Filtrar los ingresos"/>
+                            <p:commandButton icon="pi pi-replay" action="#{ingresoBean.limpiar()}" update="dtIngreso,pIngresoFiltrado" title="Reiniciar la busqueda"/>
                         </p:panel>
 
 
-                        <p:dataTable id="dtIngreso" value="#{ingresoBean.imprimirList}" var="pru">
+                        <p:dataTable id="dtIngreso" value="#{ingresoBean.imprimirList}" var="pru"
+                                     paginator="true" rows="10"  rowsPerPageTemplate="5,10,15" resizableColumns="false">
                             <f:facet name="header">
                                 <h:commandLink  class="imprimir" action="#{ingresoBean.exportarPDFFiltrado() }" title="Imprimir" target="_blank" >
                                     <i class="pi pi-print" style="color: red; font-size: 2rem" ></i>
                                 </h:commandLink> 
                             </f:facet>
 
-                            <p:column headerText="Codigo">
+                            <p:column headerText="Código">
                                 <h:outputText value="#{pru.id}"/>
                             </p:column>
 
-                            <p:column headerText="Numero">
+                            <p:column headerText="Número">
                                 <h:outputText value="#{pru.numero}"/>
                             </p:column>
 
@@ -81,23 +84,26 @@
 
                         <p:panel  id="pEgresoFiltrado">
                             <p:outputLabel value="Desde:"/>
-                            <p:calendar pattern="yyyy-MM-dd" value="#{egresoBean.fechaInicio}" style="margin-right: 10px"/>
+                            <p:calendar pattern="yyyy-MM-dd" value="#{egresoBean.fechaInicio}" style="margin-right: 10px"
+                                        placeholder="Fecha inicio" title="Fecha inicio" />
 
                             <p:outputLabel value="Hasta:"/>
-                            <p:calendar pattern="yyyy-MM-dd" value="#{egresoBean.fechaFin}" />
+                            <p:calendar pattern="yyyy-MM-dd" value="#{egresoBean.fechaFin}" 
+                                        placeholder="Fecha fin" title="Fecha fin"/>
                             <p:column/>
-                            <p:commandButton value="Buscar" action="#{egresoBean.filtrarEgreso}" update="dtEgreso"/>
-                            <p:commandButton icon="pi pi-replay" action="#{egresoBean.limpiar()}" update="dtEgreso,pEgresoFiltrado"/>
+                            <p:commandButton value="Buscar" action="#{egresoBean.filtrarEgreso}" update="dtEgreso" title="Buscar egresos"/>
+                            <p:commandButton icon="pi pi-replay" action="#{egresoBean.limpiar()}" update="dtEgreso,pEgresoFiltrado" title="Reiniciar la busqueda"/>
                         </p:panel>
 
-                        <p:dataTable id="dtEgreso" value="#{egresoBean.imprimirEgreso}" var="egre">
+                        <p:dataTable id="dtEgreso" value="#{egresoBean.imprimirEgreso}" var="egre"
+                                     paginator="true" rows="10"  rowsPerPageTemplate="5,10,15" resizableColumns="false">
                             <f:facet name="header">
                                 <h:commandLink  class="imprimir" action="#{egresoBean.exportarPDFFiltrado() }" title="Imprimir" target="_blank" >
                                     <i class="pi pi-print" style="color: red; font-size: 2rem" ></i>
                                 </h:commandLink> 
                             </f:facet>
 
-                            <p:column headerText="Codigo">
+                            <p:column headerText="Código">
                                 <h:outputText value="#{egre.id}"/>
                             </p:column>
 
@@ -105,7 +111,7 @@
                                 <h:outputText value="#{egre.dependencia}"/>
                             </p:column>
 
-                            <p:column headerText="Solicita">
+                            <p:column headerText="Quie Solicita">
                                 <h:outputText value="#{egre.usuario1.nombreCompleto}"/>
                             </p:column>
 

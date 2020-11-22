@@ -19,7 +19,7 @@
             <h:form id="formE" class="ui-g centrar">
                 <p:panel header="Lista de Ingresos" rendered="#{egresoBean.egreso==null}" >
 
-                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-plus-circle" action="#{egresoBean.nuevo()}" update="formE" title="Nuevo ingreso" />
+                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-plus-circle" action="#{egresoBean.nuevo()}" update="formE" title="Nuevo egreso" />
 
                     <p:dataTable id="dtIngreso" value="${egresoBean.egresoList}" var="egr"
                                  widgetVar="tableEgreso" globalFilterFunction="#{egresoBean.globalFilterFunction}"
@@ -34,7 +34,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Codigo" width="100">
+                        <p:column headerText="Código" width="100">
                             <h:outputText value="0000#{egr.id}"/>
                         </p:column>
 
@@ -75,10 +75,11 @@
                             <h:panelGrid columns="4" cellpadding="5" cellspacing="5" >
 
                                 <p:outputLabel  value="Fecha:" />
-                                <p:calendar  value="#{egresoBean.egreso.fecha}" pattern="yyyy-MM-dd" class="impIngreso" disabled="#{egresoBean.egreso.id!=null}"  />
+                                <p:calendar  value="#{egresoBean.egreso.fecha}" pattern="yyyy-MM-dd" class="impIngreso" disabled="#{egresoBean.egreso.id!=null}" 
+                                             placeholder="Fecha de egreso" title="Fecha de egreso"/>
 
                                 <p:outputLabel for="cboUnidad" value="Dependencia" />
-                                <p:selectOneMenu id="cboUnidad" value="#{egresoBean.egreso.dependencia}" required="true" >
+                                <p:selectOneMenu id="cboUnidad" value="#{egresoBean.egreso.dependencia}" required="true" title="Seleccione la dependencia">
                                     <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
                                     <f:selectItem itemLabel="Escuela de servicios" itemValue="Escuela" />
                                     <f:selectItem itemLabel="Batallon de transporte" itemValue="Batallon TRP" />
@@ -89,31 +90,31 @@
                             <h:panelGrid id="pEgresoCab" columns="6" cellspacing="5">
                                 <p:commandButton  oncomplete="PF('dlgSolicita').show()" icon="ui-icon-search"  immediate="true"
                                                   update="pEgreso" process="@(this)" title="Buscar usuario" disabled="#{egresoBean.egreso.id!=null}"/>
-                                <p:outputLabel value="Solicita: " />
+                                <p:outputLabel value="Clase Solicita: " />
                                 <p:inputText value="#{egresoBean.egreso.usuario1.nombreCompleto}" class="impIngreso" style="margin-right: 2rem" disabled="true"  />
 
 
 
 
                                 <p:commandButton  oncomplete="PF('dlgLogistico').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pEgreso" process="@(this)" title="Buscar usuario" disabled="#{egresoBean.egreso.id!=null}"/>
-                                <p:outputLabel value="Logistico: " />
+                                                  update="pEgreso" process="@(this)" title="Oficial Logístico" disabled="#{egresoBean.egreso.id!=null}"/>
+                                <p:outputLabel value="Oficial Logístico: " />
                                 <p:inputText value="#{egresoBean.egreso.usuario2.nombreCompleto}" class="impIngreso" disabled="true"/>
 
 
                                 <p:commandButton  oncomplete="PF('dlgBodeguero').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pEgreso" process="@(this)" title="Buscar usuario" disabled="#{egresoBean.egreso.id!=null}"/>
-                                <p:outputLabel value="Bodeguero: " />
+                                                  update="pEgreso" process="@(this)" title="Clase Bodeguero" disabled="#{egresoBean.egreso.id!=null}"/>
+                                <p:outputLabel value="Clase Bodeguero: " />
                                 <p:inputText value="#{egresoBean.egreso.usuario.nombreCompleto}" class="impIngreso" disabled="true" />
                             </h:panelGrid>
                         </p:layoutUnit>
 
                         <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center; 
-                                      font-size: 14px;" size="100">
+                                      font-size: 14px;" size="150">
                             <h:panelGrid  columns="1" style="font-size: 18px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
                                 ORDEN
-                                <p:outputLabel  value="00#{egresoBean.numero}" rendered="#{egresoBean.egreso.id==null}" />
-                                <p:outputLabel value="00#{egresoBean.egreso.id}" rendered="#{egresoBean.egreso.id!=null}" />
+                                <p:outputLabel  value="0000#{egresoBean.numero}" rendered="#{egresoBean.egreso.id==null}" />
+                                <p:outputLabel value="0000#{egresoBean.egreso.id}" rendered="#{egresoBean.egreso.id!=null}" />
                             </h:panelGrid>
                         </p:layoutUnit> 
 
@@ -141,9 +142,10 @@
                                 </p:inputText>
 
                                 <p:outputLabel value="Cantidad: " />
-                                <p:inputText value="#{egresoBean.detalleEgreso.cantidad}" size="5" rendered="true" >
+                                <p:inputText id="txtCantidad" value="#{egresoBean.detalleEgreso.cantidad}" size="7" rendered="true" placeholder="Cantidad" >
                                     <p:ajax event="change" listener="#{egresoBean.comprobarStock}"  update="txtSubtotal,:growl"/>
                                     <p:keyFilter regEx="/[0-9.]/i"/>
+                                    <p:tooltip  for="txtCantidad" value="La cantidad no debe ser mayor al stock" position="top"/>
                                 </p:inputText>
 
                                 <p:outputLabel value="Subtotal: " />

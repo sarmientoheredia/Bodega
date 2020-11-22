@@ -39,7 +39,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Cedula" width="80" >
+                        <p:column headerText="Cédula" width="80" >
                             <h:outputText value="#{usu.cedula}"/>
                         </p:column>
                         <p:column headerText="Grado" width="40" >
@@ -58,7 +58,7 @@
                         <p:column width="100" headerText="#{msg.opcion}">
                             <p:commandButton icon="ui-icon-pencil" action="#{usuarioBean.setUsuario(usu)}" update="formU" title="Actualizar" />
                             <p:commandButton icon="ui-icon-trash" action="#{usuarioBean.eliminar(usu)}" update="dtUsuario" title="Eliminar">
-                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el usuario"/>
+                                <p:confirm header="Confirmación" message="Confirme si desea eliminar el usuario"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
@@ -67,10 +67,10 @@
 
 
                 <!--INICO  DEL PANEL DE USUARIO-->
-                <p:panel id="pUsuario" header="#{usuarioBean.usuario.id ==null ? 'Registro de ' : 'Actualizacion de'}  Usuario" rendered="#{usuarioBean.usuario!=null}" class="ui-lg-6 ui-md-12"  >
+                <p:panel id="pUsuario"  rendered="#{usuarioBean.usuario!=null}" class="ui-lg-6 ui-md-12"  >
                     <f:facet name="header">
                         <center>
-                            <p:outputLabel value="#{usuarioBean.usuario.id ==null ? 'Registro de ' : 'Actualizacion de'}  Usuario"/>
+                            <p:outputLabel value="#{usuarioBean.usuario.id ==null ? 'Registro de ' : 'Actualización de'}  Usuario"/>
                         </center>
                     </f:facet> 
 

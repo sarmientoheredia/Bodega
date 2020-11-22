@@ -231,7 +231,7 @@ public class IngresoBean implements Serializable {
         imprimirList=null;
         fechaInicio=null;
         fechaFin=null;
-        Mensaje.mostrarExito("Se limpiaron los campos");
+        Mensaje.mostrarExito("Busqueda reiniciada con éxito");
     }
     
  

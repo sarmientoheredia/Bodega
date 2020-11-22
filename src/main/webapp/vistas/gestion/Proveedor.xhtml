@@ -40,10 +40,10 @@
                         <p:column headerText="Nombre" >
                             <h:outputText value="#{prov.nombre}"/>
                         </p:column>
-                        <p:column headerText="Direccion">
+                        <p:column headerText="Dirección">
                             <h:outputText value="#{prov.direccion}"/>
                         </p:column>
-                        <p:column headerText="Telefono" width="120">
+                        <p:column headerText="Teléfono" width="120">
                             <h:outputText value="#{prov.telefono}"/>
                         </p:column>
                         <p:column headerText="Correo">
@@ -56,7 +56,7 @@
                         <p:column width="100" headerText="Opciones">
                             <p:commandButton icon="ui-icon-pencil" action="#{proveedorBean.seleccionarProveedor(prov)}" update="formP" title="Actualizar"/>
                             <p:commandButton icon="ui-icon-trash" action="#{proveedorBean.eliminar(prov)}" update="dtProveedor" title="Eliminar" >
-                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el Proveedor"/>
+                                <p:confirm header="Confirmación" message="Confirme si desea eliminar el Proveedor"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
@@ -69,7 +69,7 @@
 
                     <f:facet name="header">
                         <center>
-                            <p:outputLabel value="#{proveedorBean.proveedor.id ==null ? 'Registro de ' : 'Actualizacion de'}  Proveedor"/>
+                            <p:outputLabel value="#{proveedorBean.proveedor.id ==null ? 'Registro de ' : 'Actualización de'}  Proveedor"/>
                         </center>
                     </f:facet> 
                     <h:panelGrid columns="2">
@@ -85,9 +85,9 @@
                             <p:ajax  listener="#{proveedorBean.acivarCampos}" event="change" update="pProveedor"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="txtCedula" value="Cedula:" rendered="#{proveedorBean.actCedula==true}" />
+                        <p:outputLabel for="txtCedula" value="Cédula:" rendered="#{proveedorBean.actCedula==true}" />
                         <p:inputText id="txtCedula" class="cajasTexto" value="#{proveedorBean.proveedor.cedula}"  rendered="#{proveedorBean.actCedula==true}" disabled="#{proveedorBean.proveedor.id!=null}" 
-                                     required="true" requiredMessage="Cedula requerida" placeholder="Ingrese una cédula válida" title="Ingrese una cédula válida">
+                                     required="true" requiredMessage="Cédula requerida" placeholder="Ingrese una cédula válida" title="Ingrese una cédula válida">
                             <p:ajax event="change" listener="#{proveedorBean.operacionCedula()}"  />
                             <p:keyFilter regEx="/[0-9]/i" />
                             <f:validateLength  minimum="10" maximum="10"/>
@@ -118,16 +118,16 @@
                             <p:keyFilter regEx="/[a-z ]/i"/>
                         </p:inputText>
 
-                        <p:outputLabel for="razonSocial" value="Razon Social" rendered="#{proveedorBean.actRuc==true}"  />
+                        <p:outputLabel for="razonSocial" value="Razón Social" rendered="#{proveedorBean.actRuc==true}"  />
                         <p:inputText id="razonSocial" value="#{proveedorBean.proveedor.razonSocial}" class="cajasTexto" rendered="#{proveedorBean.actRuc==true}" 
                                      required="true" requiredMessage="Razón social requerida" placeholder="Ingrese la razón social" title="Razón social de la empresa" >
                             <p:ajax event="change"/>
                             <p:keyFilter regEx="/[a-z ]/i"/>
                         </p:inputText>
 
-                        <p:outputLabel for="direccion" value="Direccion:" />
+                        <p:outputLabel for="direccion" value="Dirección:" />
                         <p:inputText id="direccion" value="#{proveedorBean.proveedor.direccion}" class="cajasTexto" 
-                                     required="true" requiredMessage="Dirección requerida" placeholder="Ingrese la dirección" title="dirección del proveedor">
+                                     required="true" requiredMessage="Dirección requerida" placeholder="Ingrese la dirección" title="Dirección del proveedor">
                             <p:keyFilter regEx="/[a-z ]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
@@ -139,9 +139,9 @@
                             <p:ajax event="change" />
                         </p:inputText>
 
-                        <p:outputLabel for="txtCelular" value="Célular:" />
+                        <p:outputLabel for="txtCelular" value="Celular:" />
                         <p:inputText id="txtCelular" value="#{proveedorBean.proveedor.celular}" class="cajasTexto" 
-                                     required="true" requiredMessage="Célular requerido" placeholder="Ingrese el número de célular" title="Número celular">
+                                     required="true" requiredMessage="Celular requerido" placeholder="Ingrese el número de celular" title="Número celular">
                             <p:keyFilter regEx="/[0-9-]/i"/>
                             <p:ajax event="change" />
                         </p:inputText>

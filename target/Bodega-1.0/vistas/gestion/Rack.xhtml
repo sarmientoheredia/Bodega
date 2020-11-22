@@ -37,7 +37,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Codigo" width="100">
+                        <p:column headerText="Código" width="100">
                             <h:outputText value="#{rac.id}"/>
                         </p:column>
 
@@ -46,17 +46,17 @@
                         </p:column>
 
 
-                        <p:column headerText="Seccion">
+                        <p:column headerText="Sección">
                             <h:outputText value="#{rac.seccion.nombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column headerText="Estado">
                             <h:outputText value="#{rac.estado.toString()=='A'?'Activo': 'Inactivo'}"/>
                         </p:column>
 
                         <p:column width="100" headerText="Opciones">
                             <p:commandButton icon="ui-icon-pencil" action="#{rackBean.setRack(rac)}" update="formR" title="Actualizar" />
                             <p:commandButton icon="ui-icon-trash" action="#{rackBean.eliminar(rac)}" update="dtRack" title="Eliminar">
-                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el rack"/>
+                                <p:confirm header="Confirmación" message="Confirme si desea eliminar la estantería"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
@@ -68,24 +68,25 @@
                 <p:panel id="pUsuario"  rendered="#{rackBean.rack!=null}" class="ui-lg-6"  >
                     <f:facet name="header">
                         <center>
-                            <p:outputLabel value="#{rackBean.rack.id ==null ? 'Registro de ' : 'Actualizacion de'}  Rack"/>
+                            <p:outputLabel value="#{rackBean.rack.id ==null ? 'Registro de ' : 'Actualización de'}  Estantería"/>
                         </center>
                     </f:facet> 
 
                     <h:panelGrid columns="2">
-                        <p:outputLabel value="Codigo: "  rendered="#{rackBean.rack.id!=null}"/>
+                        <p:outputLabel value="Código: "  rendered="#{rackBean.rack.id!=null}"/>
                         <p:inputText value="#{rackBean.rack.id}" class="cajasTexto" disabled="true" rendered="#{rackBean.rack.id!=null}"/>
 
-                        <p:outputLabel for="txtSeccion" value="Seccion"/>
+                        <p:outputLabel for="txtSeccion" value="Sección"/>
                         <p:selectOneMenu id="txtSeccion" value="#{rackBean.rack.seccion}" required="true" 
-                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto" requiredMessage="Seccion requerida">
+                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto" requiredMessage="La sección es requerida">
                             <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
                             <f:selectItems value="#{seccionBean.seccionList}" var="sec" itemLabel="#{sec.nombre}" itemValue="#{sec}" />
                             <p:ajax event="change"/>
                         </p:selectOneMenu>
 
                         <p:outputLabel for="txtNombre" value="Nombre:" />
-                        <p:inputText id="txtNombre" value="#{rackBean.rack.nombre}" class="cajasTexto" required="true" requiredMessage="Nombre requerido">
+                        <p:inputText id="txtNombre" value="#{rackBean.rack.nombre}" class="cajasTexto" 
+                                     required="true" requiredMessage="El nombre de la estantería es requerida" placeholder="Ingrese el nombre de la estantería" title="Nombre de la estantería">
                             <p:ajax event="change" listener="#{rackBean.verificarNombre()}" />
                             <p:keyFilter regEx="/[a-z0-9 ]/i" />
                         </p:inputText>

@@ -36,7 +36,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Codigo" width="100">
+                        <p:column headerText="Código" width="100">
                             <h:outputText value="#{prod.codigo}"/>
                         </p:column>
 
@@ -64,7 +64,7 @@
                         <p:column width="100" headerText="Opciones" >
                             <p:commandButton icon="ui-icon-pencil" action="#{productoBean.setProducto(prod)}" update="formP" title="Actualizar"/>
                             <p:commandButton icon="ui-icon-trash" action="#{productoBean.eliminar(prod)}" update="dtProducto" title="Eliminar">
-                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar el producto"/>
+                                <p:confirm header="Confirmación" message="Confirme si desea eliminar el producto"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
@@ -77,50 +77,55 @@
 
                     <f:facet name="header">
                         <center>
-                            <p:outputLabel value="#{productoBean.producto.id ==null ? 'Registro de ' : 'Actualizacion de'}  Producto"/>
+                            <p:outputLabel value="#{productoBean.producto.id ==null ? 'Registro de ' : 'Actualización de'}  Producto"/>
                         </center>
                     </f:facet> 
                     <h:panelGrid columns="2">
                         <p:outputLabel value="Identificador: "  rendered="#{productoBean.producto.id!=null}"/>
                         <p:inputText value="#{productoBean.producto.id}" class="cajasTexto" disabled="true" rendered="#{productoBean.producto.id!=null}"/>
 
-                        <p:outputLabel for="txtCodigo" value="Codigo:" />
-                        <p:inputText id="txtCodigo" value="#{productoBean.producto.codigo}" disabled="#{productoBean.producto.id!=null}" class="cajasTexto" required="true" requiredMessage="Codigo requerido">
+                        <p:outputLabel for="txtCodigo" value="Código:" />
+                        <p:inputText id="txtCodigo" value="#{productoBean.producto.codigo}" disabled="#{productoBean.producto.id!=null}" class="cajasTexto" 
+                                     required="true" requiredMessage="El código del producto es requerido" placeholder="Ingrese el código del producto" title="Código de producto" >
                             <p:ajax event="change"  />
                         </p:inputText>
 
                         <p:outputLabel for="txtNombre" value="Nombre:" />
-                        <p:inputText id="txtNombre" value="#{productoBean.producto.nombre}" class="cajasTexto" required="true" requiredMessage="Nombre requerido">
+                        <p:inputText id="txtNombre" value="#{productoBean.producto.nombre}" class="cajasTexto" 
+                                     required="true" requiredMessage="El nombre del producto es requerido" placeholder="Ingrese el nombre del producto" title="Nombre del producto">
                             <p:ajax event="change" listener="#{productoBean.verificarNombre()}" />
                             <p:keyFilter regEx="/[a-z ]/i"/>
                         </p:inputText>
 
-                        <p:outputLabel for="txtSeccion" value="Seccion" rendered="#{productoBean.producto.id==null}"/>
-                         <p:selectOneMenu id="txtSeccion" value="#{productoBean.seccion}" required="true" 
-                                          converter="omnifaces.SelectItemsConverter"  class="cajasTexto" requiredMessage="Seccion requerida" rendered="#{productoBean.producto.id==null}">
+                        <p:outputLabel for="txtSeccion" value="Sección" rendered="#{productoBean.producto.id==null}"/>
+                        <p:selectOneMenu id="txtSeccion" value="#{productoBean.seccion}" required="true" 
+                                         converter="omnifaces.SelectItemsConverter"  class="cajasTexto" requiredMessage="La sección es requerida" rendered="#{productoBean.producto.id==null}">
                             <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
                             <f:selectItems value="#{productoBean.seccionList}" var="sec" itemLabel="#{sec.nombre}" itemValue="#{sec}" />
                             <p:ajax event="change" listener="#{productoBean.filtrarRackPorSeccion}" update="txtRack" />
                         </p:selectOneMenu>
-                         
+
                         <p:outputLabel for="txtRack" value="Estanteria"/>
                         <p:selectOneMenu id="txtRack" value="#{productoBean.producto.rack}" required="true" 
-                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto" requiredMessage="Estanteria requerido">
+                                         converter="omnifaces.SelectItemsConverter" class="cajasTexto" requiredMessage="La estantería es requerida">
                             <f:selectItem itemLabel="--Seleccione--" noSelectionOption="true" />
                             <f:selectItems value="#{productoBean.rackList}" var="rac" itemLabel="#{rac.nombre}" itemValue="#{rac}" />
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="txtColumna" value="Columna:" />
-                        <p:inputText id="txtColumna" value="#{productoBean.producto.columna}" class="cajasTexto" required="true" requiredMessage="Columna requerida">
+                        <p:outputLabel for="txtFila" value="Fila:" />
+                        <p:inputText id="txtFila" value="#{productoBean.producto.fila}" class="cajasTexto" 
+                                     required="true" requiredMessage="El número de fila es requerido" placeholder="Igrese el número de la fila" title="Número de fila">
                             <p:ajax event="change"  />
                             <p:keyFilter regEx="/[0-9a-z-]/i"/>
                         </p:inputText>
 
-                        <p:outputLabel for="txtFila" value="Fila:" />
-                        <p:inputText id="txtFila" value="#{productoBean.producto.fila}" class="cajasTexto" required="true" requiredMessage="Fila requerida">
+                        <p:outputLabel for="txtColumna" value="Columna:" />
+                        <p:inputText id="txtColumna" value="#{productoBean.producto.columna}" class="cajasTexto" 
+                                     required="true" requiredMessage="El número de columna es requerido" placeholder="Ingrese el número de la columna" title="Número de columna">
                             <p:ajax event="change"  />
                             <p:keyFilter regEx="/[0-9a-z-]/i"/>
                         </p:inputText>
+
 
                         <p:outputLabel for="txtStock" value="Stock" rendered="#{productoBean.producto.id!=null}" />
                         <p:inputText id="txtStock" value="#{productoBean.producto.stock}" class="cajasTexto" rendered="#{productoBean.producto.id!=null}" disabled="true">

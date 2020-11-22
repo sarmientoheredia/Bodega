@@ -37,7 +37,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Codigo" width="100">
+                        <p:column headerText="Código" width="100">
                             <h:outputText value="#{sec.id}"/>
                         </p:column>
 
@@ -51,7 +51,7 @@
                         <p:column width="100" headerText="Opciones">
                             <p:commandButton icon="ui-icon-pencil" action="#{seccionBean.setSeccion(sec)}" update="formS" title="Actualizar" />
                             <p:commandButton icon="ui-icon-trash" action="#{seccionBean.eliminar(sec)}" update="dtSeccion" title="Eliminar">
-                                <p:confirm header="Confirmacion" message="Confirme si desea eliminar la seccion"/>
+                                <p:confirm header="Confirmación" message="Confirme si desea eliminar la sección"/>
                             </p:commandButton>
                         </p:column>
                     </p:dataTable>
@@ -63,17 +63,18 @@
                 <p:panel id="pUsuario"  rendered="#{seccionBean.seccion!=null}" class="ui-lg-6"  >
                     <f:facet name="header">
                         <center>
-                            <p:outputLabel value="#{seccionBean.seccion.id ==null ? 'Registro de ' : 'Actualizacion de'}  Seccion"/>
+                            <p:outputLabel value="#{seccionBean.seccion.id ==null ? 'Registro de ' : 'Actualización de'}  Sección"/>
                         </center>
                     </f:facet> 
 
                     <h:panelGrid columns="2">
-                        <p:outputLabel value="Codigo: "  rendered="#{seccionBean.seccion.id!=null}"/>
+                        <p:outputLabel value="Código: "  rendered="#{seccionBean.seccion.id!=null}"/>
                         <p:inputText value="#{seccionBean.seccion.id}" class="cajasTexto" disabled="true" rendered="#{seccionBean.seccion.id!=null}"/>
 
 
                         <p:outputLabel for="txtNombre" value="Nombre:" />
-                        <p:inputText id="txtNombre" value="#{seccionBean.seccion.nombre}" class="cajasTexto" required="true" requiredMessage="Nombre requerido">
+                        <p:inputText id="txtNombre" value="#{seccionBean.seccion.nombre}" class="cajasTexto" 
+                                     required="true" requiredMessage="El nombre de sección es requerido" placeholder="Ingrese el nombre de la sección" title="Nombre de sección">
                             <p:ajax event="change" listener="#{seccionBean.verificarNombre()}" />
                             <p:keyFilter regEx="/[a-z ]/i" />
                         </p:inputText>

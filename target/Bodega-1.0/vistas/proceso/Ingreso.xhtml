@@ -34,13 +34,13 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="codico" >
-                            <h:outputText value="#{ing.id}"/>
+                        <p:column headerText="Códico" >
+                            <h:outputText value="0000#{ing.id}"/>
                         </p:column>
                         <p:column headerText="Fecha" >
                             <h:outputText value="#{ing.fecha}"/>
                         </p:column>
-                        <p:column headerText="Numero" >
+                        <p:column headerText="Número" >
                             <h:outputText value="#{ing.numero}"/>
                         </p:column>
 
@@ -73,10 +73,12 @@
                             <h:panelGrid columns="6" cellpadding="5" cellspacing="5" >
 
                                 <p:outputLabel  value="Fecha:" />
-                                <p:calendar  value="#{ingresoBean.ingreso.fecha}" pattern="yyyy-MM-dd" class="impIngreso" disabled="#{ingresoBean.ingreso.id!=null}"  />
+                                <p:calendar  value="#{ingresoBean.ingreso.fecha}" pattern="yyyy-MM-dd" class="impIngreso" disabled="#{ingresoBean.ingreso.id!=null}"
+                                             placeholder="Seleccione la fecha" title="Fecha de ingreso"/>
 
-                                <p:outputLabel  value="Numero:" class="margen" />
-                                <p:inputText  value="#{ingresoBean.ingreso.numero}" required="true"  class="impIngreso"  disabled="#{ingresoBean.ingreso.id!=null}">
+                                <p:outputLabel  value="Número:" class="margen" />
+                                <p:inputText  value="#{ingresoBean.ingreso.numero}" required="true"  class="impIngreso"  disabled="#{ingresoBean.ingreso.id!=null}"
+                                              placeholder="Ingrese el número de ingreso" title="Número de ingreso">
                                     <p:ajax event="change" listener="#{ingresoBean.verificarNumero}"/>
                                 </p:inputText>
                             </h:panelGrid>
@@ -84,36 +86,36 @@
 
                             <h:panelGrid id="pIngresoCab" columns="6" cellspacing="5">
                                 <p:commandButton  oncomplete="PF('dlgProveedor').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                                  update="pIngreso" process="@(this)" title="Buscar proveedor" disabled="#{ingresoBean.ingreso.id!=null}"/>
                                 <p:outputLabel value="Proveedor: " />
                                 <p:inputText value="#{ingresoBean.ingreso.proveedor.nombre}" class="impIngreso" style="margin-right: 2rem" disabled="true"  />
 
 
                                 <p:commandButton  oncomplete="PF('dlgPublicas').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
-                                <p:outputLabel value="Publicas: " />
+                                                  update="pIngreso" process="@(this)" title="Buscar usuario compras públicas" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                <p:outputLabel value="Compras Públicas: " />
                                 <p:inputText value="#{ingresoBean.ingreso.usuario.nombreCompleto}" class="impIngreso" disabled="true" />
 
 
                                 <p:commandButton  oncomplete="PF('dlgLogistico').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
-                                <p:outputLabel value="Logistico: " />
+                                                  update="pIngreso" process="@(this)" title="Buscar oficial logístico" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                <p:outputLabel value="Oficial Logístico: " />
                                 <p:inputText value="#{ingresoBean.ingreso.usuario1.nombreCompleto}" class="impIngreso" disabled="true"/>
 
 
                                 <p:commandButton  oncomplete="PF('dlgBodeguero').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pIngreso" process="@(this)" title="Buscar usuario" disabled="#{ingresoBean.ingreso.id!=null}"/>
-                                <p:outputLabel value="Bodeguero: " />
+                                                  update="pIngreso" process="@(this)" title="Buscar clase bodeguero" disabled="#{ingresoBean.ingreso.id!=null}"/>
+                                <p:outputLabel value="Clase Bodeguero: " />
                                 <p:inputText value="#{ingresoBean.ingreso.usuario2.nombreCompleto}" class="impIngreso" disabled="true" />
                             </h:panelGrid>
                         </p:layoutUnit>
 
                         <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center; 
-                                      font-size: 14px;" size="100">
+                                      font-size: 14px;" size="150">
                             <h:panelGrid  columns="1" style="font-size: 18px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
                                 ORDEN
-                                <p:outputLabel  value="00#{ingresoBean.numero}" rendered="#{ingresoBean.ingreso.id==null}" />
-                                <p:outputLabel value="00#{ingresoBean.ingreso.id}" rendered="#{ingresoBean.ingreso.id!=null}" />
+                                <p:outputLabel  value="0000#{ingresoBean.numero}" rendered="#{ingresoBean.ingreso.id==null}" />
+                                <p:outputLabel value="0000#{ingresoBean.ingreso.id}" rendered="#{ingresoBean.ingreso.id!=null}" />
                             </h:panelGrid>
                         </p:layoutUnit> 
 
@@ -136,17 +138,19 @@
                                 <p:inputText id="txtPrecio" value="#{ingresoBean.detalleIngreso.precio}" size="7" placeholder="000.0000" rendered="true">
                                     <p:keyFilter regEx="/[0-9.]/i"/>
                                     <p:ajax event="change"  update="txtSubtotal"/>
+                                    <p:tooltip for="txtPrecio" value="Valor con . y 4 decimales" position="top"/>
                                 </p:inputText>
 
                                 <p:outputLabel value="Cantidad: " />
-                                <p:inputText value="#{ingresoBean.detalleIngreso.cantidad}" size="5" rendered="true" >
+                                <p:inputText id="txtCantidad" value="#{ingresoBean.detalleIngreso.cantidad}" size="5" rendered="true" placeholder="000.0000" >
                                     <p:ajax event="change"  update="txtSubtotal"/>
                                     <p:keyFilter regEx="/[0-9.]/i"/>
+                                    <p:tooltip for="txtCantidad" value="Valor con . y 4 decimales" position="top"/>
                                 </p:inputText>
 
                                 <p:outputLabel value="Subtotal: " />
                                 <p:inputText id="txtSubtotal" disabled="true" value="#{ingresoBean.detalleIngreso.subTotal}" />
-                                
+
                                 <p:commandButton icon="pi pi-plus-circle" action="#{ingresoBean.agregarDetalle()}" update="dtDetalles,pProducto" 
                                                  process="pProducto" disabled="#{ingresoBean.ingreso.id!=null}" title="Agregar al detalle"  >
                                 </p:commandButton>
