@@ -192,9 +192,8 @@ public class UsuarioBean implements Serializable {
     public void cambiarContrasenia(Usuario usuario) {
         try {
             usuario.setPassword(Encriptar.sha512(usuario.getPassword()));
-            usuario.setUsuario(usuario.getUsuario());
             usuarioFacadeLocal.edit(usuario);
-            Mensaje.mostrarExito("Cambio exitoso");
+            Mensaje.mostrarExito("El password se modificó debe cerrar la sesión");
         } catch (Exception e) {
         }
     }

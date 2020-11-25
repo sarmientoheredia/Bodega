@@ -128,7 +128,7 @@
                                        font-size: 14px;" >
                             <h:panelGrid id="pProducto"  columns="10" cellspacing="5">
 
-                                <p:commandButton oncomplete="PF('dlgProducto').show()" icon="ui-icon-search"  immediate="true"
+                                <p:commandButton oncomplete="PF('dlgProducto').show()" icon="ui-icon-search"  immediate="true" 
                                                  update="pIngreso" title="Buscar producto" disabled="#{ingresoBean.ingreso.id!=null}" /> 
 
                                 <p:outputLabel value="Producto: " />
@@ -138,14 +138,14 @@
                                 <p:inputText id="txtPrecio" value="#{ingresoBean.detalleIngreso.precio}" size="7" placeholder="000.0000" rendered="true">
                                     <p:keyFilter regEx="/[0-9.]/i"/>
                                     <p:ajax event="change"  update="txtSubtotal"/>
-                                    <p:tooltip for="txtPrecio" value="Valor con . y 4 decimales" position="top"/>
+                                    <p:tooltip for="txtPrecio" value="Solo números y ." position="top"/>
                                 </p:inputText>
 
                                 <p:outputLabel value="Cantidad: " />
                                 <p:inputText id="txtCantidad" value="#{ingresoBean.detalleIngreso.cantidad}" size="5" rendered="true" placeholder="000.0000" >
                                     <p:ajax event="change"  update="txtSubtotal"/>
                                     <p:keyFilter regEx="/[0-9.]/i"/>
-                                    <p:tooltip for="txtCantidad" value="Valor con . y 4 decimales" position="top"/>
+                                    <p:tooltip for="txtCantidad" value="Solo números y ." position="top"/>
                                 </p:inputText>
 
                                 <p:outputLabel value="Subtotal: " />

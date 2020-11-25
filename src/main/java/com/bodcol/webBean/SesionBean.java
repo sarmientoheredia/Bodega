@@ -1,12 +1,8 @@
 package com.bodcol.webBean;
 
 import com.bodcol.entidades.Usuario;
-import com.bodcol.sessionBeans.UsuarioFacadeLocal;
-import com.bodcol.utilitarios.Encriptar;
-import com.bodcol.utilitarios.Mensaje;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
