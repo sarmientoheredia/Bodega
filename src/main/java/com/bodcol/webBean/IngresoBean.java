@@ -203,7 +203,6 @@ public class IngresoBean implements Serializable {
     }
 
     public void exportarPDFParam(Ingreso ingreso) {
-
         try {
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("ingresoId", ingreso.getId());
@@ -213,6 +212,19 @@ public class IngresoBean implements Serializable {
         }
     }
 
+    
+        public void exportarPDFIngreso(int numero) {
+        try {
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("ingresoId", numero);
+            jasperReportUtil.exportToPdf("Ingreso", parametros);
+        } catch (Exception ex) {
+            Mensaje.mostrarError("Error al generar el reporte");
+        }
+    }
+        
+        
+        
     //como llamar a un metodo que esta en otro bean
     public void exportarPDFFiltrado() throws Exception {
         try {

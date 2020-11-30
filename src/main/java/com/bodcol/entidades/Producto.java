@@ -68,20 +68,27 @@ public class Producto implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
+    
+    @Basic(optional = false)
+    @Size(min = 1, max = 20)
+    @Column(name = "presentacion")
+    private String presentacion;
+
     @Column(name = "stock")
-    private BigDecimal stock=BigDecimal.ZERO;
+    private BigDecimal stock = BigDecimal.ZERO;
     @Column(name = "precio")
-    private BigDecimal precio=BigDecimal.ZERO;
+    private BigDecimal precio = BigDecimal.ZERO;
     @Column(name = "total")
-    private BigDecimal total=BigDecimal.ZERO;
+    private BigDecimal total = BigDecimal.ZERO;
     @Column(name = "estado")
-    private Character estado='A';
-    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST}, mappedBy = "producto")
+    private Character estado = 'A';
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "producto")
     private List<DetalleIngreso> detalleIngresoList;
     @JoinColumn(name = "rack_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Rack rack;
-    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST}, mappedBy = "producto")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "producto")
     private List<DetalleEgreso> detalleEgresoList;
 
     public Producto() {
@@ -194,6 +201,17 @@ public class Producto implements Serializable {
         this.detalleEgresoList = detalleEgresoList;
     }
 
+    public String getPresentacion() {
+        return presentacion;
+    }
+
+    public void setPresentacion(String presentacion) {
+        this.presentacion = presentacion;
+    }
+    
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -218,5 +236,5 @@ public class Producto implements Serializable {
     public String toString() {
         return "com.bodcol.entidades.Producto[ id=" + id + " ]";
     }
-    
+
 }

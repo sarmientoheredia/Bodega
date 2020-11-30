@@ -88,7 +88,7 @@
                         <p:inputText id="txtNombre" value="#{rackBean.rack.nombre}" class="cajasTexto" 
                                      required="true" requiredMessage="El nombre de la estantería es requerida" placeholder="Ingrese el nombre de la estantería" title="Nombre de la estantería">
                             <p:ajax event="change" listener="#{rackBean.verificarNombre()}" />
-                            <p:keyFilter regEx="/[a-z0-9 ]/i" />
+                            <p:keyFilter regEx="/[a-z0-9 ñ]/i" />
                         </p:inputText>
 
                         <p:outputLabel value="Estado: " rendered="#{rackBean.rack.id!=null}" />

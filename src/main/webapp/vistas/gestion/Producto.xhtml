@@ -44,6 +44,10 @@
                             <h:outputText value="#{prod.nombre}"/>
                         </p:column>
 
+                        <p:column headerText="Presentación">
+                            <h:outputText value="#{prod.presentacion}"/>
+                        </p:column>
+
                         <p:column headerText="Stock">
                             <h:outputText value="#{prod.stock}"/>
                         </p:column>
@@ -94,8 +98,25 @@
                         <p:inputText id="txtNombre" value="#{productoBean.producto.nombre}" class="cajasTexto" 
                                      required="true" requiredMessage="El nombre del producto es requerido" placeholder="Ingrese el nombre del producto" title="Nombre del producto">
                             <p:ajax event="change" listener="#{productoBean.verificarNombre()}" />
-                            <p:keyFilter regEx="/[a-z ]/i"/>
+                            <p:keyFilter regEx="/[a-z ñ]/i"/>
                         </p:inputText>
+
+                        <p:outputLabel for="cboPresentacion" value="Presentación" />
+                        <p:selectOneMenu id="cboPresentacion" value="#{productoBean.producto.presentacion}" class="cajasTexto" required="true" requiredMessage="Seleccione la presentación" title="Seleccione la presentación">
+                            <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Unidad" itemValue="Unidad" />
+                            <f:selectItem itemLabel="Caja" itemValue="Caja" />
+                            <f:selectItem itemLabel="Funda" itemValue="Funda" />
+                            <f:selectItem itemLabel="Paquete" itemValue="Paquete" />
+                            <f:selectItem itemLabel="Juego" itemValue="Juego" />
+                            <f:selectItem itemLabel="Resma" itemValue="Resma" />
+                            <f:selectItem itemLabel="Pares" itemValue="Pares" />
+                            <f:selectItem itemLabel="Litro" itemValue="Litro" />
+                            <f:selectItem itemLabel="Par" itemValue="Par" />
+                            <f:selectItem itemLabel="Kilo" itemValue="Kilo" />
+                            <f:selectItem itemLabel="Galón" itemValue="Galón" />
+                            <f:selectItem itemLabel="Rollo" itemValue="Rollo" />
+                        </p:selectOneMenu>
 
                         <p:outputLabel for="txtSeccion" value="Sección" rendered="#{productoBean.producto.id==null}"/>
                         <p:selectOneMenu id="txtSeccion" value="#{productoBean.seccion}" required="true" 

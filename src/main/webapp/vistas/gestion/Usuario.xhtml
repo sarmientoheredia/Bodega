@@ -87,7 +87,7 @@
                             <f:selectItem itemLabel="Aspt" itemValue="Aspt" />
                             <f:selectItem itemLabel="Sldo" itemValue="Sldo" />
                             <f:selectItem itemLabel="Cbos" itemValue="Cbos" />
-                            <f:selectItem itemLabel="cbop" itemValue="cbop" />
+                            <f:selectItem itemLabel="Cbop" itemValue="Cbop" />
                             <f:selectItem itemLabel="Sgos" itemValue="Sgos" />
                             <f:selectItem itemLabel="Sgop" itemValue="Sgop" />
                             <f:selectItem itemLabel="Subs" itemValue="Subs" />
@@ -114,13 +114,29 @@
                             <f:selectItem itemLabel="C.B" itemValue="C.B" />
                             <f:selectItem itemLabel="Com" itemValue="Com" />
                             <f:selectItem itemLabel="E" itemValue="E" />
+                            <f:selectItem itemLabel="I.M" itemValue="I.M" />
                             <f:selectItem itemLabel="A.E" itemValue="A.E" />
                             <f:selectItem itemLabel="Int" itemValue="Int" />
                             <f:selectItem itemLabel="Trp" itemValue="Trp" />
                             <f:selectItem itemLabel="M.G" itemValue="M.G" />
                             <f:selectItem itemLabel="Snd" itemValue="Snd" />
-                            <f:selectItem itemLabel="Amg" itemValue="Amg" />
+                            <f:selectItem itemLabel="Admg" itemValue="Admg" />
+                            <f:selectItem itemLabel="Jus" itemValue="Jus" />
                             <f:selectItem itemLabel="Mus" itemValue="Mus" />
+                            <f:selectItem itemLabel="M_Aut" itemValue="M_Aut" />
+                            <f:selectItem itemLabel="M_Eqp" itemValue="M_Eqp" />
+                            <f:selectItem itemLabel="M_Cb" itemValue="M_Cb" />
+                            <f:selectItem itemLabel="M_Trpf" itemValue="M_Trpf" />
+                            <f:selectItem itemLabel="M_Ind" itemValue="M_Ind" />
+                            <f:selectItem itemLabel="Elec" itemValue="Elec" />
+                            <f:selectItem itemLabel="Cc.Ee" itemValue="Cc.Ee" />
+                            <f:selectItem itemLabel="E.Civ" itemValue="E.Civ" />
+                            <f:selectItem itemLabel="Agri" itemValue="Agri" />
+                            <f:selectItem itemLabel="Mec" itemValue="Mec" />
+                            <f:selectItem itemLabel="E.Com" itemValue="E.Com" />
+                            <f:selectItem itemLabel="Igeo" itemValue="Igeo" />
+                            <f:selectItem itemLabel="Vet" itemValue="Vet" />
+                            <f:selectItem itemLabel="Info" itemValue="Info" />
                         </p:selectOneMenu>
 
 
@@ -137,14 +153,14 @@
                         <p:outputLabel for="txtApellido" value="#{msg.apellido}" />
                         <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto"
                                      placeholder="Ingrese los dos apellidos" title="Ingrese los dos apellidos">
-                            <p:keyFilter regEx="/[a-z ]/i" />
+                            <p:keyFilter regEx="/[a-z ñ]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
 
                         <p:outputLabel for="txtNombre" value="#{msg.nombre}" />
                         <p:inputText id="txtNombre" value="#{usuarioBean.usuario.nombre}" required="true" class="cajasTexto" requiredMessage="#{msg.msgNombre}"
                                      placeholder="Ingrese los dos nombres" title="Ingrese los dos nombres">
-                            <p:keyFilter regEx="/[a-z ]/i" />
+                            <p:keyFilter regEx="/[a-z ñ]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
 

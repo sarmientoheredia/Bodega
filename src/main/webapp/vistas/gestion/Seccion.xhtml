@@ -76,7 +76,7 @@
                         <p:inputText id="txtNombre" value="#{seccionBean.seccion.nombre}" class="cajasTexto" 
                                      required="true" requiredMessage="El nombre de sección es requerido" placeholder="Ingrese el nombre de la sección" title="Nombre de sección">
                             <p:ajax event="change" listener="#{seccionBean.verificarNombre()}" />
-                            <p:keyFilter regEx="/[a-z ]/i" />
+                            <p:keyFilter regEx="/[a-z1-0 ñ-]/i" />
                         </p:inputText>
 
                         <p:outputLabel value="Estado: " rendered="#{seccionBean.seccion.id!=null}" />

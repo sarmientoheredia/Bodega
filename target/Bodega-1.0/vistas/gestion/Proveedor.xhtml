@@ -115,20 +115,20 @@
                         <p:inputText id="txtNombre" class="cajasTexto" value="#{proveedorBean.proveedor.nombre}"  
                                      required="true" requiredMessage="Nombre requerido" placeholder="Ingrese el nombre del proveedor" title="Nombre de proveedor">
                             <p:ajax event="change"/>
-                            <p:keyFilter regEx="/[a-z ]/i"/>
+                            <p:keyFilter regEx="/[a-z ñ]/i"/>
                         </p:inputText>
 
                         <p:outputLabel for="razonSocial" value="Razón Social" rendered="#{proveedorBean.actRuc==true}"  />
                         <p:inputText id="razonSocial" value="#{proveedorBean.proveedor.razonSocial}" class="cajasTexto" rendered="#{proveedorBean.actRuc==true}" 
                                      required="true" requiredMessage="Razón social requerida" placeholder="Ingrese la razón social" title="Razón social de la empresa" >
                             <p:ajax event="change"/>
-                            <p:keyFilter regEx="/[a-z ]/i"/>
+                            <p:keyFilter regEx="/[a-z ñ]/i"/>
                         </p:inputText>
 
                         <p:outputLabel for="direccion" value="Dirección:" />
                         <p:inputText id="direccion" value="#{proveedorBean.proveedor.direccion}" class="cajasTexto" 
                                      required="true" requiredMessage="Dirección requerida" placeholder="Ingrese la dirección" title="Dirección del proveedor">
-                            <p:keyFilter regEx="/[a-z ]/i" />
+                            <p:keyFilter regEx="/[a-z0-9 ñ-]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
 
