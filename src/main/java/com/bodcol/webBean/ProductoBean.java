@@ -30,8 +30,7 @@ public class ProductoBean implements Serializable {
     private List<Rack> rackList;
     private List<Producto> productoList;
     //FIN VARIABLES
-    
-    
+
     //INICIO INYECCION
     @EJB
     private ProductoFacadeLocal productoFacadeLocal;
@@ -68,7 +67,7 @@ public class ProductoBean implements Serializable {
     }
 
     public void setProducto(Producto producto) {
-        rackList=rackFacadeLocal.findAll();
+        rackList = rackFacadeLocal.findAll();
         this.producto = producto;
     }
 
@@ -109,7 +108,7 @@ public class ProductoBean implements Serializable {
     public void nuevo() {
         producto = new Producto();
     }
-    
+
     public void grabar() {
         try {
             if (producto.getId() == null) {
@@ -154,6 +153,13 @@ public class ProductoBean implements Serializable {
                 || prod.getNombre().toLowerCase().contains(filterText);
     }
 
+    public void verificarCodigo() {
+        Producto pro = productoFacadeLocal.findByCodigo(producto.getCodigo());
+        if (pro != null) {
+            Mensaje.mostrarAdvertencia("Este código ya esta registrado");
+        }
+    }
+
     public void verificarNombre() {
         Producto pro = productoFacadeLocal.findByNombre(producto.getNombre());
         if (pro != null) {
@@ -165,8 +171,7 @@ public class ProductoBean implements Serializable {
         rackList = rackFacadeLocal.findAllSeccion(seccion);
     }
 
-    
-        //metodo para generar los reportes de los productos
+    //metodo para generar los reportes de los productos
     public void exportarPDF() throws Exception {
         try {
             jasperReportUtil.exportToPdf("Producto", null);

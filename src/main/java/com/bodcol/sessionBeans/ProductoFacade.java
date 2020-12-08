@@ -35,21 +35,34 @@ public class ProductoFacade extends AbstractFacade<Producto> implements Producto
 
     @Override
     public Producto findByNombre(String nombre) {
-        Query q=em.createNamedQuery("Producto.findByNombre", Producto.class);
+        Query q = em.createNamedQuery("Producto.findByNombre", Producto.class);
         q.setParameter("nombre", nombre);
         try {
             return (Producto) q.getSingleResult();
-        } catch (NoResultException  e) {
-            Mensaje.mostrarExito("Producto aun no registrado");
+        } catch (NoResultException e) {
+            Mensaje.mostrarExito("El nombre del producto aun no esta regístrado");
             return null;
         }
-        
+
     }
 
     @Override
     public List<Producto> findAllActivo() {
-        Query q=em.createNamedQuery("Producto.findAllActivo", Producto.class);
+        Query q = em.createNamedQuery("Producto.findAllActivo", Producto.class);
         return q.getResultList();
     }
-    
+
+    @Override
+    public Producto findByCodigo(String codigo) {
+        Query q = em.createNamedQuery("Producto.findByCodigo", Producto.class);
+        q.setParameter("codigo", codigo);
+        try {
+            return (Producto) q.getSingleResult();
+        } catch (NoResultException e) {
+            Mensaje.mostrarExito("El código del producto aun no esta registrado");
+            return null;
+        }
+
+    }
+
 }

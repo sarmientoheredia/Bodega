@@ -39,7 +39,7 @@
 
 .cajasTexto{
     margin: 5px !important;
-    width: 28rem;
+    width: 120%;
     height: 27px !important;
 }
 
@@ -78,9 +78,11 @@
     text-decoration: none;
     font-size: 1.5rem;
     border-radius: 3px;
-    border: #000000 0.5px solid;
-    padding: 4px 25px;
-    margin: 10px;
+    border: #000000 0.01px solid;
+    width: 70px;
+    text-align: center;
+/*    padding: 4px 25px;
+    margin: 10px;*/
 }
 
 .enlaceboton {    font-family: verdana, arial, sans-serif;

@@ -25,12 +25,15 @@
                                  widgetVar="tableEgreso" globalFilterFunction="#{egresoBean.globalFilterFunction}"
                                  rowStyleClass="#{egr.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15" resizableColumns="false"
+                                 style="text-align: center"
                                  >
 
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableEgreso').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtIngreso" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -69,17 +72,17 @@
                 <p:panel id="pEgreso" header="#{egresoBean.egreso.id ==null ? 'Registro de ' : 'Actualizacion de'}  Egreso" rendered="#{egresoBean.egreso!=null}" style="width: 100%" >
 
                     <!--INICIO DEL LAYOUT PARA CABECERA DEL EGRESO-->
-                    <p:layout id="capaDatosClienteEgreso" style="width: 100%; height: 140px;">
-                        <p:layoutUnit  position="center" style="padding: 5px; text-align: justify;
+                    <p:layout id="capaDatosClienteEgreso" style="width: 100%; height: 150px;">
+                        <p:layoutUnit  position="center" style="text-align: justify;
                                        font-size: 14px;" size="300">
-                            <h:panelGrid columns="4" cellpadding="5" cellspacing="5" >
+                            <h:panelGrid columns="6" cellpadding="5"  >
 
-                                <p:outputLabel  value="Fecha:" />
-                                <p:calendar  value="#{egresoBean.egreso.fecha}" pattern="yyyy-MM-dd" class="impIngreso" disabled="#{egresoBean.egreso.id!=null}" 
-                                             placeholder="Fecha de egreso" title="Fecha de egreso"/>
+                                <p:outputLabel for="txtCalendar" value="Fecha de Egreso:" />
+                                <p:calendar id="txtCalendar" value="#{egresoBean.egreso.fecha}" pattern="yyyy-MM-dd"   disabled="#{egresoBean.egreso.id!=null}" 
+                                            placeholder="Precione para elejir la fecha" title="Fecha de egreso" required="true"/>
 
                                 <p:outputLabel for="cboUnidad" value="Dependencia" />
-                                <p:selectOneMenu id="cboUnidad" value="#{egresoBean.egreso.dependencia}" required="true" title="Seleccione la dependencia">
+                                <p:selectOneMenu id="cboUnidad" value="#{egresoBean.egreso.dependencia}" required="true" title="Seleccione la dependencia" disabled="#{egresoBean.egreso.id!=null}" >
                                     <f:selectItem itemLabel="#{msg.seleccion}" noSelectionOption="true" />
                                     <f:selectItem itemLabel="BAT.ABAS.COLOG" itemValue="BAT.ABAS.COLOG" />
                                     <f:selectItem itemLabel="BAT.MTTO.COLOG" itemValue="BAT.MTTO.COLOG" />
@@ -95,7 +98,7 @@
 
                             <h:panelGrid id="pEgresoCab" columns="6" cellspacing="5">
                                 <p:commandButton  oncomplete="PF('dlgSolicita').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pEgreso" process="@(this)" title="Buscar usuario" disabled="#{egresoBean.egreso.id!=null}"/>
+                                                  update="pEgreso" process="@(this)" title="Buscar usuario" rendered="#{egresoBean.egreso.id==null}"/>
                                 <p:outputLabel value="Clase Solicita: " />
                                 <p:inputText value="#{egresoBean.egreso.usuario1.nombreCompleto}" class="impIngreso" style="margin-right: 2rem" disabled="true"  />
 
@@ -103,13 +106,14 @@
 
 
                                 <p:commandButton  oncomplete="PF('dlgLogistico').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pEgreso" process="@(this)" title="Oficial Logístico" disabled="#{egresoBean.egreso.id!=null}"/>
+                                                  update="pEgreso" process="@(this)" title="Oficial Logístico" rendered="#{egresoBean.egreso.id==null}"/>
                                 <p:outputLabel value="Oficial Logístico: " />
                                 <p:inputText value="#{egresoBean.egreso.usuario2.nombreCompleto}" class="impIngreso" disabled="true"/>
-
+                                <p:column rendered="#{egresoBean.egreso.id!=null}"/>
+                                <p:column rendered="#{egresoBean.egreso.id!=null}"/>
 
                                 <p:commandButton  oncomplete="PF('dlgBodeguero').show()" icon="ui-icon-search"  immediate="true"
-                                                  update="pEgreso" process="@(this)" title="Clase Bodeguero" disabled="#{egresoBean.egreso.id!=null}"/>
+                                                  update="pEgreso" process="@(this)" title="Clase Bodeguero" rendered="#{egresoBean.egreso.id==null}"/>
                                 <p:outputLabel value="Clase Bodeguero: " />
                                 <p:inputText value="#{egresoBean.egreso.usuario.nombreCompleto}" class="impIngreso" disabled="true" />
                             </h:panelGrid>
@@ -128,7 +132,7 @@
                     <!--FIN DEL LAYOUT PARA CABECERA DEL EGRESO-->
 
                     <!--INICIO DEL LAYOUT PARA LOS PRODUCTOS-->
-                    <p:layout  style="width:100%" >
+                    <p:layout  style="width:100%" rendered="#{egresoBean.egreso.id==null}">
                         <p:layoutUnit  position="center" style="padding: 5px; text-align: justify;
                                        font-size: 14px;" >
                             <h:panelGrid id="pProducto"  columns="12" cellspacing="5">
@@ -148,7 +152,7 @@
                                 </p:inputText>
 
                                 <p:outputLabel value="Cantidad: " />
-                                <p:inputText id="txtCantidad" value="#{egresoBean.detalleEgreso.cantidad}" size="7" rendered="true" placeholder="Cantidad" >
+                                <p:inputText id="txtCantidad" value="#{egresoBean.detalleEgreso.cantidad}" size="7" rendered="true" placeholder="0000" >
                                     <p:ajax event="change" listener="#{egresoBean.comprobarStock}"  update="txtSubtotal,:growl"/>
                                     <p:keyFilter regEx="/[0-9.]/i"/>
                                     <p:tooltip  for="txtCantidad" value="La cantidad no debe ser mayor al stock" position="top"/>
@@ -198,8 +202,10 @@
 
                     <!--INICIO DE LA BOTONERA DEL INGRESO-->
                     <div class="ui-g botonera">
-                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{egresoBean.grabar()}" update="formE"  process="@this,pEgreso"/>
-                        <p:commandButton value="#{msg.cancelar}" icon="pi pi-times" action="#{egresoBean.init()}" update="formE"  immediate="true"/>
+                        <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{egresoBean.grabar()}" update="formE"  process="@this,pEgreso" rendered="#{egresoBean.egreso.id==null}"/>
+                        <h:commandLink rendered="#{egresoBean.egreso.id!=null}"  target="_blank" class="pi pi-print imprimir" action="#{egresoBean.exportarPDFParam(egresoBean.egreso)}" title="Imprimir" />
+                        
+                        <p:commandButton value="#{egresoBean.egreso.id ==null ? 'Cancelar' : 'Salir'}" icon="pi pi-times" action="#{egresoBean.init()}" update="formE"  immediate="true"/>
                     </div>
                     <!--INICIO DE LA BOTONERA DEL INGRESO-->
 
@@ -210,18 +216,22 @@
 
 
             <!--INICIO DE LA SECCION DIALOGOS USADOS EN EL REGISTRO DE LOS INGRESOS-->
-            <!--INICIO DIALOGO  DE PROVEEDOR-->
+            <!--INICIO DIALOGO  DE USUARIO QUE SOLICITA-->
             <p:dialog id="dlgSolicita" width="800" 
                       widgetVar="dlgSolicita" resizable="false"
                       modal="true" appendTo="@(body)">
                 <h:form>
-                    <p:dataTable  value="${usuarioBean.usuarioList}" var="us" 
-                                  widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
-                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15">
+                    <p:dataTable id="dtSolicita" value="${usuarioBean.usuarioList}" var="us" 
+                                 widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 emptyMessage="No existen coincidencias"
+                                 style="text-align: center">
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableUsuario').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtSolicita" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -240,7 +250,7 @@
                             <h:outputText value="#{us.nombreCompleto}"/>
                         </p:column>
 
-                        <p:column width="30">
+                        <p:column headerText="Seleccionar">
                             <p:commandButton icon="pi pi-check" update="formE:pEgresoCab" action="#{egresoBean.setSolicita(us)}"  oncomplete="PF('dlgSolicita').hide()" immediate="true" title="Seleccionar"/>
                         </p:column>
                     </p:dataTable>
@@ -249,19 +259,38 @@
                     </div>
                 </h:form>
             </p:dialog>
-            <!--FIN DIALOGO  DE PROVEEDOR-->
+            <!--FIN DIALOGO  DE QUIEN SOLICITA-->
 
-            <!--INICIO DIALOGO  DE COMPRAS LOGISTICO-->
+            <!--INICIO DIALOGO  DEL LOGISTICO-->
             <p:dialog id="dlgLogistico" width="700" 
                       widgetVar="dlgLogistico" resizable="false"
                       modal="true" 
                       appendTo="@(body)">
+
+
                 <h:form>
-                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu"
-                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15">
-                        <p:column headerText="Grado Arma">
-                            <h:outputText value="#{usu.grado} - #{usu.arma}"/>
+                    <p:dataTable id="dtLogistico" value="#{usuarioBean.usuarioListCargo}" var="usu"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 widgetVar="tableUsuarioLogistico" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
+                                 style="text-align: center"
+                                 emptyMessage="No existen coincidencias">
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableUsuarioLogistico').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtLogistico" trigger="toggler" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Grado">
+                            <h:outputText value="#{usu.grado}"/>
                         </p:column>   
+                        <p:column headerText="Arma">
+                            <h:outputText value="#{usu.arma}"/>
+                        </p:column>  
+
                         <p:column headerText="Cedula">
                             <h:outputText value="#{usu.cedula}"/>
                         </p:column>   
@@ -271,7 +300,7 @@
                         <p:column headerText="Funcion" width="70">
                             <h:outputLabel value="#{usu.bodeguero}" />
                         </p:column>
-                        <p:column width="30">
+                        <p:column headerText="Seleccionar">
                             <p:commandButton icon="pi pi-check" update="formE:pEgresoCab" action="#{egresoBean.setLogistico(usu)}"  oncomplete="PF('dlgLogistico').hide()" immediate="true" title="Seleccionar" />
                         </p:column>
                     </p:dataTable>
@@ -280,15 +309,28 @@
                     </div>
                 </h:form>
             </p:dialog>
-            <!--INICIO DIALOGO  DE COMPRAS LOGISTICO-->
+            <!--INICIO DIALOGO  DEL LOGISTICO-->
 
-            <!--INICIO DIALOGO  DE COMPRAS BODEGUERO-->
+            <!--INICIO DIALOGO  DEL BODEGUERO-->
             <p:dialog id="dlgBodeguero" widgetVar="dlgBodeguero" resizable="false" modal="true" 
                       width="700"
                       appendTo="@(body)">
                 <h:form>
-                    <p:dataTable value="#{usuarioBean.usuarioListCargo}" var="usu"
-                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15">
+                    <p:dataTable id="dtUsuario" value="#{usuarioBean.usuarioListCargo}" var="usu"
+                                 paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 widgetVar="tableUsuarioBodeguero" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
+                                 style="text-align: center"
+                                 emptyMessage="No existen coincidencias">
+
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableUsuarioBodeguero').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtUsuario" trigger="toggler" />
+                            </p:outputPanel>
+                        </f:facet>
+
                         <p:column headerText="Grado Arma">
                             <h:outputText value="#{usu.grado} #{usu.arma}"/>
                         </p:column>   
@@ -301,7 +343,7 @@
                         <p:column headerText="Funcion" width="70">
                             <h:outputLabel value="#{usu.bodeguero}" />
                         </p:column>
-                        <p:column width="30">
+                        <p:column headerText="Seleccionar">
                             <p:commandButton icon="pi pi-check" update="formE:pEgresoCab" action="#{egresoBean.setBodeguero(usu)}"  oncomplete="PF('dlgBodeguero').hide()" immediate="true" title="Seleccionar" />
                         </p:column>
                     </p:dataTable>
@@ -310,7 +352,7 @@
                     </div>
                 </h:form>
             </p:dialog>
-            <!--INICIO DIALOGO  DE COMPRAS BODEGUERO-->
+            <!--INICIO DIALOGO  DEL BODEGUERO-->
 
 
             <!--INICIO DIALOGO  DE PRODUCTOS-->
@@ -322,11 +364,15 @@
                     <p:dataTable id="dtProducto" value="${productoBean.productoListActivo}" var="prod"
                                  widgetVar="tableProducto" globalFilterFunction="#{productoBean.globalFilterFunction}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 style="text-align: center"
+                                 emptyMessage="No existen coincidencias"
                                  >
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableProducto').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtProducto" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -349,7 +395,7 @@
                         <p:column headerText="Total">
                             <h:outputText value="#{prod.total}"/>
                         </p:column>
-                        <p:column width="30">
+                        <p:column headerText="Seleccionar">
                             <p:commandButton icon="pi pi-check" update="formE:pProducto" action="#{egresoBean.setProducto(prod)}"  oncomplete="PF('dlgProducto').hide()" immediate="true" title="Seleccionar" />
                         </p:column>
                     </p:dataTable>

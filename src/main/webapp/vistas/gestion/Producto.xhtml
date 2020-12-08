@@ -27,12 +27,16 @@
                                  widgetVar="tableProducto" globalFilterFunction="#{productoBean.globalFilterFunction}"
                                  rowStyleClass="#{prod.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 emptyMessage="No existen productos registrados"
+                                 style="text-align: center"
                                  >
 
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableProducto').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtProducto" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -91,14 +95,13 @@
                         <p:outputLabel for="txtCodigo" value="Código:" />
                         <p:inputText id="txtCodigo" value="#{productoBean.producto.codigo}" disabled="#{productoBean.producto.id!=null}" class="cajasTexto" 
                                      required="true" requiredMessage="El código del producto es requerido" placeholder="Ingrese el código del producto" title="Código de producto" >
-                            <p:ajax event="change"  />
+                            <p:ajax event="change" listener="#{productoBean.verificarCodigo()}" />
                         </p:inputText>
 
                         <p:outputLabel for="txtNombre" value="Nombre:" />
                         <p:inputText id="txtNombre" value="#{productoBean.producto.nombre}" class="cajasTexto" 
                                      required="true" requiredMessage="El nombre del producto es requerido" placeholder="Ingrese el nombre del producto" title="Nombre del producto">
                             <p:ajax event="change" listener="#{productoBean.verificarNombre()}" />
-                            <p:keyFilter regEx="/[a-z ñ]/i"/>
                         </p:inputText>
 
                         <p:outputLabel for="cboPresentacion" value="Presentación" />
@@ -137,14 +140,14 @@
                         <p:inputText id="txtFila" value="#{productoBean.producto.fila}" class="cajasTexto" 
                                      required="true" requiredMessage="El número de fila es requerido" placeholder="Igrese el número de la fila" title="Número de fila">
                             <p:ajax event="change"  />
-                            <p:keyFilter regEx="/[0-9a-z-]/i"/>
+                            <p:keyFilter regEx="/[0-9]/i"/>
                         </p:inputText>
 
                         <p:outputLabel for="txtColumna" value="Columna:" />
                         <p:inputText id="txtColumna" value="#{productoBean.producto.columna}" class="cajasTexto" 
                                      required="true" requiredMessage="El número de columna es requerido" placeholder="Ingrese el número de la columna" title="Número de columna">
                             <p:ajax event="change"  />
-                            <p:keyFilter regEx="/[0-9a-z-]/i"/>
+                            <p:keyFilter regEx="/[0-9]/i"/>
                         </p:inputText>
 
 

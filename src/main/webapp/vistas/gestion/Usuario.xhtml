@@ -30,32 +30,34 @@
                                  widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
                                  rowStyleClass="#{usu.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
-                                 resizableColumns="false" emptyMessage="No existen usuarios">
+                                 resizableColumns="false" emptyMessage="No existen usuarios registrados" style="text-align: center">
 
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableUsuario').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtUsuario" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Cédula" width="80" >
+                        <p:column headerText="Cédula" >
                             <h:outputText value="#{usu.cedula}"/>
                         </p:column>
-                        <p:column headerText="Grado" width="40" >
+                        <p:column headerText="Grado"  >
                             <h:outputText value="#{usu.grado}"/>
                         </p:column>
-                        <p:column headerText="Arma" width="40" >
+                        <p:column headerText="Arma"  >
                             <h:outputText value="#{usu.arma}"/>
                         </p:column>
-                        <p:column headerText="Apellidos y Nombres">
+                        <p:column headerText="Apellidos y Nombres" width="60%" >
                             <h:outputText value="#{usu.nombreCompleto}"/>
                         </p:column>
-                        <p:column headerText="Estado" width="70">
+                        <p:column headerText="Estado" >
                             <h:outputLabel value="#{usu.estado.toString()=='A'? 'Activo':'Inactivo'}" />
                         </p:column>
 
-                        <p:column width="100" headerText="#{msg.opcion}">
+                        <p:column  headerText="#{msg.opcion}" >
                             <p:commandButton icon="ui-icon-pencil" action="#{usuarioBean.setUsuario(usu)}" update="formU" title="Actualizar" />
                             <p:commandButton icon="ui-icon-trash" action="#{usuarioBean.eliminar(usu)}" update="dtUsuario" title="Eliminar">
                                 <p:confirm header="Confirmación" message="Confirme si desea eliminar el usuario"/>
@@ -67,7 +69,7 @@
 
 
                 <!--INICO  DEL PANEL DE USUARIO-->
-                <p:panel id="pUsuario"  rendered="#{usuarioBean.usuario!=null}" class="ui-lg-6 ui-md-12"  >
+                <p:panel id="pUsuario"  rendered="#{usuarioBean.usuario!=null}" class="ui-lg-6 ui-md-12 ui-g-12"  >
                     <f:facet name="header">
                         <center>
                             <p:outputLabel value="#{usuarioBean.usuario.id ==null ? 'Registro de ' : 'Actualización de'}  Usuario"/>
@@ -142,18 +144,18 @@
 
                         <p:outputLabel for="txtCedula" value="#{msg.cedula}" />
                         <p:inputText id="txtCedula" class="cajasTexto" value="#{usuarioBean.usuario.cedula}" disabled="#{usuarioBean.usuario.id!=null}" 
-                                     required="true" requiredMessage="#{msg.msgCedula}" 
+                                     required="true" requiredMessage="La cédula es requerida" 
                                      placeholder="Ingrese una cédula válida" title="Ingrese un número válido">
                             <p:ajax event="change" listener="#{usuarioBean.operacionCedula()}"  />
                             <p:keyFilter regEx="/[0-9]/i"/>
                             <f:validateLength for="txtCedula" minimum="10" maximum="10"/>
-                           
+
                         </p:inputText>
 
                         <p:outputLabel for="txtApellido" value="#{msg.apellido}" />
                         <p:inputText id="txtApellido" value="#{usuarioBean.usuario.apellido}" required="true" requiredMessage="#{msg.msgApellido}" class="cajasTexto"
                                      placeholder="Ingrese los dos apellidos" title="Ingrese los dos apellidos">
-                            <p:keyFilter regEx="/[a-z ñ]/i" />
+                            <p:keyFilter regEx="/[a-z ñ ]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
 
@@ -164,9 +166,9 @@
                             <p:ajax event="change" />
                         </p:inputText>
 
-                        <p:outputLabel for="txtPermiso" value="#{msg.permiso} "  />
+                        <p:outputLabel for="txtPermiso" value="Rol"  />
                         <p:selectOneRadio id="txtPermiso" value="#{usuarioBean.usuario.rol}" required="true" requiredMessage="#{msg.msgPermiso}" class="cajasTexto"  >
-                            <f:selectItem itemLabel="#{msg.administrador}" itemValue="A"/>
+                            <f:selectItem itemLabel="Administrador" itemValue="A"/>
                             <f:selectItem itemLabel="#{msg.invitado}" itemValue="I"/>
                         </p:selectOneRadio>
 

@@ -28,12 +28,14 @@
                                  widgetVar="tableProveedor" globalFilterFunction="#{proveedorBean.globalFilterFunction}"
                                  rowStyleClass="#{prov.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
-                                 emptyMessage="No existen proveedores">
+                                 emptyMessage="No existen proveedores" style="text-align: center">
 
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableProveedor').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtProveedor" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -43,17 +45,17 @@
                         <p:column headerText="Dirección">
                             <h:outputText value="#{prov.direccion}"/>
                         </p:column>
-                        <p:column headerText="Teléfono" width="120">
+                        <p:column headerText="Teléfono" >
                             <h:outputText value="#{prov.telefono}"/>
                         </p:column>
                         <p:column headerText="Correo">
                             <h:outputText value="#{prov.correo}"/>
                         </p:column>
-                        <p:column headerText="Estado" width="70">
+                        <p:column headerText="Estado" >
                             <h:outputLabel value="#{prov.estado.toString()=='A'? 'Activo':'Inactivo'}" />
                         </p:column>
 
-                        <p:column width="100" headerText="Opciones">
+                        <p:column  headerText="Opciones">
                             <p:commandButton icon="ui-icon-pencil" action="#{proveedorBean.seleccionarProveedor(prov)}" update="formP" title="Actualizar"/>
                             <p:commandButton icon="ui-icon-trash" action="#{proveedorBean.eliminar(prov)}" update="dtProveedor" title="Eliminar" >
                                 <p:confirm header="Confirmación" message="Confirme si desea eliminar el Proveedor"/>
@@ -128,21 +130,20 @@
                         <p:outputLabel for="direccion" value="Dirección:" />
                         <p:inputText id="direccion" value="#{proveedorBean.proveedor.direccion}" class="cajasTexto" 
                                      required="true" requiredMessage="Dirección requerida" placeholder="Ingrese la dirección" title="Dirección del proveedor">
-                            <p:keyFilter regEx="/[a-z0-9 ñ-]/i" />
                             <p:ajax event="change" />
                         </p:inputText>
 
                         <p:outputLabel for="telefono" value="Teléfono:" />
                         <p:inputText id="telefono" value="#{proveedorBean.proveedor.telefono}" class="cajasTexto" 
                                      required="true" requiredMessage="Teléfono requerido" placeholder="Ingrese el número de teléfono convencional" title="Teléfono convencional">
-                            <p:keyFilter regEx="/[0-9-]/i"/>
+                            <p:keyFilter regEx="/[0-9- +]/i"/>
                             <p:ajax event="change" />
                         </p:inputText>
 
                         <p:outputLabel for="txtCelular" value="Celular:" />
                         <p:inputText id="txtCelular" value="#{proveedorBean.proveedor.celular}" class="cajasTexto" 
                                      required="true" requiredMessage="Celular requerido" placeholder="Ingrese el número de celular" title="Número celular">
-                            <p:keyFilter regEx="/[0-9-]/i"/>
+                            <p:keyFilter regEx="/[0-9- ]/i"/>
                             <p:ajax event="change" />
                         </p:inputText>
 

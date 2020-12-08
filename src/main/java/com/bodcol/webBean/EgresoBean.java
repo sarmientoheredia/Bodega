@@ -142,7 +142,7 @@ public class EgresoBean implements Serializable {
                 egresoFacadeLocal.edit(egreso);
                 Mensaje.mostrarExito("Actualización exitosa");
             }
-            init();
+//            init();
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {

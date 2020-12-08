@@ -28,12 +28,16 @@
                                  widgetVar="tableSeccion" globalFilterFunction="#{seccionBean.globalFilterFunction}"
                                  rowStyleClass="#{sec.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 emptyMessage="No existen secciones registradas"
+                                 style="text-align: center"
                                  >
 
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableSeccion').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtSeccion" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 

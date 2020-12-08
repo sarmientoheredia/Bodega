@@ -64,7 +64,6 @@ public class Usuario implements Serializable {
     private String arma;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 12)
     @Column(name = "cedula")
     private String cedula;
     @Basic(optional = false)

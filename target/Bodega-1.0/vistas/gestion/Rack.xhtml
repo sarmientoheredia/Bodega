@@ -18,7 +18,7 @@
                 <p:panel  rendered="#{rackBean.rack==null}" >
                     <f:facet name="header">
                         <center>
-                            <p:outputLabel value="Listado de Seccion"/>
+                            <p:outputLabel value="Listado de Estanterias"/>
                         </center>
                     </f:facet> 
 
@@ -28,12 +28,16 @@
                                  widgetVar="tableSeccion" globalFilterFunction="#{rackBean.globalFilterFunction}"
                                  rowStyleClass="#{rac.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
+                                 emptyMessage="No existen estanterias registradas"
+                                 style="text-align: center"
                                  >
 
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-search" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tableSeccion').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                <p:columnToggler datasource="dtRack" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -88,7 +92,7 @@
                         <p:inputText id="txtNombre" value="#{rackBean.rack.nombre}" class="cajasTexto" 
                                      required="true" requiredMessage="El nombre de la estantería es requerida" placeholder="Ingrese el nombre de la estantería" title="Nombre de la estantería">
                             <p:ajax event="change" listener="#{rackBean.verificarNombre()}" />
-                            <p:keyFilter regEx="/[a-z0-9 ñ]/i" />
+<!--                            <p:keyFilter regEx="/[a-z0-9 ñ]/i" />-->
                         </p:inputText>
 
                         <p:outputLabel value="Estado: " rendered="#{rackBean.rack.id!=null}" />

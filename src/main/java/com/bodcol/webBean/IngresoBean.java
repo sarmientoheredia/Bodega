@@ -149,7 +149,7 @@ public class IngresoBean implements Serializable {
                 ingresoFacadeLocal.edit(ingreso);
                 Mensaje.mostrarExito("Actualización exitosa");
             }
-            init();
+//            init();
         } catch (Exception e) {
             if (e.getCause().getCause().getClass().getName().equals("org.hibernate.exception.ConstraintViolationException")) {
                 if (e.getCause().getCause().getMessage().contains("could not execute statement")) {
@@ -198,7 +198,7 @@ public class IngresoBean implements Serializable {
     public void verificarNumero() {
         Ingreso ing = ingresoFacadeLocal.findByNumero(ingreso.getNumero());
         if (ing != null) {
-            Mensaje.mostrarAdvertencia("Numero ya existe");
+            Mensaje.mostrarAdvertencia("El número de factura ya existe");
         }
     }
 
@@ -207,6 +207,7 @@ public class IngresoBean implements Serializable {
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("ingresoId", ingreso.getId());
             jasperReportUtil.exportToPdf("Ingreso", parametros);
+            Mensaje.mostrarExito("Reporte de ingreso generado con exito");
         } catch (Exception ex) {
             Mensaje.mostrarError("Error al generar el reporte");
         }

@@ -36,7 +36,7 @@ public class IngresoFacade extends AbstractFacade<Ingreso> implements IngresoFac
         try {
             return (Ingreso) q.getSingleResult();
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Número valido");
+            Mensaje.mostrarExito("Número de factura válido");
             return null;
         }
     }

@@ -32,6 +32,8 @@ public interface ProductoFacadeLocal {
     
     Producto findByNombre(String nombre);
     
+    Producto findByCodigo(String codigo);
+    
     
     List<Producto> findAllActivo();
 }
