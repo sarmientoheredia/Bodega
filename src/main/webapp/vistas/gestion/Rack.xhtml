@@ -41,7 +41,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Código" width="100">
+                        <p:column headerText="Código" >
                             <h:outputText value="#{rac.id}"/>
                         </p:column>
 
@@ -57,7 +57,7 @@
                             <h:outputText value="#{rac.estado.toString()=='A'?'Activo': 'Inactivo'}"/>
                         </p:column>
 
-                        <p:column width="100" headerText="Opciones">
+                        <p:column  headerText="Opciones">
                             <p:commandButton icon="ui-icon-pencil" action="#{rackBean.setRack(rac)}" update="formR" title="Actualizar" />
                             <p:commandButton icon="ui-icon-trash" action="#{rackBean.eliminar(rac)}" update="dtRack" title="Eliminar">
                                 <p:confirm header="Confirmación" message="Confirme si desea eliminar la estantería"/>
@@ -92,7 +92,7 @@
                         <p:inputText id="txtNombre" value="#{rackBean.rack.nombre}" class="cajasTexto" 
                                      required="true" requiredMessage="El nombre de la estantería es requerida" placeholder="Ingrese el nombre de la estantería" title="Nombre de la estantería">
                             <p:ajax event="change" listener="#{rackBean.verificarNombre()}" />
-<!--                            <p:keyFilter regEx="/[a-z0-9 ñ]/i" />-->
+                            <!--                            <p:keyFilter regEx="/[a-z0-9 ñ]/i" />-->
                         </p:inputText>
 
                         <p:outputLabel value="Estado: " rendered="#{rackBean.rack.id!=null}" />
@@ -103,11 +103,12 @@
 
 
                     </h:panelGrid>
-                    <div class="ui-g botonera">
+                    <div class="ui-g-12 botonera" style="text-align: center">
                         <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{rackBean.grabar()}" update="formR"  style="margin-right: 20px" title="Guardar"/>
                         <p:commandButton value="Cancelar" icon="pi pi-times" action="#{rackBean.init()}" update="formR"  immediate="true" title="Cancelar"/>
                     </div>
                 </p:panel>
+
                 <!--FIN DLG NUEVO RACK-->
             </h:form>
 

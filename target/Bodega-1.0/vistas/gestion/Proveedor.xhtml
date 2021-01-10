@@ -67,15 +67,15 @@
 
 
                 <!--INICO DLG NUEVA CATEGORIA-->
-                <p:panel id="pProveedor"  rendered="#{proveedorBean.proveedor!=null}" class="ui-lg-6"  >
+                <p:panel id="pProveedor"  rendered="#{proveedorBean.proveedor!=null}" class="ui-lg-6 ui-md-9 ui-g-12"  >
 
                     <f:facet name="header">
                         <center>
                             <p:outputLabel value="#{proveedorBean.proveedor.id ==null ? 'Registro de ' : 'Actualización de'}  Proveedor"/>
                         </center>
                     </f:facet> 
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Codigo: "  rendered="#{proveedorBean.proveedor.id!=null}"/>
+                    <h:panelGrid columns="2" class="ui-g-12 ui-md-12 ui-lg-12">
+                        <p:outputLabel value="Codigo: "  rendered="#{proveedorBean.proveedor.id!=null}" class="cajasTexto"/>
                         <p:inputText value="#{proveedorBean.proveedor.id}" class="cajasTexto" disabled="true" rendered="#{proveedorBean.proveedor.id!=null}"/>
 
                         <p:outputLabel for="cboDocumento" value="Documento:"   />
@@ -87,7 +87,7 @@
                             <p:ajax  listener="#{proveedorBean.acivarCampos}" event="change" update="pProveedor"/>
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="txtCedula" value="Cédula:" rendered="#{proveedorBean.actCedula==true}" />
+                        <p:outputLabel for="txtCedula" value="Cédula:" rendered="#{proveedorBean.actCedula==true}" style="background-color: red" />
                         <p:inputText id="txtCedula" class="cajasTexto" value="#{proveedorBean.proveedor.cedula}"  rendered="#{proveedorBean.actCedula==true}" disabled="#{proveedorBean.proveedor.id!=null}" 
                                      required="true" requiredMessage="Cédula requerida" placeholder="Ingrese una cédula válida" title="Ingrese una cédula válida">
                             <p:ajax event="change" listener="#{proveedorBean.operacionCedula()}"  />
@@ -161,7 +161,8 @@
                         </p:selectOneRadio>
 
                     </h:panelGrid>
-                    <div class="ui-g botonera">
+
+                    <div class="ui-g-12 botonera" style="text-align: center">
                         <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{proveedorBean.grabar()}" update="formP"  style="margin-right: 20px" title="Guardar"/>
                         <p:commandButton value="Cancelar" icon="pi pi-times" action="#{proveedorBean.init()}" update="formP"  immediate="true" title="Cancelar"/>
                     </div>

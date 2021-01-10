@@ -9,35 +9,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 /**
  *
  * @author Cbos- Com. Sarmiento H. Luis A.
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFacadeLocal {
-
     @PersistenceContext(unitName = "bodegaPU")
     private EntityManager em;
-
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
     public UsuarioFacade() {
         super(Usuario.class);
     }
-
     @Override
     public Usuario findByCedula(String cedula) {
         Query q = em.createNamedQuery("Usuario.findByCedula", Usuario.class);
         q.setParameter("cedula", cedula);
         try {
             return (Usuario) q.getSingleResult();
-
         } catch (NoResultException e) {
-            Mensaje.mostrarExito("Cédula valida");
+            Mensaje.mostrarExito("Cédula válida");
             return null;
         }
     }

@@ -173,7 +173,9 @@ public class EgresoBean implements Serializable {
             return true;
         }
         Egreso egr = (Egreso) value;
-        return egr.getDependencia().toLowerCase().contains(filterText);
+        return egr.getDependencia().toLowerCase().contains(filterText)
+                || egr.getUsuario1().getNombreCompleto().toLowerCase().contains(filterText)
+                || egr.getUsuario1().getCedula().toLowerCase().contains(filterText);
     }
 
     //metodo para agregar a la lista del detalle y validar si no hay otro producto

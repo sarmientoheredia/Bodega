@@ -81,7 +81,6 @@
 
                     <!--INICIO DE LA SECCION PARA LOS REPORTES DE LOS EGRESOS-->
                     <p:tab title="REPORTES DE EGRESOS" >
-
                         <p:panel  id="pEgresoFiltrado">
                             <p:outputLabel value="Desde:"/>
                             <p:calendar pattern="yyyy-MM-dd" value="#{egresoBean.fechaInicio}" style="margin-right: 10px"
@@ -96,11 +95,21 @@
                         </p:panel>
 
                         <p:dataTable id="dtEgreso" value="#{egresoBean.imprimirEgreso}" var="egre"
+                                     widgetVar="tableEgreso" globalFilterFunction="#{egresoBean.globalFilterFunction}"
+                                     style="text-align: center"
                                      paginator="true" rows="10"  rowsPerPageTemplate="5,10,15" resizableColumns="false">
                             <f:facet name="header">
                                 <h:commandLink  class="imprimir" action="#{egresoBean.exportarPDFFiltrado() }" title="Imprimir" target="_blank" >
                                     <i class="pi pi-print" style="color: red; font-size: 2rem" ></i>
                                 </h:commandLink> 
+                            </f:facet>
+                            <f:facet name="header">
+                                <p:outputPanel >
+                                    <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('tableEgreso').filter()" style="text-align: center" placeholder="Buscar" />
+                                    <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
+                                    <p:columnToggler datasource="dtEgreso" trigger="toggler" />
+                                </p:outputPanel>
                             </f:facet>
 
                             <p:column headerText="Código">
@@ -123,7 +132,6 @@
                                 <h:outputText value="#{egre.total}"/>
                             </p:column>
                         </p:dataTable>
-
                     </p:tab>
                     <!--FIN DE LA SECCION PARA LOS REPORTES DE LOS EGRESOS-->
                 </p:accordionPanel>

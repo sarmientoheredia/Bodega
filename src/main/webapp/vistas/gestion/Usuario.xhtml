@@ -8,39 +8,33 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:composition template="./../plantilla/Plantilla.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{msg.usuario}"></h:outputText>
         </ui:define>
-
         <ui:define name="contenido">
-
             <h:form id="formU" class="ui-g centrar">
                 <p:panel  rendered="#{usuarioBean.usuario==null}" >
-
                     <f:facet name="header">
                         <center>
                             <p:outputLabel value="#{msg.liU}"/>
                         </center>
                     </f:facet> 
-
-                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-user-plus" action="#{usuarioBean.nuevo()}" update="formU" title="Añadir usuario" />
+                    <p:commandButton value="#{msg.nuevo}" icon="pi pi-user-plus" action="#{usuarioBean.nuevo()}" 
+                                     update="formU" title="Añadir usuario" />
                     <p:dataTable id="dtUsuario" value="${usuarioBean.usuarioList}" var="usu"
                                  widgetVar="tableUsuario" globalFilterFunction="#{usuarioBean.globalFilterFunction}"
                                  rowStyleClass="#{usu.estado.hashCode()==73 ? 'activo':'null'}"
                                  paginator="true" rows="10"  rowsPerPageTemplate="5,10,15"
                                  resizableColumns="false" emptyMessage="No existen usuarios registrados" style="text-align: center">
-
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-filter" style="margin-right: 20px;" />
-                                <p:inputText id="globalFilter" onkeyup="PF('tableUsuario').filter()" style="text-align: center" placeholder="Buscar" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tableUsuario').filter()" 
+                                             style="text-align: center" placeholder="Buscar" />
                                 <p:commandButton id="toggler" type="button"  style="float:right" icon="pi pi-align-justify" />
                                 <p:columnToggler datasource="dtUsuario" trigger="toggler" />
                             </p:outputPanel>
                         </f:facet>
-
                         <p:column headerText="Cédula" >
                             <h:outputText value="#{usu.cedula}"/>
                         </p:column>
@@ -56,10 +50,11 @@
                         <p:column headerText="Estado" >
                             <h:outputLabel value="#{usu.estado.toString()=='A'? 'Activo':'Inactivo'}" />
                         </p:column>
-
                         <p:column  headerText="#{msg.opcion}" >
-                            <p:commandButton icon="ui-icon-pencil" action="#{usuarioBean.setUsuario(usu)}" update="formU" title="Actualizar" />
-                            <p:commandButton icon="ui-icon-trash" action="#{usuarioBean.eliminar(usu)}" update="dtUsuario" title="Eliminar">
+                            <p:commandButton icon="ui-icon-pencil" action="#{usuarioBean.setUsuario(usu)}" 
+                                             update="formU" title="Actualizar" />
+                            <p:commandButton icon="ui-icon-trash" action="#{usuarioBean.eliminar(usu)}" 
+                                             update="dtUsuario" title="Eliminar">
                                 <p:confirm header="Confirmación" message="Confirme si desea eliminar el usuario"/>
                             </p:commandButton>
                         </p:column>
@@ -69,7 +64,7 @@
 
 
                 <!--INICO  DEL PANEL DE USUARIO-->
-                <p:panel id="pUsuario"  rendered="#{usuarioBean.usuario!=null}" class="ui-lg-6 ui-md-12 ui-g-12"  >
+                <p:panel id="pUsuario"  rendered="#{usuarioBean.usuario!=null}" class="ui-lg-6 ui-md-7 ui-g-12"  >
                     <f:facet name="header">
                         <center>
                             <p:outputLabel value="#{usuarioBean.usuario.id ==null ? 'Registro de ' : 'Actualización de'}  Usuario"/>
@@ -77,8 +72,8 @@
                     </f:facet> 
 
 
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Codigo: "  rendered="#{usuarioBean.usuario.id!=null}"/>
+                    <h:panelGrid columns="2" class="ui-g-12 ui-md-12 ui-lg-12">
+                        <p:outputLabel value="Codigo: "  rendered="#{usuarioBean.usuario.id!=null}" class="cajasTexto"/>
                         <p:inputText value="#{usuarioBean.usuario.id}" class="cajasTexto" disabled="true" rendered="#{usuarioBean.usuario.id!=null}"/>
 
                         <p:outputLabel for="cboGrado" value="#{msg.grado}" />
@@ -181,19 +176,20 @@
                             <f:selectItem itemLabel="Sin Cargo" itemValue="N" />
                         </p:selectOneMenu>
 
-                        <p:outputLabel for="txtEstado" value="#{msg.estado} " rendered="#{usuarioBean.usuario.id!=null}" />
+                        <p:outputLabel for="txtEstado" value="#{msg.estado} " rendered="#{usuarioBean.usuario.id!=null}"  />
                         <p:selectOneRadio id="txtEstado" value="#{usuarioBean.usuario.estado}" rendered="#{usuarioBean.usuario.id!=null}" required="true" requiredMessage="#{msg.msgEstado}" class="cajasTexto" >
                             <f:selectItem itemLabel="Activo" itemValue="A"/>
                             <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                         </p:selectOneRadio>
 
-
-
                     </h:panelGrid>
-                    <div class="ui-g botonera">
+
+                    <div class="ui-g-12 botonera" style="text-align: center">
                         <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{usuarioBean.grabar()}" update="formU"  style="margin-right: 20px" title="Guardar"/>
                         <p:commandButton value="#{msg.cancelar}" icon="pi pi-times" action="#{usuarioBean.init()}" update="formU"  immediate="true" title="Cancelar"/>
                     </div>
+
+
                 </p:panel>
                 <!--FIN DLG NUEVA USUARIO-->
             </h:form>

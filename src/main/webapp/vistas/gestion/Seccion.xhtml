@@ -64,16 +64,16 @@
 
 
                 <!--INICO DLG NUEVA CATEGORIA-->
-                <p:panel id="pUsuario"  rendered="#{seccionBean.seccion!=null}" class="ui-lg-6"  >
+                <p:panel id="pUsuario"  rendered="#{seccionBean.seccion!=null}" class=" ui-g-12 ui-md-8 ui-lg-6"  >
                     <f:facet name="header">
                         <center>
                             <p:outputLabel value="#{seccionBean.seccion.id ==null ? 'Registro de ' : 'Actualización de'}  Sección"/>
                         </center>
                     </f:facet> 
 
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" class=" ui-g-12 ui-md-8 ui-lg-6"  >
                         <p:outputLabel value="Código: "  rendered="#{seccionBean.seccion.id!=null}"/>
-                        <p:inputText value="#{seccionBean.seccion.id}" class="cajasTexto" disabled="true" rendered="#{seccionBean.seccion.id!=null}"/>
+                        <p:inputText value="#{seccionBean.seccion.id}" class="cajasTexto ui-md-12" disabled="true" rendered="#{seccionBean.seccion.id!=null}"/>
 
 
                         <p:outputLabel for="txtNombre" value="Nombre:" />
@@ -88,13 +88,16 @@
                             <f:selectItem itemLabel="Activo" itemValue="A"/>
                             <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                         </p:selectOneRadio>
+                        <p:column/>
 
 
                     </h:panelGrid>
-                    <div class="ui-g botonera">
+
+                    <div class="ui-g-12 botonera" style="text-align: center">
                         <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{seccionBean.grabar()}" update="formS,:growl"  style="margin-right: 20px" title="Guardar"/>
                         <p:commandButton value="Cancelar" icon="pi pi-times" action="#{seccionBean.init()}" update="formS"  immediate="true" title="Cancelar"/>
                     </div>
+
                 </p:panel>
                 <!--FIN DLG NUEVA CATEGORIA-->
             </h:form>

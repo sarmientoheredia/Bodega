@@ -40,7 +40,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:column headerText="Código" width="100">
+                        <p:column headerText="Código">
                             <h:outputText value="#{prod.codigo}"/>
                         </p:column>
 
@@ -69,7 +69,7 @@
                             <h:outputText value="#{prod.estado.toString()=='A'?'Activo': 'Inactivo'}"/>
                         </p:column>
 
-                        <p:column width="100" headerText="Opciones" >
+                        <p:column headerText="Opciones" >
                             <p:commandButton icon="ui-icon-pencil" action="#{productoBean.setProducto(prod)}" update="formP" title="Actualizar"/>
                             <p:commandButton icon="ui-icon-trash" action="#{productoBean.eliminar(prod)}" update="dtProducto" title="Eliminar">
                                 <p:confirm header="Confirmación" message="Confirme si desea eliminar el producto"/>
@@ -81,14 +81,14 @@
 
 
                 <!--INICO DLG NUEVA Producto-->
-                <p:panel id="pProducto" rendered="#{productoBean.producto!=null}" class="ui-lg-6"  >
+                <p:panel id="pProducto" rendered="#{productoBean.producto!=null}" class="ui-g-12 ui-md-8 ui-lg-6"  >
 
                     <f:facet name="header">
                         <center>
                             <p:outputLabel value="#{productoBean.producto.id ==null ? 'Registro de ' : 'Actualización de'}  Producto"/>
                         </center>
                     </f:facet> 
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" class="ui-g-12 ui-md-8 ui-lg-6">
                         <p:outputLabel value="Identificador: "  rendered="#{productoBean.producto.id!=null}"/>
                         <p:inputText value="#{productoBean.producto.id}" class="cajasTexto" disabled="true" rendered="#{productoBean.producto.id!=null}"/>
 
@@ -171,13 +171,15 @@
                             <f:selectItem itemLabel="Activo" itemValue="A"/>
                             <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                         </p:selectOneRadio>
-
+                        <p:column/>
 
                     </h:panelGrid>
-                    <div class="ui-g botonera">
+
+                    <div class="ui-g-12 botonera" style="text-align: center">
                         <p:commandButton value="Aceptar"  icon="pi pi-check" action="#{productoBean.grabar()}" update="formP"  style="margin-right: 20px" title="Guardar"/>
                         <p:commandButton value="Cancelar" icon="pi pi-times" action="#{productoBean.init()}" update="formP"  immediate="true" title="Cancelar"/>
                     </div>
+
                 </p:panel>
                 <!--FIN DLG NUEVO RACK-->
             </h:form>

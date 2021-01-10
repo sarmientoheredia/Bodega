@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
+
 import javax.inject.Inject;
 import net.sf.jasperreports.engine.JRException;
 

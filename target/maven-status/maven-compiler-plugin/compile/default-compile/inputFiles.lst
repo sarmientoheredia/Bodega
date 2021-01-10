@@ -1,46 +1,46 @@
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProveedorFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleEgresoFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleEgresoFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\DetalleIngreso.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\EgresoFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\JasperReportUtil.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\IngresoFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\MenuFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\UsuarioFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\MenuFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProductoFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\SesionBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\MenuBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\RackFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\Mensaje.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Usuario.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\ProductoBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\IdiomaBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Menu.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\TipoReporte.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Seccion.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\SeccionFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\ProveedorBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\SeccionBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\EgresoFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\IngresoFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Ingreso.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\DetalleEgreso.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Egreso.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\UsuarioBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\Encriptar.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProveedorFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleIngresoFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProductoFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleIngresoFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\SeccionFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Proveedor.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\AbstractFacade.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\RackBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\LoginBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\IngresoBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Producto.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\EgresoBean.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Rack.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\RackFacadeLocal.java
-F:\PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\UsuarioFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Seccion.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\DetalleEgreso.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\RackFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\SeccionBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Producto.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\MenuBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleEgresoFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\SeccionFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\IngresoBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\UsuarioBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Ingreso.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\UsuarioFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\IngresoFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\ProductoBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Egreso.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\SesionBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\DetalleIngreso.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\AbstractFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\EgresoFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\MenuFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Menu.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Rack.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\JasperReportUtil.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleIngresoFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\Encriptar.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Usuario.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProveedorFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\Mensaje.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\EgresoFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\EgresoBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\ProveedorBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\UsuarioFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleIngresoFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\MenuFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\LoginBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\RackBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProductoFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProductoFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\IngresoFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\webBean\IdiomaBean.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\SeccionFacade.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\ProveedorFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\DetalleEgresoFacadeLocal.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\entidades\Proveedor.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\utilitarios\TipoReporte.java
+F:\1. EJERCICIOS DE PROGRAMACION\EJERCICOS JAVA\JAVA EE\Colog\Bodega\src\main\java\com\bodcol\sessionBeans\RackFacadeLocal.java

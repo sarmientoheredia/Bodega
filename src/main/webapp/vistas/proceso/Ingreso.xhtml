@@ -70,7 +70,7 @@
                     <!--INICIO DEL LAYOUT PARA CABECERA DEL INGRESO-->
                     <p:layout id="capaDatosClienteFactura" style="width: 100%; height: 150px;">
                         <p:layoutUnit  position="center" style="padding: 5px; text-align: justify;
-                                       font-size: 14px;" size="300">
+                                       font-size: 14px;" class="ui-lg-12">
                             <h:panelGrid columns="6" cellpadding="8" cellspacing="5" >
 
                                 <p:outputLabel  value="Fecha de ingreso:" />
@@ -90,12 +90,12 @@
                                                  update="pIngreso" process="@(this)" title="Buscar proveedor" disabled="#{ingresoBean.ingreso.id!=null}"/>
                                 <p:outputLabel value="Proveedor: " />
                                 <p:inputText value="#{ingresoBean.ingreso.proveedor.nombre}" class="impIngreso" style="margin-right: 2rem" disabled="true" />
-                                   
+
                                 <p:commandButton rendered="#{ingresoBean.ingreso.id==null}" oncomplete="PF('dlgPublicas').show()" icon="ui-icon-search"  immediate="true"
                                                  update="pIngreso" process="@(this)" title="Buscar usuario compras públicas" disabled="#{ingresoBean.ingreso.id!=null}"/>
                                 <p:outputLabel value="Compras Públicas: " />
                                 <p:inputText value="#{ingresoBean.ingreso.usuario.nombreCompleto}" class="impIngreso" disabled="true" />
-         
+
                                 <p:column rendered="#{ingresoBean.ingreso.id!=null}" />
                                 <p:column rendered="#{ingresoBean.ingreso.id!=null}" />
 
@@ -113,7 +113,7 @@
                         </p:layoutUnit>
 
                         <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center; 
-                                      font-size: 14px;" size="150">
+                                      font-size: 14px;" class="ui-lg-0">
                             <h:panelGrid  columns="1" style="font-size: 18px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
                                 ORDEN
                                 <p:outputLabel  value="0000#{ingresoBean.numero}" rendered="#{ingresoBean.ingreso.id==null}" />
@@ -125,9 +125,9 @@
                     <!--FIN DEL LAYOUT PARA CABECERA DEL INGRESO-->
 
                     <!--INICIO DEL LAYOUT PARA LOS PRODUCTOS-->
-                    <p:layout  style="width: 100%;" rendered="#{ingresoBean.ingreso.id==null}">
+                    <p:layout  rendered="#{ingresoBean.ingreso.id==null}">
                         <p:layoutUnit  position="center" style="padding: 5px; text-align: justify;
-                                       font-size: 14px;" >
+                                       font-size: 14px;" class="ui-lg-12 ui-md-12" >
                             <h:panelGrid id="pProducto"  columns="10" cellspacing="5">
 
                                 <p:commandButton oncomplete="PF('dlgProducto').show()" icon="ui-icon-search"  immediate="true" 
@@ -197,7 +197,7 @@
                     <div class="ui-g botonera">
                         <p:commandButton value="#{msg.grabar}"  icon="pi pi-check" action="#{ingresoBean.grabar()}" update="formI"  process="@this,pIngreso" rendered="#{ingresoBean.ingreso.id==null}"/>
                         <h:commandLink rendered="#{ingresoBean.ingreso.id!=null}"  target="_blank" class="pi pi-print imprimir" action="#{ingresoBean.exportarPDFParam(ingresoBean.ingreso)}" title="Imprimir" />
-                        
+
                         <p:commandButton value="#{ingresoBean.ingreso.id ==null ? 'Cancelar' : 'Salir'}" icon="pi pi-times" action="#{ingresoBean.init()}" update="formI"  immediate="true"/>
                     </div>
                     <!--INICIO DE LA BOTONERA DEL INGRESO-->
